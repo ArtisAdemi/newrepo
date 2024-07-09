@@ -1,0 +1,68 @@
+[
+    {
+      "name": "Kujdesi i lekures",
+      "subcategories": [
+        {"name": "lares vajor"},
+        {"name": "lares ujor"},
+        {"name": "tonike"},
+        {"name": "serum"},
+        {"name": "ampule"},
+        {"name": "esence"},
+        {"name": "maska"},
+        {"name": "krem hidratues"},
+        {"name": "mbrojtje ndaj diellit"},
+        {"name": "acne patches"},
+        {"name": "sport treatment"},
+        {"name": "zona e syve"},
+        {"name": "buzet"}
+      ]
+    },
+    {
+      "name": "Floket",
+      "subcategories": [
+        {"name": "kujdes i skalpit"},
+        {"name": "shampo"},
+        {"name": "conditioner"},
+        {"name": "trajtim i flokut"},
+        {"name": "vajra per floket"},
+        {"name": "kacurrela"}
+      ]
+    },
+    {
+      "name": "Trupi",
+      "subcategories": [
+        {"name": "trupi"}
+      ]
+    },
+    {
+      "name": "Make Up",
+      "subcategories": [
+        {"name": "bb cream"},
+        {"name": "cushion foundation"},
+        {"name": "concealer"},
+        {"name": "blush"},
+        {"name": "highlighter"},
+        {"name": "lip gloss"},
+        {"name": "lip oil"},
+        {"name": "lipstick"},
+        {"name": "mascara"},
+        {"name": "palette"},
+        {"name": "qerpike"},
+        {"name": "setting powder"},
+        {"name": "vetullat"}
+      ]
+    },
+    {
+      "name": "Aksesore",
+      "subcategories": [
+        {"name": "aksesore"}
+      ]
+    },
+    {
+      "name": "Travel kit",
+      "subcategories": [
+        {"name": "travel kit"}
+      ]
+    }
+  ]
+  

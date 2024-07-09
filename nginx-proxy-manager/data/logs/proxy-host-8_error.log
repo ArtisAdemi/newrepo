@@ -1,0 +1,2 @@
+2024/07/09 15:21:50 [error] 316#316: *36 client could not be resolved (3: Host not found), client: 172.19.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost", referrer: "http://localhost:81/"
+2024/07/09 15:21:54 [error] 316#316: *36 client could not be resolved (3: Host not found), client: 172.19.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost", referrer: "http://localhost/"
