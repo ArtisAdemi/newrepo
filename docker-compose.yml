@@ -1,4 +1,4 @@
-version: '3.8'
+
 
 services:
   backend:
@@ -49,11 +49,12 @@ services:
       - ./client/src/images:/usr/src/app/src/images
     networks:
       - app-network
-
+volumes:
+  shared-uploads:
+  postgres-data:
+  
 networks:
   app-network:
     driver: bridge
 
-volumes:
-  shared-uploads:
-  postgres-data:
+
