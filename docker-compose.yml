@@ -1,3 +1,4 @@
+
 services:
   backend:
     build: backend
@@ -8,7 +9,7 @@ services:
       - app-network
     volumes:
       - shared-uploads:/usr/src/app/build/uploads
-  
+    
   frontend:
     build: client
     image: client
@@ -28,6 +29,21 @@ services:
       POSTGRES_DB: Lotus
     ports:
       - "5432:5432"
+    networks:
+      - app-network
+
+  nginx-proxy-manager:
+    image: jc21/nginx-proxy-manager:latest
+    restart: always
+    ports:
+      - "80:80"      # HTTP
+      - "81:81"      # Admin Web UI
+      - "443:443"    # HTTPS
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+      - shared-uploads:/usr/src/app/build/uploads
+      - ./client/src/images:/usr/src/app/src/images
     networks:
       - app-network
 
