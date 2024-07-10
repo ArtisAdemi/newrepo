@@ -13,10 +13,7 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
-# Set environment variable for API URL
-ENV REACT_APP_API_URL=http://backend:3001/api
-
-# Build the React app
+#Build the React app
 RUN npm run build
 
 # Install serve to serve the build folder
