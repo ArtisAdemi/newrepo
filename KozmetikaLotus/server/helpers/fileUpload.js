@@ -22,7 +22,7 @@ function checkFileType(file, cb) {
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
         // Construct the correct path by moving up one directory from 'server' and then into 'client/public/uploads'
-        const uploadPath = path.join(__dirname, '../public/uploads');
+        const uploadPath = path.join(__dirname, '../build/uploads');
         cb(null, uploadPath);
     },
     filename: function(req, file, cb) {
