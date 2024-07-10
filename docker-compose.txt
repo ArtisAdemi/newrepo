@@ -1,0 +1,60 @@
+services:
+  backend:
+    build: backend
+    image: backend
+    ports:
+      - "3001:3001"
+    networks:
+      - app-network
+    volumes:
+      - static:/app/client/build/static
+      - uploads:/app/client/build/media
+    
+  frontend:
+    build: client
+    image: client
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    volumes:
+      - static:/usr/share/nginx/html/static
+      - uploads:/usr/src/client/public/uploads
+      - ./client/tailwind.config.js:/usr/share/nginx/html/tailwind.config.js
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123123123
+      POSTGRES_DB: Lotus
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+  #nginx-proxy-manager:
+    #image: jc21/nginx-proxy-manager:latest
+    #restart: always
+    #ports:
+      #- "80:80"     # HTTP
+      #- "81:81"     # Admin web interface
+      #- "443:443"   # HTTPS
+    #environment:
+      #DB_SQLITE_FILE: "/data/database.sqlite"  # Use SQLite for simplicity
+    #volumes:
+     ## - ./nginx-proxy-manager/data:/data
+     # #- ./nginx-proxy-manager/letsencrypt:/etc/letsencrypt
+      #- static:/usr/share/nginx/html/static
+     # #- uploads:/usr/share/nginx/html/uploads
+      #- ./client/tailwind.config.js:/usr/share/nginx/html/tailwind.config.js
+    #networks:
+      #- app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  static:
+  uploads:

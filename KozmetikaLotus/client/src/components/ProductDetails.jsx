@@ -26,7 +26,7 @@ const ProductDetails = ({title, subCategory, shortDescription, longDescription, 
         setImages(fetchedImages);
         // Set the first image as the selected image by default
          if (fetchedImages.length > 0) {
-          setSelectedImage(`/uploads/${fetchedImages[0].fileName}`);
+          setSelectedImage(`./app/public/uploads/${fetchedImages[0].fileName}`);
         }
       };
       fetchImages();
@@ -101,7 +101,7 @@ const ProductDetails = ({title, subCategory, shortDescription, longDescription, 
             <div className='block md:hidden w-[90%] mx-auto mt-3'>
                 <div className='flex flex-wrap justify-center gap-2 mt-4'>
                 {images.map((image, index) => (
-                  <img key={index} src={`/uploads/${image.fileName}`} alt={`img-${index}`} className='w-24 h-24 object-cover cursor-pointer' onClick={() => handleImageSelect(`/uploads/${image.fileName}`)} />
+                  <img key={index} src={`./app/public/uploads/${image.fileName}`} alt={`img-${index}`} className='w-24 h-24 object-cover cursor-pointer' onClick={() => handleImageSelect(`../public/uploads/${image.fileName}`)} />
                 ))}
               </div>
             </div>
@@ -175,7 +175,7 @@ const ProductDetails = ({title, subCategory, shortDescription, longDescription, 
             <div className='hidden md:block w-full'>
               <div className='flex flex-wrap justify-center gap-2 mt-4 w-[60%]'>
                   {images.map((image, index) => (
-                    <img key={index} src={`/uploads/${image.fileName}`} alt={`img-${index}`} className='w-24 h-24 object-cover cursor-pointer' onClick={() => handleImageSelect(`/uploads/${image.fileName}`)} />
+                    <img key={index} src={`../public/uploads/${image.fileName}`} alt={`img-${index}`} className='w-24 h-24 object-cover cursor-pointer' onClick={() => handleImageSelect(`../public/uploads/${image.fileName}`)} />
                   ))}
                 </div>
             </div>

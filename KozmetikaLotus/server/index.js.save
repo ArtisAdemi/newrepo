@@ -1,6 +1,6 @@
 require('dotenv').config();
-const seedSuperAdmin = require("./seed/seedAdmin");
 const seedCategories = require("./seed/categoriesSeed");
+const seedSuperAdmin = require("./seed/adminSeed");
 const seedBrands = require("./seed/brandsSeed");
 const express = require('express');
 const cors = require("cors");
@@ -52,18 +52,17 @@ apiRouter.use("/clients", clientsRouter);
 app.use("/api", apiRouter);
 
 // Creating sequelize sync with db
-setTimeout(() => {
 db.sequelize.sync().then(() => {
-    seedSuperAdmin(); 
-    seedCategories();
+    
+seedCategories();
     seedBrands();
+    seedSuperAdmin();
     // After sync is complete we start server
     const port = process.env.PORT || 3001;
     app.listen(port, () => {
         console.log(`Server started on port: ${port}`);
     });
 });
-}, 3000);
 
 // Export the app for serverless function
 module.exports = app;
