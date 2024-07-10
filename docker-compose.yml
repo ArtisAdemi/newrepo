@@ -19,7 +19,7 @@ services:
     networks:
       - app-network
     volumes:
-      - shared-uploads:/usr/src/app/public/uploads
+      - shared-uploads:/usr/src/app/build/uploads
       - ./client/tailwind.config.js:/usr/src/app/public/tailwind.config.js
 
   postgres:
