@@ -1,57 +1,20 @@
-
+version: '3.8'
 
 services:
   backend:
     image: backend
+    build:
+      context: ./backend
     ports:
       - "3001:3001"
     networks:
       - app-network
     volumes:
       - shared-uploads:/usr/src/app/build/uploads
-    
-  frontend:
-    image: client
-    ports:
-      - "3000:3000"
-    networks:
-      - app-network
-    volumes:
-      - shared-uploads:/usr/src/app/build/uploads
-      - ./client/tailwind.config.js:/usr/src/app/public/tailwind.config.js
-
-  postgres:
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123123123
-      POSTGRES_DB: Lotus
-    ports:
-      - "5432:5432"
-    networks:
-      - app-network
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-
-  nginx-proxy-manager:
-    image: jc21/nginx-proxy-manager
-    restart: always
-    ports:
-      - "80:80"      # HTTP
-      - "81:81"      # Admin Web UI
-      - "443:443"    # HTTPS
-    volumes:
-      - ./data:/data
-      - ./letsencrypt:/etc/letsencrypt
-      - shared-uploads:/usr/src/app/build/uploads
-      - ./client/src/images:/usr/src/app/src/images
-    networks:
-      - app-network
-
-volumes:
-  shared-uploads:
-  postgres-data:
 
 networks:
   app-network:
     driver: bridge
+
+volumes:
+  shared-uploads:
