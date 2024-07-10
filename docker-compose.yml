@@ -1,6 +1,5 @@
 services:
   backend:
-    build: backend
     image: backend
     ports:
       - "3001:3001"
@@ -10,7 +9,6 @@ services:
       - shared-uploads:/usr/src/app/build/uploads
     
   frontend:
-    build: client
     image: client
     ports:
       - "3000:3000"
@@ -34,7 +32,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
 
   nginx-proxy-manager:
-    image: jc21/nginx-proxy-manager:latest
+    image: jc21/nginx-proxy-manager
     restart: always
     ports:
       - "80:80"      # HTTP
@@ -48,10 +46,10 @@ services:
     networks:
       - app-network
 
-networks:
-  app-network:
-    driver: bridge
-
 volumes:
   shared-uploads:
   postgres-data:
+
+networks:
+  app-network:
+    driver: bridge
