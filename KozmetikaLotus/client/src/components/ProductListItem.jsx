@@ -35,7 +35,7 @@ const ProductListItem = ({title, shortDescription, price, subCategory, id, isAdm
     }
   }
 
-  const imagePath = images.length > 0 ? `../public/uploads/${images[0].fileName}` : '';
+  const imagePath = images.length > 0 ? `/uploads/${images[0].fileName}` : '';
   const img = process.env.PUBLIC_URL + imagePath;
 
   const handleAddToCart = () => {
