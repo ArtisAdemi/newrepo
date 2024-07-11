@@ -31,7 +31,7 @@ const OrderService = {
     },
 
     getOrdersByUser: async (userId, limit) => {
-        let endpoint = `${USER_ROUTES}?`
+        let endpoint = `${USER_ROUTES}/orders?`
         try {
             let params = {}
             if (userId) {
@@ -70,7 +70,7 @@ const OrderService = {
     },
 
     registerOrder: async (data) => {
-        let endpoint = `${USER_ROUTES}`
+        let endpoint = `${USER_ROUTES}/orders`
         try {
             const response = await axios.post(endpoint, data, {
                 withCredentials: true,
