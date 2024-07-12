@@ -116,7 +116,7 @@ const Checkout = () => {
         if (discount > 0) {
             let priceWithDiscount = price;
             priceWithDiscount = price - (price * discount / 100);
-            setTotalPrice(priceWithDiscount);
+            setTotalPrice(priceWithDiscount + 2); // transport
         }
     }
 
@@ -192,13 +192,15 @@ const Checkout = () => {
                                             <div>
 
                                         <h2 className='font-semibold'>Total Price: €{fullPrice}</h2>
+                                        <span fontWeight={"bold"}>+2 (Transport)</span>
                                         { discount > 0 &&
                                         <>
+                                        <br />
                                         <span fontWeight={"bold"}>-{discount}%</span>
-                                        <hr/>
-                                        <span fontWeight={"bold"}>{totalPrice}€</span>
                                         </>
                                         }
+                                        <hr/>
+                                        <span fontWeight={"bold"}>{discount ? totalPrice : (fullPrice + 2)}€</span>
                                         </div>
                                       <button type='submit' className='border-[#A3A7FC] bg-[#A3A7FC] rounded-md border-2 p-3 md:p-4 w-full md:w-[50%]  text-[#FFFFFF] shadow-xl hover:opacity-80'>
                                           Porosit

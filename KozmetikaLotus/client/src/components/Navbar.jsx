@@ -271,11 +271,13 @@ const Navbar = () => {
         
         <div className={nav ? 'z-50 fixed overflow-auto  left-0 top-0 w-[100%] block md:hidden border-r h-full bg-[#FFFFFF] ease-in-out duration-500' : 'fixed left-[-100%]'}>
             <div className='flex items-center border-b border-[#DFDFDF]'>
-                <div className='cursor-pointer' onClick={handleNav}>
+                <div className='cursor-pointer absolute left-4 top-6' onClick={handleNav}>
                     <AiOutlineClose size={25} color='#292929'/>
                 </div>
                 <div className='flex justify-center items-center mx-auto'>
+                  <div className='mr-3 mt-2'>
                     <LotusLogo />
+                  </div>
                 </div>
             </div>
             <div>
@@ -300,13 +302,13 @@ const Navbar = () => {
                   {brandModal && (
                       <div className="dropdown-content w-[94%] left-2 top-full py-2 shadow-md shadow-[#FFFFFF] rounded-lg">
                       {brands.map((brand, index) => (
-                        <h2
+                        <p
                           key={index}
-                          className="text-[#292929] ml-5 capitalize font-semibold cursor-pointer p-3 border-b border-[#DFDFDF]"
-                          onClick={() => {redirect(`/brands/${brand.name}`); setBrandModal(!brandModal)}}
+                          className="text-[#292929] font-semibold cursor-pointer w-[94%] p-4 border-b border-[#DFDFDF]"
+                          onClick={() => {redirect(`brands/${brand.name}`); setBrandModal(!brandModal)}}
                         >
                           {brand.name}
-                        </h2>
+                        </p>
                       ))}
                     </div>
                     )
@@ -375,9 +377,16 @@ const Navbar = () => {
                     <li className='p-3 font-semibold text-red-700 border-b border-[#DFDFDF]' onClick={logout}><a href="/">Log out</a></li>
                     </div>
                 ) : (
+                    <div>
+                    <div onClick={() => {dispatch(setIsCartOpen({})); handleNav()}} className="cart flex items-center p-1 mb-2 border-b border-[#DFDFDF]">
+                        <IoCartOutline size={25}/>
+                        <span className="text-xs top-0 mb-5 right-[0] transform translate-x-50% -translate-y-50% text-white bg-red-700 font-semibold rounded-full p-1">{cart.length > 0 ? cart.length: "0"}</span>
+                        <h2 className='ml-3 text-[#101817] w-[100%] text-md font-semibold '>Shopping Cart</h2>
+                    </div>
                     <div onClick={() => navigate('/login')} className='profile flex items-center p-3 mb-2 cursor-pointer border-b border-[#DFDFDF]'>
                         <FaRegUserCircle size={20}/>
                         <h2 className='ml-3 text-[#101817] w-[100%] text-md font-semibold '>Log In</h2>
+                    </div>
                     </div>
                     )         
                 }           
@@ -402,7 +411,7 @@ const Navbar = () => {
                      <div className="modal flex items-center justify-center">
                        <div className="flex flex-wrap gap-y-2 gap-x-10 justify-center items-center">
                          {brands.map((brand, index) => (
-                           <h2 key={index} className="text-[#FFFFFF] text-sm cursor-pointer hover:underline capitalize" onClick={() => redirect(`brands/${brand.name}`)}>
+                           <h2 key={index}   className="text-[#FFFFFF] text-sm cursor-pointer hover:underline capitalize" onClick={() => {redirect(`brands/${brand.name}`); setBrandModal(!brandModal)}}>
                              {brand.name}
                            </h2>
                          ))}

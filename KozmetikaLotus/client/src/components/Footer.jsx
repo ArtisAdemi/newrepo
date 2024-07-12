@@ -101,7 +101,7 @@ const Footer = () => {
         </div>
     </div>
     <div className='bg-[#292929] text-center py-3'>
-            <span>© {(new Date().getFullYear())} ProSolutions. All Rights Reserved.</span>
+            <span>© {(new Date().getFullYear())} πPi-Code. All Rights Reserved.</span>
     </div>
 </div>
   )
