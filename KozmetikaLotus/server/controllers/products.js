@@ -145,7 +145,7 @@ const registerProduct = async (req, res) => {
 // Update Product 
 const updateProduct = async(req, res) => {
     const productId = req.params.id;
-    const { title, shortDescription, longDescription, brand, quantity, price, discount, subCategoryId, inStock } = req.body;
+    const { title, shortDescription, longDescription, brandName, quantity, price, discount, subCategoryId, inStock } = req.body;
     
     try {
         // Find Product by id
@@ -162,12 +162,22 @@ const updateProduct = async(req, res) => {
             title,
             shortDescription,
             longDescription,
-            brand,
             quantity,
             price,
             inStock,
             discount,
         });
+
+        // Update the brand association
+        if (brandName){
+            const brand = await db.Brand.findOne({
+                where: {name: brandName}
+            });
+
+            if(brand){
+                await product.setBrand(brand);
+            }
+        }
 
         // Notify users if the product is now in stock and was not before
         if (!wasInStock && isNowInStock) {

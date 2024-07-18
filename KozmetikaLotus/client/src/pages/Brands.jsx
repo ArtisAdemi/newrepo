@@ -46,7 +46,7 @@ const BrandsPage = () => {
           </div>
         </div>
         <div>
-          <ProductList brand={brandName.replace(/-/g, ' ')}/>
+          <ProductList brand={brandName.replace(/-/g, ' ')} productName={productName}/>
         </div>
     </div>
   )

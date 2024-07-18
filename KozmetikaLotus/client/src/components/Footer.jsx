@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import InstagramIcon from '../Icons/InstagramIcon'
 import FacebookIcon from '../Icons/FacebookIcon'
-import TwitterIcon from '../Icons/TwitterIcon'
-import LocationIcon from '../Icons/LocationIcon'
 import Indicator from '../Icons/Indicator'
 import LotusIcon from '../Icons/LotusIcon'
 import {useNavigate} from 'react-router-dom';
 import CategoryService from '../services/Categories';
+import TikTokIcon from '../Icons/TikTokIcon.jsx';
+import TwitterIcon from '../Icons/TwitterIcon.jsx'
 
 
 
@@ -75,27 +75,28 @@ const Footer = () => {
     <div className="bg-[#FAFAFA] md:flex justify-between items-center p-5 w-full">
         <div className='flex justify-center w-[50%]'>
             <div className='md:flex justify-around]'>
-                <div className='flex items-center'>
+                {/* <div className='flex items-center'>
                         <LocationIcon/>                    
                     <p className='mr-4 text-[#292929] font-semibold'>Rruga..., Ferizaj </p>
-                </div>
+                </div> */}
                 <div className='hidden md:block'>
 
                     <Indicator/>
                 </div>
-                <p className='md:ml-4 ml-2 mt-2 md:mt-0 text-[#292929] font-semibold'> 044-233-233</p>
+                <p className='md:ml-4 ml-2 mt-2 md:mt-0 text-[#292929] font-semibold'> +383-49-887-212</p>
             </div>
         </div>
         <div className='flex md:mr-6 w-[45%] justify-center'>
             <div className='flex'>
                 <div className='cursor-pointer'>
-                    <InstagramIcon/>
+                    <a href="https://www.instagram.com/kozmetikalotus" target='_blank' rel="noreferrer"><InstagramIcon/></a>
                 </div>
                 <div className='cursor-pointer'>
-                    <FacebookIcon/>
+                    <a href="https://www.facebook.com/profile.php?id=100093196230252" target='_blank' rel="noreferrer"><FacebookIcon/></a>
                 </div>
                 <div className='cursor-pointer'>
-                    <TwitterIcon/>
+                    <a href="https://www.tiktok.com/@kozmetikalotus" target='_blank' rel="noreferrer"><TikTokIcon /></a>
+                    
                 </div>
             </div>
         </div>

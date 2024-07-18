@@ -3,7 +3,12 @@ const router = express.Router();
 const mailer = require('../middleware/Mailer')
 
 router.post('/', (req, res) => {
-    mailer.sendContactEmail(req.body);
+    try {
+        mailer.sendContactEmail(req.body);
+    }
+     catch (err) {
+        console.log(err);
+     }
 });
 
 

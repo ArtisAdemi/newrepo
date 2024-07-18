@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import LotusHero from "../images/LotusHero.png";
-import overlap from "../images/overlap.png"
+import Hero1 from "../images/Hero1.png";
+import Hero2 from "../images/Hero2.jpg";
 
 export default function HeroCarousel() {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const slides = [
-        { url: LotusHero, text: "Unlock Your Natural Glow" },
-        { url: overlap, text: "Artistic Overlap Design" },
-        { url: LotusHero, text: "Another Stunning Lotus Image" },
+        { url: Hero1 },
+        { url: Hero2 },
+
     ];
 
     const prevSlide = () => {
@@ -27,9 +27,9 @@ export default function HeroCarousel() {
     return(
         <div className="h-[450px] md:h-[950px] w-full ">
             <div style={{backgroundImage: `url(${slides[currentIndex].url})`}} className="w-full h-full bg-center bg-cover duration-500">
-                <div className="flex items-center justify-center">
+                {/* <div className="flex items-center justify-center">
                     <p className="mt-[205px] md:mt-[450px] text-white text-2xl md:text-7xl font-eb-garamond font-bold">{slides[currentIndex].text}</p>
-                </div>
+                </div> */}
             </div>
             <div className="-mt-64 md:-mt-[500px] flex items-center justify-between">
                 <button className="text-white opacity-70" onClick={prevSlide}><IoIosArrowBack size={50}/></button>

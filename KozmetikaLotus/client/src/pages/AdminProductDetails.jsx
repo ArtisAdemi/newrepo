@@ -24,7 +24,6 @@ const SingleProduct = () => {
     let result;
     try {
       result = await ProductService.getProductById(id);
-      console.log("product", result)
       setProduct(result);
     }catch (err) {
       console.log("Error fetchin product by id", err);
