@@ -13,7 +13,7 @@ app.use(express.json());
 
 // CORS config
 const corsOptions = {
-    origin: ['https://kozmetika-lotus.vercel.app', 'https://kozmetika-lotus-3ng8.vercel.app', 'http://localhost:3000', 'http://localhost:3001', 'http://localhost', 'http://frontend.local', 'http://109.199.98.248/', 'http://109.199.98.248:3000', 'http://koz-lotus.duckdns.org', 'https://koz-lotus.duckdns.org', 'http://backend-koz-lotus.duckdns.org', 'https://backend-koz-lotus.duckdns.org'],
+    origin: ['http://109.199.98.248/', 'http://109.199.98.248:3000', 'http://koz-lotus.duckdns.org', 'https://koz-lotus.duckdns.org', 'http://backend-koz-lotus.duckdns.org', 'https://backend-koz-lotus.duckdns.org', 'http://kozmetikalotus.com', 'https://kozmetikalotus.com', 'https://www.kozmetikalotus.com', 'http://www.kozmetikalotus.com', 'http://backend.kozmetikalotus.com', 'https://backend.kozmetikalotus.com'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     optionsSuccessStatus: 204
