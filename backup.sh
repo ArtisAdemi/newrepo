@@ -2,7 +2,7 @@
 
 # Define variables
 CONTAINER_NAME="kozmetikalotus_postgres_1"
-BACKUP_PATH="./backups"
+BACKUP_PATH="../home/backups"
 TIMESTAMP=$(date +"%Y%m%d%H%M")
 
 # Create backup directory if it doesn't exist
