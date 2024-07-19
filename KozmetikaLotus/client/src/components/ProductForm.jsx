@@ -24,6 +24,7 @@ const ProductFormModal = ({ closeModal, product }) => {
     const fetchBrands = async () => {
       await ProductService.getBrands().then((brands) => {
         setBrands(brands);
+        setSelectedBrand(brands[0]?.name);
       });
     }
     const fetchCategories = async () => {
