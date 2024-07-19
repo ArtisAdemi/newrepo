@@ -40,7 +40,7 @@ const SingleProduct = () => {
                 <FontAwesomeIcon icon={faChevronRight} />
               </div>
               <div className='mt-1 ml-2'>
-                <span>{product?.Subcategories[0].name}</span>
+                <span>{product?.Subcategories[0]?.name}</span>
               </div>
               <div className='mt-1 ml-2'>
                 <FontAwesomeIcon icon={faChevronRight} />
