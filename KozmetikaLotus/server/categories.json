@@ -14,18 +14,21 @@
         {"name": "acne patches"},
         {"name": "sport treatment"},
         {"name": "zona e syve"},
+        {"name": "produkt per vetenxirje"},
         {"name": "buzet"}
       ]
     },
     {
       "name": "Floket",
       "subcategories": [
-        {"name": "kujdes i skalpit"},
-        {"name": "shampo"},
+        {"name": "kujdesi skalpit"},
         {"name": "conditioner"},
         {"name": "trajtim i flokut"},
         {"name": "vajra per floket"},
-        {"name": "kacurrela"}
+        {"name": "serum per rritjen e flokeve"},
+        {"name": "kacurrela"},
+        {"name": "xhel per floke"},
+        {"name": "parfume per floke"}
       ]
     },
     {
@@ -46,10 +49,24 @@
         {"name": "lip oil"},
         {"name": "lipstick"},
         {"name": "mascara"},
+        {"name": "primer"},
         {"name": "palette"},
         {"name": "qerpike"},
         {"name": "setting powder"},
-        {"name": "vetullat"}
+        {"name": "puder per fytyre"},
+        {"name": "beauty set"},
+        {"name": "lip matte"},
+        {"name": "friciton"},
+        {"name": "sheet-mask"},
+        {"name": "eyelash kit"},
+        {"name": "lipmask"}
+      ]
+    },
+    {
+      "name": "Vetullat",
+      "subcategories": [
+        {"name": "xhel per vetulla"},
+        {"name": "eyebrow kit"}
       ]
     },
     {
@@ -62,6 +79,60 @@
       "name": "Travel kit",
       "subcategories": [
         {"name": "travel kit"}
+      ]
+    },
+    {
+      "name" : "Lares",
+      "subcategories": [
+        {"name" : "lares qumeshti"},
+        {"name" : "anti-akne"},
+        {"name" : "krem e dites"},
+        {"name" : "krem e nates"},
+        {"name" : "krem e dites & nates"}
+      ]
+    },
+    {
+      "name" : "Dhembet",
+      "subcategories": [
+        {"name" : "dental care"}
+      ]
+    },
+    {
+      "name" : "Anti rrudhe",
+      "subcategories": [
+        {"name" : "anti rrudhe"}
+      ]
+    },
+    {
+      "name" : "Shampoo",
+      "subcategories": [
+        {"name": "shampoo"},
+        {"name" : "dry shampoo"},
+        {"name" : "shampoo vegan"}
+      ]
+    },
+    {
+      "name" : "Parfume",
+      "subcategories": [
+        {"name" : "parfume"}
+      ]
+    },
+    {
+      "name" : "Dupes",
+      "subcategories": [
+        {"name" : "dupes"}
+      ]
+    },
+    {
+      "name" : "Vajra Organik",
+      "subcategories": [
+        {"name" : "vajra organik"}
+      ]
+    },
+    {
+      "name" : "Produkte te Diellit",
+      "subcategories": [
+        {"name" : "produkte te diellit"}
       ]
     }
   ]

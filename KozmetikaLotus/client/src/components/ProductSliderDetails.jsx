@@ -6,7 +6,6 @@ import ProductService from '../services/Products';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import { faTruckMedical } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
 const truncateDescription = (description, maxLength) => {

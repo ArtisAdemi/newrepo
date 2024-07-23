@@ -32,7 +32,7 @@ const SingleProduct = () => {
         </div>
         <div className='w-full flex justify-center'>
           <div className='w-[80%] flex justify-between p-10'>
-            <div className='flex ml-[-35px]'>
+            <div className='flex ml-[-35px] truncate'>
               <div>
                 <h2 className='text-2xl font-bold'>Produktet</h2>
               </div>

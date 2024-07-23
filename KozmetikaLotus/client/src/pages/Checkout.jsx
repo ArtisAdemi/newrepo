@@ -222,7 +222,7 @@ const Checkout = () => {
                                     return(
                                         <div key={index} className="max-w-[250px] w-[250px] mx-auto bg-white shadow-lg h-[430px] m-5">
                                         <div className="flex justify-center items-center w-full h-[300px]">
-                                        <img  className="object-cover max-w-[250px] min-h-[300px] max-h-[300px]" src={process.env.PUBLIC_URL + product.imgUrl} alt="Image here" />
+                                        <img  className="object-contain max-w-[250px] min-h-[300px] max-h-[300px]" src={process.env.PUBLIC_URL + product.imgUrl} alt="Image here" />
                                         </div>
                                         <div className="p-4">
                                         <h2 className="text-start text-xl text-[#292929] font-bold max-h-10 overflow-ellipsis overflow-hidden whitespace-nowrap">{product.title}</h2>

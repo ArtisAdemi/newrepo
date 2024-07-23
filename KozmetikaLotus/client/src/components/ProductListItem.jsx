@@ -81,7 +81,7 @@ const ProductListItem = ({title, shortDescription, price, subCategory, id, isAdm
     return (
       <div className="max-w-[250px] w-[250px] mx-auto bg-white shadow-lg h-[430px]">
         <div className="flex justify-center items-center w-full h-[300px]" onClick={() => isAdmin ? navigate(`/admin/${id}`) : navigate(`/products/${subCategory}/${id}`)}>
-          <img  className="object-cover max-w-[250px] min-h-[300px] max-h-[300px]" src={process.env.PUBLIC_URL + imagePath} alt="Image here" />
+          <img  className="object-contain max-w-[250px] min-h-[300px] max-h-[300px]" src={process.env.PUBLIC_URL + imagePath} alt="Image here" />
         </div>
         <div className="p-4">
           <h2 className="text-start text-xl text-[#292929] font-bold max-h-10 overflow-ellipsis overflow-hidden whitespace-nowrap">{title}</h2>

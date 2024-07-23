@@ -93,7 +93,7 @@ const ProductDetails = ({title, subCategory, shortDescription, longDescription, 
        <div className='w-full bg-red flex justify-center'>
         <div className='block w-[80%]'>
           <div className='flex flex-col md:flex-row pb-10 md:gap-10'> 
-               <h2 className='block md:hidden text-[#292929#292929] text-2xl font-bold mb-3'>{title}</h2>  
+               <h2 className='block md:hidden text-[#292929#292929] text-2xl font-bold mb-3 truncate'>{title}</h2>  
                <p className='block md:hidden text-sm mb-3'>{shortDescription}</p>
             <div className='items-center flex md:w-[60%] justify-center'>
               <img src={process.env.PUBLIC_URL + selectedImage} alt="img" className='object-contain w-full max-h-[400px]'/>
@@ -101,7 +101,7 @@ const ProductDetails = ({title, subCategory, shortDescription, longDescription, 
             <div className='block md:hidden w-[90%] mx-auto mt-3'>
                 <div className='flex flex-wrap justify-center gap-2 mt-4'>
                 {images.map((image, index) => (
-                  <img key={index} src={`/uploads/${image.fileName}`} alt={`img-${index}`} className='w-24 h-24 object-cover cursor-pointer' onClick={() => handleImageSelect(`/uploads/${image.fileName}`)} />
+                  <img key={index} src={`/uploads/${image.fileName}`} alt={`img-${index}`} className='w-24 h-24 object-contain cursor-pointer' onClick={() => handleImageSelect(`/uploads/${image.fileName}`)} />
                 ))}
               </div>
             </div>
@@ -113,7 +113,7 @@ const ProductDetails = ({title, subCategory, shortDescription, longDescription, 
             </div>
             <div className='w-full md:w-[40%]'>
               <div className='hidden md:block mb-3'>
-               <h2 className='text-[#292929#292929] text-2xl font-bold'>{title}</h2>
+               <h2 className='text-[#292929#292929] text-2xl font-bold truncate'>{title}</h2>
               </div>
               <div className='hidden md:block mb-4'>
                 <p className='text-sm'>{shortDescription}</p>
@@ -175,7 +175,7 @@ const ProductDetails = ({title, subCategory, shortDescription, longDescription, 
             <div className='hidden md:block w-full'>
               <div className='flex flex-wrap justify-center gap-2 mt-4 w-[60%]'>
                   {images.map((image, index) => (
-                    <img key={index} src={`/uploads/${image.fileName}`} alt={`img-${index}`} className='w-24 h-24 object-cover cursor-pointer' onClick={() => handleImageSelect(`/uploads/${image.fileName}`)} />
+                    <img key={index} src={`/uploads/${image.fileName}`} alt={`img-${index}`} className='w-24 h-24 object-contain cursor-pointer' onClick={() => handleImageSelect(`/uploads/${image.fileName}`)} />
                   ))}
                 </div>
             </div>

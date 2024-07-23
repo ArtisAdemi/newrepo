@@ -81,7 +81,7 @@ const SingleProduct = () => {
               <div className='mt-1 ml-2'>
                 <FontAwesomeIcon icon={faChevronRight} />
               </div>
-              <div className='mt-1 ml-2'>
+              <div className='mt-1 ml-2 truncate'>
                 <span>{product ? product.title : 'loading'}</span>
               </div>
             </div>

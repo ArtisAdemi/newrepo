@@ -130,10 +130,10 @@ const ProductSlider = ({ subCategory, uniqueCategories, bestSeller }) => {
       <div className='w-[80%]'>
         <Slider {...settings}>
         {products.length > 0 && products.map((product, index) => (
-          <div className="max-w-[250px] w-auto mx-auto bg-white shadow-lg cursor-pointer" onClick={() => bestSeller ? navigate(`products/all/${product.id}`) : redirect(product.Subcategories[0].name)} key={index}>
+          <div className="max-w-[250px] ml-8 md:pl-0 w-auto mx-auto bg-white shadow-lg cursor-pointer" onClick={() => bestSeller ? navigate(`products/all/${product.id}`) : redirect(product.Subcategories[0].name)} key={index}>
           <div className="flex justify-center items-center w-full">
           {product.Images && product.Images.length > 0 && (
-                  <img className="object-cover w-full min-h-[375px] max-h-[375px]" src={`/uploads/${product.Images[0].fileName}`} alt={product.title} />
+                  <img className="object-contain w-full min-h-[375px] max-h-[375px]" src={`/uploads/${product.Images[0].fileName}`} alt={product.title} />
                 )}
           </div>
           <div className="p-4">

@@ -40,6 +40,13 @@ const CartMenu = () => {
         }
     }
 
+    const truncateTitle = (title, maxLength) => {
+        if (title.length <= maxLength) {
+          return title;
+        }
+        return title.slice(0, maxLength) + '...';
+      };
+
     const handlePrice = () => {
         const totalPrice = cart.reduce((total, item) => {
             return total + item?.count * item?.price;
@@ -104,9 +111,9 @@ const CartMenu = () => {
                                 </Box>
                                 <Box flex={"1 1 60%"}>
                                     {/* ITEM NAME */}
-                                    <FlexBox mb={"5px"}>
-                                        <Typography fontWeight={"bold"}>
-                                            {item?.title}
+                                    <FlexBox mb={"5px"} style={{overflow: "hidden", textOverflow: "ellipsis"}}>
+                                        <Typography noWrap fontWeight={"bold"}>
+                                            {truncateTitle(item.title, 10)}
                                         </Typography>
                                         {/* AMOUNT */}
                                         <FlexBox m="15px 0">

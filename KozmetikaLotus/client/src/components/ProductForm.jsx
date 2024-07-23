@@ -132,8 +132,8 @@ const ProductFormModal = ({ closeModal, product }) => {
   };
 
   return (
-    <div className="fixed z-100 h-full inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-    <div className="bg-white p-5 rounded-lg max-w-lg w-full space-y-4">
+    <div className="fixed inset-0 z-100 flex justify-center items-center bg-black bg-opacity-50 overflow-auto">
+    <div className="bg-white p-5 rounded-lg max-w-lg w-full h-[90%] space-y-4 overflow-auto">
       {/* Header */}
       <h2 className="text-xl font-semibold text-gray-900">Add New Product</h2>
       {/* Content */}

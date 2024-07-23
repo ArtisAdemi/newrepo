@@ -304,7 +304,7 @@ const Navbar = () => {
                       {brands.map((brand, index) => (
                         <p
                           key={index}
-                          className="text-[#292929] font-semibold cursor-pointer w-[94%] p-4 border-b border-[#DFDFDF]"
+                          className="text-[#292929] font-semibold capitalize cursor-pointer w-[94%] p-4 border-b border-[#DFDFDF]"
                           onClick={() => {redirect(`brands/${brand.name}`); setBrandModal(!brandModal)}}
                         >
                           {brand.name}
@@ -398,7 +398,7 @@ const Navbar = () => {
     </div>
 
     <div className='categories-navbar bg-[#292929] w-full hidden md:flex'>
-        <div className='modal-content w-[80%] mx-auto flex justify-between py-4 items-center'>
+        <div className='modal-content w-[90%] mx-auto flex justify-between py-4 items-center overflow-auto scrollbar scrollbar-thumb-white scrollbar-thin scrollbar-track-[#292929] pb-2'>
             <h2 className='text-[#FFFFFF]  text-lg cursor-pointer' onClick={() => redirect("all")}>All</h2>
 
             <div className='m-2 '
@@ -426,14 +426,14 @@ const Navbar = () => {
             <div key={category.id} className="m-2 text-[#FFFFFF]" onMouseLeave={closeModal}>
               {subCategories[category.id]?.length === 1 ? (
               <p
-                className="cursor-pointer text-lg"
+                className="cursor-pointer text-lg whitespace-nowrap"
                 onClick={() => redirect(subCategories[category.id][0].name)}
               >
                 {category.name}
               </p>
               ) : (
               <p
-                className="cursor-pointer text-lg"
+                className="cursor-pointer text-lg whitespace-nowrap"
                 onMouseEnter={() => handleCategoryHover(category.id)}
               >
                 {category.name}
