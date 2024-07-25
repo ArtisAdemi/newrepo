@@ -398,7 +398,7 @@ const Navbar = () => {
     </div>
 
     <div className='categories-navbar bg-[#292929] w-full hidden md:flex'>
-        <div className='modal-content w-[90%] mx-auto flex justify-between py-4 items-center overflow-auto scrollbar scrollbar-thumb-white scrollbar-thin scrollbar-track-[#292929] pb-2'>
+        <div className='modal-content w-[90%] mx-auto flex justify-between py-4 items-center overflow-auto scrollbar scrollbar-thumb-white scrollbar-thin scrollbar-track-[#292929]'>
             <h2 className='text-[#FFFFFF]  text-lg cursor-pointer' onClick={() => redirect("all")}>All</h2>
 
             <div className='m-2 '

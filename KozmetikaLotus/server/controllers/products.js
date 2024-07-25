@@ -99,16 +99,19 @@ const getProductById = async (req, res) => {
 const registerProduct = async (req, res) => {
     const { title, shortDescription, longDescription, brandName, quantity, price, discount, subCategoryId, inStock } = req.body;
     try {
-        // Create new product using variables from body
-        const newProduct = await Products.create({
-            title,
-            shortDescription,
-            longDescription,
-            quantity,
-            price,
-            inStock,
-            discount,
-        });
+        // Normalise title to standard UNICODE
+        const normalizedTitle = title.normalize('NFKD').replace(/[\u0300-\u036f]/g, "");
+
+    // Create new product using variables from body
+    const newProduct = await Products.create({
+        title: normalizedTitle,
+        shortDescription,
+        longDescription,
+        quantity,
+        price,
+        inStock,
+        discount,
+    });
 
         // If images have been uploaded, save their paths in the Images table
         if (req.uploadedFiles && req.uploadedFiles.length > 0) {
@@ -146,7 +149,8 @@ const registerProduct = async (req, res) => {
 const updateProduct = async(req, res) => {
     const productId = req.params.id;
     const { title, shortDescription, longDescription, brandName, quantity, price, discount, subCategoryId, inStock } = req.body;
-    
+    //  Normalize title into unicode standard 
+    const normalizedTitle = title.normalize('NFKD').replace(/[\u0300-\u036f]/g, "");
     try {
         // Find Product by id
         const product = await Products.findByPk(productId);
@@ -159,7 +163,7 @@ const updateProduct = async(req, res) => {
 
         // Update the product details
         await product.update({
-            title,
+            title: normalizedTitle,
             shortDescription,
             longDescription,
             quantity,
