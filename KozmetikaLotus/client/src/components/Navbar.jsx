@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ProductService from '../services/Products';
 import WishlistService from '../services/Wishlist';
 import { setWishlistLength } from '../state';
+import SearchBar from './SearchBar';
 
 
 const Navbar = () => {
@@ -189,7 +190,7 @@ const Navbar = () => {
                 <LotusLogo />
             </div>
         </div>
-        <div className='justify-between items-center gap-x-5 mt-1 -mb-3 hidden md:flex'> 
+        <div className='justify-between items-center gap-x-5 mt-1 -mb-3 hidden md:flex md:translate-x-[4rem]'> 
             <div className='m-2 ml-32'>
                 <p><a href="/">Home</a></p>
             </div>
@@ -208,7 +209,7 @@ const Navbar = () => {
         
             }
         </div>
-        <div className='w-[100px] hidden md:flex mt-1 -mb-3 justify-between items-center'>
+        <div className=' hidden md:flex mt-1 -mb-3 justify-between items-center relative'>
             {/* Wishlist Icon*/}
             {currentUser && 
                 <div onClick={navWishList} className='relative wishlist flex items-center p-2 pr-4 -ml-6 mb-[3px] cursor-pointer'>
@@ -262,6 +263,9 @@ const Navbar = () => {
                     </div>
                 }
             </div>
+          <div className='translate-x-[1rem]'>
+            <SearchBar />
+          </div>
             
         </div>     
         
