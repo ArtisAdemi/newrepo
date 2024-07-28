@@ -35,25 +35,24 @@ const getProducts = async (req, res) => {
             where: { name: subCategory },
             through: { attributes: [] }, // Hide the join table attributes
         });
-        includeCondition.push({
-            model: Images,
-            // through: { attributes: ["fileName"] },
-        })
     } else {
         includeCondition.push({
             model: SubCategories,
             through: { attributes: [] }, // Optionally hide the join table attributes if not needed
         });
     }
-
+    
     if (brand) {
         includeCondition.push({
             model: Brand,
             where: { name: brand },
         });
     }
-
+    
     try {
+        includeCondition.push({
+            model: Images,
+        })
         // Use findAndCountAll to get both count and rows
         const { count, rows } = await Products.findAndCountAll({
             where: whereCondition,
