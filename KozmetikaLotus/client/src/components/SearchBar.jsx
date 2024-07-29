@@ -56,8 +56,8 @@ const SearchBar = () => {
 
     return (
       <div>
-        <div className='relative flex items-center p-2 pr-4 -ml-6 end-1 mb-[3px] cursor-pointer'>
-          <input value={productName} className='border border-1 sm:w-[150px] md:w-[200px] lg:w-[250px] border-[#0C0C0C4F] rounded-md p-1 px-6 ' style={{color: 'black'}} type="text" onChange={handleInputChange}  placeholder='Kerko...'/>
+        <div className='relative flex items-center md:p-2 md:pr-4 md:-ml-6 md:end-1 md:mb-[3px] cursor-pointer'>
+          <input value={productName} className='border border-1 w-[100px] md:w-[200px] lg:w-[250px] border-[#0C0C0C4F] rounded-md p-1 px-6 ' style={{color: 'black'}} type="text" onChange={handleInputChange}  placeholder='Kerko...'/>
           {searchModal && 
             <div className='modal rounded-2xl absolute top-20 left-50 right-50 bg-[#FAF9F5] w-[300px] px-4' // Close modal when not hovering
               style={{ top: '100%', left: '50%', transform: 'translateX(-50%)' }} // Center modal directly below the Profile Icon
@@ -69,7 +69,8 @@ const SearchBar = () => {
                       <div className='flex flex-col'>
                         {/* Product cart */}
                         {products.map((product, index) => (
-                          <div key={index} className='' onClick={() => onClickProduct(product)}>
+                          <div key={index} className='border-[0.1px] py-3 m-2 rounded-md border-gray-200' onClick={() => onClickProduct(product)}>
+                          {/* <hr className='border-0 h-[0.3px] bg-black my-4'/> */}
                             <div className='flex w-full'>
                               <div className='w-1/3'>
                                 {product.Images && product.Images.length > 0 ? (
@@ -82,16 +83,16 @@ const SearchBar = () => {
                                   </div>
                                 )}
                               </div>
-                              <div className='ml-2 w-2/3 flex flex-col justify-center items-start truncate'>
-                                <div className='truncate font-semibold'>
+                              <div className='pl-3 w-2/3 flex flex-col justify-center items-start truncate'>
+                                <div className='truncate font-semibold text-xs'>
                                   {product?.title}
                                 </div>
-                                <div className='truncate font-semibold'>
+                                <div className='truncate font-semibold text-xs'>
                                   {product?.price}€
                                 </div>
                               </div>
                             </div>
-                            <hr className='border-0 h-[0.3px] bg-black my-4'/>
+                            {/* <hr className='border-0 h-[0.3px] bg-black my-4'/> */}
                           </div>
                         ))}
                       </div>

@@ -3,8 +3,8 @@ import LotusLogo from '../Icons/LotusLogo'
 import CategoryService from '../services/Categories';
 import {useNavigate} from 'react-router-dom';
 import {AiOutlineClose, AiOutlineMenu} from 'react-icons/ai';
-import { IoCartOutline } from "react-icons/io5";
-import { FaRegUser, FaRegUserCircle, FaRegHeart } from "react-icons/fa";
+import { IoCartOutline, IoSearchOutline } from "react-icons/io5";
+import { FaRegUser, FaRegUserCircle, FaRegHeart, FaSearch } from "react-icons/fa";
 import Logout from "../helpers/Logout"
 import UserService from '../services/Users';
 import AuthService from '../services/AuthService';
@@ -36,11 +36,19 @@ const Navbar = () => {
     const [brands, setBrands] = useState([]);
     const [brandModal, setBrandModal] = useState(false);
     const [wishlist, setWishlist] = useState([]);
+    const [searchInput, setSearchInput] = useState(false)
 
 
 
     const handleNav = () => {
         setNav(!nav);
+    };
+
+    const openSearchIcon = () => {
+        setSearchInput(true);
+    };
+    const closeSearchIcon = () => {
+        setSearchInput(false);
     };
 
    
@@ -267,10 +275,15 @@ const Navbar = () => {
             <SearchBar />
           </div>
             
-        </div>     
-        
+        </div>
+
+        <div className='flex md:hidden'>
+        <div className='block md:hidden mr-2 mt-1 -mb-3 cursor-pointer'>
+            {searchInput ? <div className='flex -mt-1'><SearchBar /><AiOutlineClose onClick={closeSearchIcon} size={25} className='mt-1' color='#292929'/></div>:<IoSearchOutline onClick={openSearchIcon} size={25} color='#292929'/>}
+        </div>
         <div onClick={handleNav} className='block md:hidden mt-1 -mb-3 cursor-pointer'>
             {nav ? <AiOutlineClose size={25} color='#292929'/> : <AiOutlineMenu size={25} color='#292929'/>}    
+        </div>
         </div>
         
         <div className={nav ? 'z-50 fixed overflow-auto  left-0 top-0 w-[100%] block md:hidden border-r h-full bg-[#FFFFFF] ease-in-out duration-500' : 'fixed left-[-100%]'}>
