@@ -3,7 +3,7 @@ import CategoryService from '../services/Categories';
 import ProductService from '../services/Products';
 import Swal from 'sweetalert2'
 
-const ProductFormModal = ({ closeModal, product }) => {
+const ProductFormModal = ({ closeModal, product, handleReload }) => {
   const [formData, setFormData] = useState({
     title: product?.title || '',
     shortDescription: product?.shortDescription || '',
@@ -98,7 +98,6 @@ const ProductFormModal = ({ closeModal, product }) => {
               icon: "success",
               confirmButtonText: "Ok"
             })
-          
         });
     } else {
         await ProductService.registerProduct(productData, images).then((res) => {
@@ -109,6 +108,7 @@ const ProductFormModal = ({ closeModal, product }) => {
                 icon: "success",
                 confirmButtonText: "Ok"
               })
+            handleReload(); // Trigger reload
             }
           });
     }

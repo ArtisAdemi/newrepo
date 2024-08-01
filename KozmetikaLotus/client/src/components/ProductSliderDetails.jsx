@@ -113,7 +113,7 @@ const ProductSliderDetails = ({ subCategory, uniqueCategories }) => {
                 )}
           </div>
           <div className="p-4">
-            {uniqueCategories ? <h3 className="text-start text-xl text-[#292929] font-bold">{product.Subcategories[0].name}</h3> : <h3 className="text-start text-xl text-[#292929] font-bold">{product.title}</h3>}
+            {uniqueCategories ? <h3 className="text-start text-xl text-[#292929] font-bold">{product.Subcategories[0].name}</h3> : <h3 className="text-start text-xl text-[#292929] font-bold truncate">{product.title}</h3>}
             {uniqueCategories ? null : <p className="mt-1 text-start text-[#292929] text-sm">{truncateDescription(product.shortDescription, 10)}</p>}
             <div className="flex justify-start items-start mt-4">
               <span className="text-xl text-[#292929] font-bold">

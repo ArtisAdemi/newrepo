@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
 import { addToWishlist, removeFromWishlist } from '../state';
 
-const ProductList = ({ subCategory, productName, brand, isAdmin }) => {
+const ProductList = ({ subCategory, productName, brand, isAdmin, reload = false, setReload = () => {} }) => {
     const [products, setProducts] = useState([]);
     const [totalProducts, setTotalProducts] = useState(0); // Track total number of products
     const [page, setPage] = useState(1);
@@ -23,6 +23,13 @@ const ProductList = ({ subCategory, productName, brand, isAdmin }) => {
     useEffect(() => {
        fetchProducts();
     }, [page, subCategory, productName, brand]);
+
+    useEffect(() => {
+        if (reload) {
+            fetchProducts();
+            setReload(false);
+        }
+    }, [reload, setReload]);
 
     // First useEffect to decode user and set userId
     useEffect(() => {

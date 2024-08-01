@@ -9,12 +9,14 @@ const AdminProducts = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productName, setProductName] = useState("");
-  
-  
-  
+  const [reload, setReload] = useState(false); // Add reload state
 
   const handleInputChange = (e) => {
     setProductName(e.target.value);
+  }
+
+  const handleReload = () => {
+    setReload(true);
   }
 
   return (
@@ -41,9 +43,9 @@ const AdminProducts = () => {
           </div>
         </div>
         <div>
-          <ProductList isAdmin={true} productName={productName}/>
+          <ProductList isAdmin={true} productName={productName} reload={reload} setReload={setReload} />
         </div>
-        {isModalOpen && <ProductFormModal closeModal={() => setIsModalOpen(false)} />}
+        {isModalOpen && <ProductFormModal closeModal={() => setIsModalOpen(false)} handleReload={handleReload} />}
     </div>
   );
 }
