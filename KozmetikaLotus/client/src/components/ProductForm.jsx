@@ -137,11 +137,20 @@ const ProductFormModal = ({ closeModal, product, handleReload }) => {
       {/* Header */}
       <h2 className="text-xl font-semibold text-gray-900">Add New Product</h2>
       {/* Content */}
-      <div className='md:h-auto md:max-h-[500px] overflow-auto'>
+      <div className='md:h-auto md:max-h-[90%] overflow-auto'>
       <form className="space-y-3">
-      <input type="text" name="title" onChange={handleInputChange} placeholder="Title" required className="input input-bordered w-full" value={formData.title} />
-          <textarea name="shortDescription" onChange={handleInputChange} placeholder="Short Description" required className="textarea textarea-bordered w-full" value={formData.shortDescription}></textarea>
-          <textarea name="longDescription" onChange={handleInputChange} placeholder="Long Description" required className="textarea textarea-bordered w-full" value={formData.longDescription}></textarea>
+        <div>
+       <label htmlFor="title" className='text-gray-400 font-semibold'>Title:</label> 
+      <input type="text" name="title" onChange={handleInputChange} placeholder="Write the title here..." required className="input input-bordered w-full  border-b-gray-500 border-t-0 border-r-0 border-l-0 border-[1px]" value={formData.title} />
+        </div>
+        <div>
+       <label htmlFor="shortDescription" className='text-gray-400 font-semibold'>Short Description:</label> 
+          <textarea name="shortDescription" onChange={handleInputChange} placeholder="Write here..." required className="textarea textarea-bordered w-full border-b-gray-500 border-t-0 border-r-0 border-l-0 border-[1px]" value={formData.shortDescription}></textarea>
+        </div>
+        <div>
+       <label htmlFor="longDescription" className='text-gray-400 font-semibold'>Long Description:</label> 
+          <textarea name="longDescription" onChange={handleInputChange} placeholder="Write here..." required className="textarea textarea-bordered w-full  border-b-gray-500 border-t-0 border-r-0 border-l-0 border-[1px]" value={formData.longDescription}></textarea>
+        </div>
           <div className="flex flex-col pt-4 ml-2 mt-4">
             <span className="mb-1 md:text-lg font-semibold border-0">In Stock</span>
             <label className="relative inline-flex items-center cursor-pointer mb-2">
@@ -167,6 +176,7 @@ const ProductFormModal = ({ closeModal, product, handleReload }) => {
             />
             <span className="p-2">€</span>
         </div>
+            <p className='text-sm text-center bg-yellow-500 rounded-md font-semibold'>Warning!<br />It is important to pick brand, category, subcategory and images!</p>
           <div className='pt-3'>
           <span className='text-gray-500'>Brand</span>
           <select onChange={handleBrandSelect} name="brandName" value={selectedBrand} className="select select-bordered w-full">
