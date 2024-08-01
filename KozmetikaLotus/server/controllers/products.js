@@ -52,7 +52,8 @@ const getProducts = async (req, res) => {
     try {
         includeCondition.push({
             model: Images,
-        })
+            order: [['id', 'ASC']], // Order images by id in ascending order
+        });
         // Use findAndCountAll to get both count and rows
         const { count, rows } = await Products.findAndCountAll({
             where: whereCondition,
@@ -82,7 +83,15 @@ const getProductById = async (req, res) => {
     
     try{
         const product = await Products.findByPk(productId, {
-            include: SubCategories
+            include: [
+                {
+                    model: SubCategories,
+                },
+                {
+                    model: Images,
+                    order: [['id', 'ASC']], // Order images by id in ascending order
+                }
+            ]
         });
         if (product) {
             res.status(200).json(product);
@@ -262,7 +271,7 @@ const getUniqueProductPerCategory = async (req, res) => {
                 model: Products,
                 include: [{
                     model: Images,
-                    order: [['createdAt', 'DESC']] // Order by creation date
+                    order: [['id', 'ASC']], // Order images by id in ascending order
                 },
                 {
                     model: SubCategories
@@ -297,7 +306,8 @@ const getProductImages = async (req, res) => {
     }
     try {
         const images = await Images.findAll({
-            where: { ProductId: id }
+            where: { ProductId: id },
+            order: [['id', 'ASC']], // Order images by id in ascending order
         });
 
         if (images.length > 0) {
@@ -406,6 +416,7 @@ const getBestSellingProducts = async (req, res) => {
                 include: [{
                     model: db.Images,
                     as: 'Images', // Ensure the alias matches your association definition
+                    order: [['id', 'ASC']], // Order images by id in ascending order
                 },
                 {
                     model: SubCategories,

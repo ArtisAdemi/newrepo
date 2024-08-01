@@ -40,9 +40,9 @@ const Products = () => {
                 <span>{subCategory}</span>
               </div>
             </div>
-            <div className='flex justify-center'>
+            {/* <div className='flex justify-center'>
               <input className='border border-1 w-[180px] md:w-[250px] border-[#0C0C0C4F] rounded-md p-1 px-6 ' style={{color: 'black'}} type="text" onChange={handleInputChange}  placeholder='Kerko...'/>
-            </div>
+            </div> */}
           </div>
         </div>
         <div>
