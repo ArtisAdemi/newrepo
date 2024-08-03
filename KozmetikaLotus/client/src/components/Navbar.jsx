@@ -312,12 +312,12 @@ const Navbar = () => {
                   All
                 </h2>
                 <div>
-                  <h2 className='text-[#292929] ml-2 font-semibold cursor-pointer w-[94%] p-4 border-b border-[#DFDFDF]'
+                  <h2 className='text-[#292929] ml-2 font-semibold text-md cursor-pointer w-[94%] p-4 border-b border-[#DFDFDF]'
                     onClick={() => {setBrandModal(!brandModal); setShowModal(false)}}>
                     Marka
                   </h2>
                   {brandModal && (
-                      <div className="dropdown-content w-[94%] left-2 top-full py-2 shadow-md shadow-[#FFFFFF] rounded-lg">
+                      <div className="dropdown-content w-[94%] ml-7 left-2 top-full py-2 shadow-md shadow-[#FFFFFF] rounded-lg">
                       {brands.map((brand, index) => (
                         <p
                           key={index}
@@ -343,7 +343,7 @@ const Navbar = () => {
                     </p>
                   ) : (
                     <p
-                      className="text-[#292929] font-semibold cursor-pointer w-[94%] p-4 border-b border-[#DFDFDF]"
+                      className="text-[#292929] font-semibold cursor-pointer w-[98%] p-4 border-b border-[#DFDFDF]"
                       onClick={() => {handleCategoryMobile(category.id); setShowModal(!showModal); setBrandModal(false)}}
                     >
                       {category.name}
@@ -354,7 +354,7 @@ const Navbar = () => {
                       {subCategories[category.id]?.map((subCategory, index) => (
                         <h2
                           key={index}
-                          className="text-[#292929] ml-5 capitalize font-semibold cursor-pointer p-3 border-b border-[#DFDFDF]"
+                          className="text-[#292929] ml-5 capitalize font-semibold w-[98%] cursor-pointer p-3 border-b border-[#DFDFDF]"
                           onClick={() => {redirect(subCategory.name); setShowModal(!showModal); setBrandModal(false)}}
                         >
                           {subCategory.name}
