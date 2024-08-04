@@ -95,14 +95,14 @@ const Home = () => {
 
         {/* Marka Jone (Big Screen)*/}
         <div className='hidden md:flex bg-[#FFFFFF]  items-center flex-col'>
-          <div className='w-[80%] flex my-20 flex-col md:flex-row justify-center'>
-            <div className='bg-[#292929] justify-center items-center mx-auto md:pl-24 pt-10'>
-              <h2 className='text-[#FFFFFF] mb-3 text-2xl'>Marka Jonë</h2>
-              <p className='text-[#FFFFFF] mb-3'>Klientët tanë janë të rëndësishëm për ne, prandaj ofrojmë këshilla të personalizuara dhe ndihmë për të zgjedhur produktet e duhura për nevojat e tyre. Nëse keni pyetje ose nevojë për këshillë, jemi këtu për t’ju ndihmuar.</p>
-              <button className='text-[#FFFFFF] border w-full md:w-[20%] px-8 py-2' onClick={() => navigate('/contact')}>Na Kontaktoni</button>
+          <div className='w-[80%] flex my-20 flex-col md:flex-row justify-center pt-10 pb-6'>
+            <div className='bg-[#292929] justify-center items-center mx-auto'>
+              <h2 className='text-[#FFFFFF] mb-3 text-2xl ml-12 mt-5'>Marka Jonë</h2>
+              <p className='text-[#FFFFFF] mb-3 ml-12 mt-8'>Klientët tanë janë të rëndësishëm për ne, prandaj ofrojmë këshilla të personalizuara dhe ndihmë për të zgjedhur produktet e duhura për nevojat e tyre. Nëse keni pyetje ose nevojë për këshillë, jemi këtu për t’ju ndihmuar.</p>
+              <button className='text-[#FFFFFF] border w-full md:w-[20%] mb-4 ml-12 px-8 py-2' onClick={() => navigate('/contact')}>Na Kontaktoni</button>
             </div>
             <div className=''>
-              <img src={overlap} alt="" />
+              <img src={overlap} className='object-cover w-full h-full' alt="" />
             </div>
          </div>
         </div>
