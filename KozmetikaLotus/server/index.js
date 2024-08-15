@@ -57,6 +57,9 @@ db.sequelize.sync().then(() => {
     seedSuperAdmin(); 
     seedCategories();
     seedBrands();
+
+    console.log("-------------------------------");
+    console.log("Seeds are done");
     // After sync is complete we start server
     const port = process.env.PORT || 3001;
     app.listen(port, () => {

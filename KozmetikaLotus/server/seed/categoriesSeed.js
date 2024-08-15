@@ -20,6 +20,9 @@ const seedCategories = async () => {
       }
     }
   }
+
+  console.log("--------------------------------");
+  console.log("categories seeds are done");
 };
 
 module.exports = seedCategories;

@@ -11,6 +11,9 @@ const seedBrands = async () => {
       where: { name }
     });
   }
+
+  console.log("--------------------------------");
+  console.log("Brand seeds are done");
 };
 
 module.exports = seedBrands;

@@ -3,6 +3,7 @@
       "name": "Kujdesi i lekures",
       "subcategories": [
         {"name": "lares vajor"},
+        {"name": "pastrim i lekures"},
         {"name": "lares ujor"},
         {"name": "tonike"},
         {"name": "serum"},
@@ -12,7 +13,7 @@
         {"name": "krem hidratues"},
         {"name": "mbrojtje ndaj diellit"},
         {"name": "acne patches"},
-        {"name": "sport treatment"},
+        {"name": "spot treatment"},
         {"name": "zona e syve"},
         {"name": "produkt per vetenxirje"},
         {"name": "buzet"}
@@ -45,9 +46,13 @@
         {"name": "concealer"},
         {"name": "blush"},
         {"name": "highlighter"},
+        {"name": "makeup brushes"},
+        {"name": "blender"},
         {"name": "lip gloss"},
+        {"name": "lip tint"},
         {"name": "lip oil"},
         {"name": "lipstick"},
+        {"name": "eyeliner / eye pencil"},
         {"name": "mascara"},
         {"name": "primer"},
         {"name": "palette"},
@@ -127,6 +132,14 @@
       "name" : "Vajra Organik",
       "subcategories": [
         {"name" : "vajra organik"}
+      ]
+    },
+    {
+      "name" : "Kujdesi per Femijet",
+      "subcategories": [
+        {"name" : "shampoo for children"},
+        {"name" : "balsam"},
+        {"name" : "hidratues"}
       ]
     },
     {
