@@ -8,14 +8,7 @@ import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { addToWishlist, removeFromWishlist } from "../state";
 
-const ProductList = ({
-  subCategory,
-  productName,
-  brand,
-  isAdmin,
-  reload = false,
-  setReload = () => {},
-}) => {
+const ProductList = ({ subCategory, productName, brand, isAdmin }) => {
   const [products, setProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0); // Track total number of products
   const [page, setPage] = useState(1);
@@ -29,15 +22,15 @@ const ProductList = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchProducts();
-  }, [page, subCategory, productName, brand]);
-
-  useEffect(() => {
-    if (reload) {
-      fetchProducts();
-      setReload(false);
+    const savedPage = localStorage.getItem("currentPage");
+    if (savedPage) {
+      setPage(parseInt(savedPage, 10));
     }
-  }, [reload, setReload]);
+    const savedProductCache = localStorage.getItem("productCache");
+    if (savedProductCache) {
+      setProductCache(JSON.parse(savedProductCache));
+    }
+  }, []);
 
   // First useEffect to decode user and set userId
   useEffect(() => {
@@ -76,16 +69,27 @@ const ProductList = ({
   }, [userId]); // Dependency on userId
 
   useEffect(() => {
-    const savedPage = localStorage.getItem("currentPage");
-    if (savedPage) {
-      setPage(parseInt(savedPage, 10));
-    }
-  }, []);
+    // Clear cache and fetch fresh data when subCategory changes
+    setProductCache({});
+    localStorage.removeItem("productCache");
+    fetchProducts(page);
+    setPage(1);
+  }, [subCategory, productName, brand]);
 
-  const fetchProducts = async () => {
-    if (productCache[page]) {
+  useEffect(() => {
+    fetchProducts(page); // Fetch products whenever the page changes
+  }, [page]);
+
+  useEffect(() => {
+    localStorage.removeItem("productCache");
+    fetchProducts(page); // Fetch products whenever the page changes
+  }, [productCache]);
+
+  const fetchProducts = async (currentPage) => {
+    const pageToFetch = currentPage || page; // Use the passed page or the state page
+    if (productCache[pageToFetch]) {
       // If products for the current page are in cache, use them
-      const cachedData = productCache[page];
+      const cachedData = productCache[pageToFetch];
       setProducts(cachedData.products);
       setTotalProducts(cachedData.totalProducts);
       setTotalPages(cachedData.totalPages);
@@ -95,7 +99,7 @@ const ProductList = ({
           subCategory: subCategory !== "all" ? subCategory : null,
           name: productName ? productName : null,
           brand: brand ? brand : null,
-          page: page,
+          page: pageToFetch,
           limit: limit,
         };
 
@@ -106,14 +110,16 @@ const ProductList = ({
           setTotalPages(result.totalPages); // Calculate total pages
 
           // Cache the fetched products
-          setProductCache((prevCache) => ({
-            ...prevCache,
-            [page]: {
+          const newCache = {
+            ...productCache,
+            [pageToFetch]: {
               products: result.products,
               totalProducts: result.totalProducts,
               totalPages: result.totalPages,
             },
-          }));
+          };
+          setProductCache(newCache);
+          localStorage.setItem("productCache", JSON.stringify(newCache)); // Save the cache to local storage
         }
       } catch (err) {
         console.log("Error fetching products:", err);
@@ -164,6 +170,70 @@ const ProductList = ({
     }
   };
 
+  const renderPagination = () => {
+    const pages = [];
+    const startPage = Math.max(1, page - 2);
+    const endPage = Math.min(totalPages, page + 2);
+
+    if (startPage > 1) {
+      pages.push(
+        <button
+          key={1}
+          onClick={() => handlePageChange(1)}
+          className={`m-1 px-3 py-1 rounded-md ${
+            1 === page ? "bg-gray-300" : "bg-white"
+          }`}
+        >
+          1
+        </button>
+      );
+      if (startPage > 2) {
+        pages.push(
+          <span key="start-ellipsis" className="m-1 px-3 py-1">
+            ...
+          </span>
+        );
+      }
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(
+        <button
+          key={i}
+          onClick={() => handlePageChange(i)}
+          className={`m-1 px-3 py-1 rounded-md ${
+            i === page ? "bg-gray-300" : "bg-white"
+          }`}
+        >
+          {i}
+        </button>
+      );
+    }
+
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) {
+        pages.push(
+          <span key="end-ellipsis" className="m-1 px-3 py-1">
+            ...
+          </span>
+        );
+      }
+      pages.push(
+        <button
+          key={totalPages}
+          onClick={() => handlePageChange(totalPages)}
+          className={`m-1 px-3 py-1 rounded-md ${
+            totalPages === page ? "bg-gray-300" : "bg-white"
+          }`}
+        >
+          {totalPages}
+        </button>
+      );
+    }
+
+    return pages;
+  };
+
   return (
     <div className="w-full pb-10 flex justify-center">
       <div>
@@ -188,30 +258,21 @@ const ProductList = ({
             ))}
         </div>
         {totalPages > 1 && (
-          <div className="w-full flex justify-center">
+          <div className="w-full flex justify-center mt-4">
             {/* Pagination component to handle page changes */}
-            <div
-              className="m-3 shadow-md px-3 py-1 rounded-md text-[#292929] items-baseline text-lg font-semibold"
-              style={{ display: page === 1 ? "none" : "block" }}
-            >
+            <div className="flex items-center">
               <button
                 onClick={() => handlePageChange(page - 1)}
                 disabled={page === 1}
-                className="align-text-bottom"
+                className="m-1 px-3 py-1 rounded-md bg-white"
               >
                 Previous
               </button>
-            </div>
-            <div className="m-3 text-[#292929] mt-5 font-semibold text-xl align-text-bottom px-3 py-1">
-              {page}
-            </div>
-            <div
-              className="m-3 shadow-md px-3 py-1 rounded-md text-[#292929] align-text-bottom text-lg font-semibold"
-              style={{ display: page >= totalPages ? "none" : "block" }}
-            >
+              {renderPagination()}
               <button
                 onClick={() => handlePageChange(page + 1)}
                 disabled={page >= totalPages}
+                className="m-1 px-3 py-1 rounded-md bg-white"
               >
                 Next
               </button>

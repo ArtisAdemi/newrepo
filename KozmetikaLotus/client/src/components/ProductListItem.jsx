@@ -108,7 +108,9 @@ const ProductListItem = ({
         </p>
         {/* Lower Part */}
         <div className="flex justify-between items-center mt-4">
-          <span className="text-xl text-[#292929] font-bold">€{price}</span>
+          <span className="text-xl text-[#292929] font-bold">
+            €{price.toFixed(2)}
+          </span>
           <button
             className="text-center text-[#A3A7FC] font-semibold items-center py-2 "
             onClick={handleAddToCart}

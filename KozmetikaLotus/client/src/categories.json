@@ -1,153 +1,310 @@
 [
-    {
-      "name": "Kujdesi i lekures",
-      "subcategories": [
-        {"name": "lares vajor"},
-        {"name": "pastrim i lekures"},
-        {"name": "lares ujor"},
-        {"name": "tonike"},
-        {"name": "serum"},
-        {"name": "ampule"},
-        {"name": "esence"},
-        {"name": "maska"},
-        {"name": "krem hidratues"},
-        {"name": "mbrojtje ndaj diellit"},
-        {"name": "acne patches"},
-        {"name": "spot treatment"},
-        {"name": "zona e syve"},
-        {"name": "produkt per vetenxirje"},
-        {"name": "buzet"}
-      ]
-    },
-    {
-      "name": "Floket",
-      "subcategories": [
-        {"name": "kujdesi skalpit"},
-        {"name": "conditioner"},
-        {"name": "trajtim i flokut"},
-        {"name": "vajra per floket"},
-        {"name": "serum per rritjen e flokeve"},
-        {"name": "kacurrela"},
-        {"name": "xhel per floke"},
-        {"name": "parfume per floke"}
-      ]
-    },
-    {
-      "name": "Trupi",
-      "subcategories": [
-        {"name": "trupi"}
-      ]
-    },
-    {
-      "name": "Make Up",
-      "subcategories": [
-        {"name": "bb cream"},
-        {"name": "cushion foundation"},
-        {"name": "concealer"},
-        {"name": "blush"},
-        {"name": "highlighter"},
-        {"name": "makeup brushes"},
-        {"name": "blender"},
-        {"name": "lip gloss"},
-        {"name": "lip tint"},
-        {"name": "lip oil"},
-        {"name": "lipstick"},
-        {"name": "eyeliner / eye pencil"},
-        {"name": "mascara"},
-        {"name": "primer"},
-        {"name": "palette"},
-        {"name": "qerpike"},
-        {"name": "setting powder"},
-        {"name": "puder per fytyre"},
-        {"name": "beauty set"},
-        {"name": "lip matte"},
-        {"name": "friciton"},
-        {"name": "sheet-mask"},
-        {"name": "eyelash kit"},
-        {"name": "fixing spray"},
-        {"name": "lipmask"}
-      ]
-    },
-    {
-      "name": "Vetullat",
-      "subcategories": [
-        {"name": "xhel per vetulla"},
-        {"name": "eyebrow kit"}
-      ]
-    },
-    {
-      "name": "Aksesore",
-      "subcategories": [
-        {"name": "aksesore"}
-      ]
-    },
-    {
-      "name": "Travel kit",
-      "subcategories": [
-        {"name": "travel kit"}
-      ]
-    },
-    {
-      "name" : "Lares",
-      "subcategories": [
-        {"name" : "lares qumeshti"},
-        {"name" : "anti-akne"},
-        {"name" : "krem e dites"},
-        {"name" : "krem e nates"},
-        {"name" : "krem e dites & nates"}
-      ]
-    },
-    {
-      "name" : "Dhembet",
-      "subcategories": [
-        {"name" : "dental care"}
-      ]
-    },
-    {
-      "name" : "Anti rrudhe",
-      "subcategories": [
-        {"name" : "anti rrudhe"}
-      ]
-    },
-    {
-      "name" : "Shampoo",
-      "subcategories": [
-        {"name": "shampoo"},
-        {"name" : "dry shampoo"},
-        {"name" : "shampoo vegan"}
-      ]
-    },
-    {
-      "name" : "Parfume",
-      "subcategories": [
-        {"name" : "parfume"}
-      ]
-    },
-    {
-      "name" : "Dupes",
-      "subcategories": [
-        {"name" : "dupes"}
-      ]
-    },
-    {
-      "name" : "Vajra Organik",
-      "subcategories": [
-        {"name" : "vajra organik"}
-      ]
-    },
-    {
-      "name" : "Kujdesi per Femijet",
-      "subcategories": [
-        {"name" : "shampoo for children"},
-        {"name" : "balsam"},
-        {"name" : "hidratues"}
-      ]
-    },
-    {
-      "name" : "Produkte te Diellit",
-      "subcategories": [
-        {"name" : "produkte te diellit"}
-      ]
-    }
-  ]
-  
+  {
+    "name": "Kujdesi i lekures",
+    "subcategories": [
+      { "name": "lares vajor" },
+      { "name": "pastrim i lekures" },
+      { "name": "lares ujor" },
+      { "name": "tonike" },
+      { "name": "serum" },
+      { "name": "ampule" },
+      { "name": "esence" },
+      { "name": "maska" },
+      { "name": "krem hidratues" },
+      { "name": "mbrojtje ndaj diellit" },
+      { "name": "acne patches" },
+      { "name": "spot treatment" },
+      { "name": "zona e syve" },
+      { "name": "produkt per vetenxirje" },
+      { "name": "larës shkume" },
+      { "name": "vitamin c" },
+      { "name": "retinol" },
+      { "name": "acid hialuronik" },
+      { "name": "acid glikoid" },
+      { "name": "acid salicilik" },
+      { "name": "argjila" },
+      { "name": "pore strips" },
+      { "name": "lëkura" },
+      { "name": "masazher fytyre" },
+      { "name": "gua sha" },
+      { "name": "jade roller" },
+      { "name": "ujë micelar" },
+      { "name": "micelar qumështi" },
+      { "name": "anti-rrudhë" },
+      { "name": "niacinamide" },
+      { "name": "cooling massage set" },
+      { "name": "balsam pastrues" },
+      { "name": "xhel kermilli" },
+      { "name": "shirita dylli" },
+      { "name": "larës" },
+      { "name": "produkte anti rrudhë për sy" },
+      { "name": "rul vullkanik" },
+      { "name": "ice roller" },
+      { "name": "buzet" }
+    ]
+  },
+  {
+    "name": "Floket",
+    "subcategories": [
+      { "name": "kujdesi skalpit" },
+      { "name": "conditioner" },
+      { "name": "trajtim i flokut" },
+      { "name": "vajra per floket" },
+      { "name": "serum per rritjen e flokeve" },
+      { "name": "kacurrela" },
+      { "name": "xhel per floke" },
+      { "name": "spray për floke(llak)" },
+      { "name": "qumësht për flokë" },
+      { "name": "maja dyfishe" },
+      { "name": "shampoo për rritjen e flokëve" },
+      { "name": "serum për rritjen e flokëve" },
+      { "name": "rritje floku" },
+      { "name": "ujë i thuprës" },
+      { "name": "vaj për flokë" },
+      { "name": "satin bonnet" },
+      { "name": "anti-zbokth" },
+      { "name": "kunder yndyrës" },
+      { "name": "spray për volume" },
+      { "name": "furcë për flokë" },
+      { "name": "spray për shkrehje të lehtë" },
+      { "name": "maskë për flokë" },
+      { "name": "heatless curl" },
+      { "name": "masazhues skalpi" },
+      { "name": "oil applicator" },
+      { "name": "ikty" },
+      { "name": "shampoo për volumë" },
+      { "name": "shirit flokësh" },
+      { "name": "shkumë për volumë" },
+      { "name": "shampon vegan" },
+      { "name": "shampon" },
+      { "name": "pudër për flokë" },
+      { "name": "baby hair stick" },
+      { "name": "xhel stilues" },
+      { "name": "gummies" },
+      { "name": "anti - yellow" },
+      { "name": "volume" },
+      { "name": "parfume per floke" }
+    ]
+  },
+  {
+    "name": "Trupi",
+    "subcategories": [
+      { "name": "shkumë rroje" },
+      { "name": "after shave" },
+      { "name": "balsam qetësimi pas rrojes" },
+      { "name": "scrub për trupë" },
+      { "name": "hidratues trupi" },
+      { "name": "peeling glove" },
+      { "name": "lady shaver" },
+      { "name": "krem depilimi" },
+      { "name": "multivitamina" },
+      { "name": "vitamina per shtime pesh" },
+      { "name": "dru brush" },
+      { "name": "deo" },
+      { "name": "sapun" },
+      { "name": "krem dushi" },
+      { "name": "xhel trupi" },
+      { "name": "krem trupi" },
+      { "name": "pastrues për zonën bikini" },
+      { "name": "boob tape" }
+    ]
+  },
+  {
+    "name": "Make Up",
+    "subcategories": [
+      { "name": "bb cream" },
+      { "name": "cushion foundation" },
+      { "name": "concealer" },
+      { "name": "blush" },
+      { "name": "highlighter" },
+      { "name": "makeup brushes" },
+      { "name": "blender" },
+      { "name": "lip tint" },
+      { "name": "lip oil" },
+      { "name": "lipstick" },
+      { "name": "eyeliner / eye pencil" },
+      { "name": "mascara" },
+      { "name": "primer" },
+      { "name": "palette" },
+      { "name": "qerpike" },
+      { "name": "setting powder" },
+      { "name": "puder per fytyre" },
+      { "name": "beauty set" },
+      { "name": "lip matte" },
+      { "name": "friciton" },
+      { "name": "sheet-mask" },
+      { "name": "eyelash kit" },
+      { "name": "fixing spray" },
+      { "name": "lipmask" },
+      { "name": "lapsë për buzë" },
+      { "name": "lapsë per vetulla" },
+      { "name": "bronzer" },
+      { "name": "highlighter & contour" },
+      { "name": "makeup palette" },
+      { "name": "spatula" },
+      { "name": "makeup Stick" },
+      { "name": "cantë kozmetike" },
+      { "name": "lapsë për sy" },
+      { "name": "brushë multifunksionale" },
+      { "name": "eyeliner" },
+      { "name": "fondatine" },
+      { "name": "korrektorë" },
+      { "name": "faculeta" },
+      { "name": "beauty blender" },
+      { "name": "organizues" }
+    ]
+  },
+  {
+    "name": "Vetullat",
+    "subcategories": [{ "name": "xhel per vetulla" }, { "name": "eyebrow kit" }]
+  },
+  {
+    "name": "Buzet",
+    "subcategories": [
+      { "name": "lip plump" },
+      { "name": "lip mask" },
+      { "name": "lip scrub" },
+      { "name": "lip set" },
+      { "name": "lip gloss" }
+    ]
+  },
+  {
+    "name": "Duartë",
+    "subcategories": [
+      { "name": "krem hidratues për duar" },
+      { "name": "krem anti-qarje" },
+      { "name": "maskë për duar" },
+      { "name": "tharëse manikyri" }
+    ]
+  },
+  {
+    "name": "Këmbet",
+    "subcategories": [
+      { "name": "thembra" },
+      { "name": "scrub pë këmbë" },
+      { "name": "hidratues" },
+      { "name": "gur pedikyr" },
+      { "name": "limë" },
+      { "name": "corape" }
+    ]
+  },
+  {
+    "name": "Vera",
+    "subcategories": [
+      { "name": "shimmering lotion" },
+      { "name": "shimmering oil" },
+      { "name": "anti-mushkonja" },
+      { "name": "spf" },
+      { "name": "shimmer spray" },
+      { "name": "sand away" },
+      { "name": "sos insect gel" }
+    ]
+  },
+  {
+    "name": "Aksesore",
+    "subcategories": [{ "name": "aksesore" }]
+  },
+  {
+    "name": "Parfumet",
+    "subcategories": [
+      { "name": "body spray" },
+      { "name": "set i parfumosur" },
+      { "name": "fereone" },
+      { "name": "parfume për flokë" },
+      { "name": "parfume dupe" }
+    ]
+  },
+  {
+    "name": "Dhembët",
+    "subcategories": [
+      { "name": "whitening strips" },
+      { "name": "scraper" },
+      { "name": "mouth wash" },
+      { "name": "whitening product" },
+      { "name": "paste dhembesh" },
+      { "name": "whitening pen" },
+      { "name": "flossing" }
+    ]
+  },
+  {
+    "name": "Gift set",
+    "subcategories": [{ "name": "gift set" }]
+  },
+  {
+    "name": "Travel kit",
+    "subcategories": [{ "name": "travel kit" }]
+  },
+  {
+    "name": "Lares",
+    "subcategories": [
+      { "name": "lares qumeshti" },
+      { "name": "anti-akne" },
+      { "name": "krem e dites" },
+      { "name": "krem e nates" },
+      { "name": "krem e dites & nates" }
+    ]
+  },
+  {
+    "name": "Dobësim",
+    "subcategories": [
+      { "name": "caj për dobësim" },
+      { "name": "tableta për dobësim" }
+    ]
+  },
+  {
+    "name": "Dhembet",
+    "subcategories": [{ "name": "dhembet" }]
+  },
+  {
+    "name": "Anti rrudhe",
+    "subcategories": [{ "name": "anti rrudhe" }]
+  },
+  {
+    "name": "Nëna dhe Bebi",
+    "subcategories": [{ "name": "nëna dhe bebi" }]
+  },
+  {
+    "name": "Shëndeti",
+    "subcategories": [{ "name": "shëndeti" }]
+  },
+  {
+    "name": "Shampoo",
+    "subcategories": [
+      { "name": "shampoo" },
+      { "name": "dry shampoo" },
+      { "name": "shampoo vegan" }
+    ]
+  },
+  {
+    "name": "Dupes",
+    "subcategories": [{ "name": "dupes" }]
+  },
+  {
+    "name": "Vajra Organik",
+    "subcategories": [{ "name": "vajra organik" }]
+  },
+  {
+    "name": "Kujdesi per Femijet",
+    "subcategories": [
+      { "name": "shampoo for children" },
+      { "name": "balsam" },
+      { "name": "hidratues per femije" }
+    ]
+  },
+  {
+    "name": "Fëmijët",
+    "subcategories": [{ "name": "fëmijët" }]
+  },
+  {
+    "name": "Meshkujt",
+    "subcategories": [{ "name": "meshkujt" }]
+  },
+  {
+    "name": "Produkte te Diellit",
+    "subcategories": [{ "name": "produkte te diellit" }]
+  },
+  {
+    "name": "Festat",
+    "subcategories": [{ "name": "festat" }]
+  }
+]
