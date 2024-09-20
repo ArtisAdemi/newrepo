@@ -1,0 +1,153 @@
+[
+    {
+      "name": "Kujdesi i lekures",
+      "subcategories": [
+        {"name": "lares vajor"},
+        {"name": "pastrim i lekures"},
+        {"name": "lares ujor"},
+        {"name": "tonike"},
+        {"name": "serum"},
+        {"name": "ampule"},
+        {"name": "esence"},
+        {"name": "maska"},
+        {"name": "krem hidratues"},
+        {"name": "mbrojtje ndaj diellit"},
+        {"name": "acne patches"},
+        {"name": "spot treatment"},
+        {"name": "zona e syve"},
+        {"name": "produkt per vetenxirje"},
+        {"name": "buzet"}
+      ]
+    },
+    {
+      "name": "Floket",
+      "subcategories": [
+        {"name": "kujdesi skalpit"},
+        {"name": "conditioner"},
+        {"name": "trajtim i flokut"},
+        {"name": "vajra per floket"},
+        {"name": "serum per rritjen e flokeve"},
+        {"name": "kacurrela"},
+        {"name": "xhel per floke"},
+        {"name": "parfume per floke"}
+      ]
+    },
+    {
+      "name": "Trupi",
+      "subcategories": [
+        {"name": "trupi"}
+      ]
+    },
+    {
+      "name": "Make Up",
+      "subcategories": [
+        {"name": "bb cream"},
+        {"name": "cushion foundation"},
+        {"name": "concealer"},
+        {"name": "blush"},
+        {"name": "highlighter"},
+        {"name": "makeup brushes"},
+        {"name": "blender"},
+        {"name": "lip gloss"},
+        {"name": "lip tint"},
+        {"name": "lip oil"},
+        {"name": "lipstick"},
+        {"name": "eyeliner / eye pencil"},
+        {"name": "mascara"},
+        {"name": "primer"},
+        {"name": "palette"},
+        {"name": "qerpike"},
+        {"name": "setting powder"},
+        {"name": "puder per fytyre"},
+        {"name": "beauty set"},
+        {"name": "lip matte"},
+        {"name": "friciton"},
+        {"name": "sheet-mask"},
+        {"name": "eyelash kit"},
+        {"name": "fixing spray"},
+        {"name": "lipmask"}
+      ]
+    },
+    {
+      "name": "Vetullat",
+      "subcategories": [
+        {"name": "xhel per vetulla"},
+        {"name": "eyebrow kit"}
+      ]
+    },
+    {
+      "name": "Aksesore",
+      "subcategories": [
+        {"name": "aksesore"}
+      ]
+    },
+    {
+      "name": "Travel kit",
+      "subcategories": [
+        {"name": "travel kit"}
+      ]
+    },
+    {
+      "name" : "Lares",
+      "subcategories": [
+        {"name" : "lares qumeshti"},
+        {"name" : "anti-akne"},
+        {"name" : "krem e dites"},
+        {"name" : "krem e nates"},
+        {"name" : "krem e dites & nates"}
+      ]
+    },
+    {
+      "name" : "Dhembet",
+      "subcategories": [
+        {"name" : "dental care"}
+      ]
+    },
+    {
+      "name" : "Anti rrudhe",
+      "subcategories": [
+        {"name" : "anti rrudhe"}
+      ]
+    },
+    {
+      "name" : "Shampoo",
+      "subcategories": [
+        {"name": "shampoo"},
+        {"name" : "dry shampoo"},
+        {"name" : "shampoo vegan"}
+      ]
+    },
+    {
+      "name" : "Parfume",
+      "subcategories": [
+        {"name" : "parfume"}
+      ]
+    },
+    {
+      "name" : "Dupes",
+      "subcategories": [
+        {"name" : "dupes"}
+      ]
+    },
+    {
+      "name" : "Vajra Organik",
+      "subcategories": [
+        {"name" : "vajra organik"}
+      ]
+    },
+    {
+      "name" : "Kujdesi per Femijet",
+      "subcategories": [
+        {"name" : "shampoo for children"},
+        {"name" : "balsam"},
+        {"name" : "hidratues"}
+      ]
+    },
+    {
+      "name" : "Produkte te Diellit",
+      "subcategories": [
+        {"name" : "produkte te diellit"}
+      ]
+    }
+  ]
+  
