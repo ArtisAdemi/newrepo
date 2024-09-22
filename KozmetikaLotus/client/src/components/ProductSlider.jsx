@@ -159,7 +159,6 @@ const ProductSlider = ({ subCategory, uniqueCategories, bestSeller }) => {
                           .toLowerCase()
                           .replace(/\s+/g, "-")}`
                   }
-                  target="_blank"
                   rel="noopener noreferrer"
                   className="block"
                 >
