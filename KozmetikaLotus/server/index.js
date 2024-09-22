@@ -1,8 +1,8 @@
-require('dotenv').config();
+require("dotenv").config();
 const seedSuperAdmin = require("./seed/seedAdmin");
 const seedCategories = require("./seed/categoriesSeed");
 const seedBrands = require("./seed/brandsSeed");
-const express = require('express');
+const express = require("express");
 const cors = require("cors");
 
 const app = express();
@@ -13,10 +13,24 @@ app.use(express.json());
 
 // CORS config
 const corsOptions = {
-    origin: ['http://109.199.98.248/', 'http://109.199.98.248:3000', 'http://koz-lotus.duckdns.org', 'https://koz-lotus.duckdns.org', 'http://backend-koz-lotus.duckdns.org', 'https://backend-koz-lotus.duckdns.org', 'http://kozmetikalotus.com', 'https://kozmetikalotus.com', 'https://www.kozmetikalotus.com', 'http://www.kozmetikalotus.com', 'http://backend.kozmetikalotus.com', 'https://backend.kozmetikalotus.com', 'http://localhost:3000'],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-    optionsSuccessStatus: 204
+  origin: [
+    "http://109.199.98.248/",
+    "http://109.199.98.248:3000",
+    "http://koz-lotus.duckdns.org",
+    "https://koz-lotus.duckdns.org",
+    "http://backend-koz-lotus.duckdns.org",
+    "https://backend-koz-lotus.duckdns.org",
+    "http://kozmetikalotus.com",
+    "https://kozmetikalotus.com",
+    "https://www.kozmetikalotus.com",
+    "http://www.kozmetikalotus.com",
+    "http://backend.kozmetikalotus.com",
+    "https://backend.kozmetikalotus.com",
+    "http://localhost:3000",
+  ],
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204,
 };
 
 app.use(cors(corsOptions));
@@ -27,19 +41,19 @@ const apiRouter = express.Router();
 // Mounting Routes under /api endpoint
 
 // UserRouter
-const userRouter = require('./routes/Users');
+const userRouter = require("./routes/Users");
 apiRouter.use("/users", userRouter);
 // Auth Router
-const authRouter = require('./routes/Auth');
+const authRouter = require("./routes/Auth");
 apiRouter.use("/auth", authRouter);
 // Product router
-const productRouter = require('./routes/Products');
+const productRouter = require("./routes/Products");
 apiRouter.use("/products", productRouter);
 // CategoryRouter
-const categoryRouter = require('./routes/Categories');
+const categoryRouter = require("./routes/Categories");
 apiRouter.use("/categories", categoryRouter);
 // OrderRouter
-const orderRouter = require('./routes/Orders');
+const orderRouter = require("./routes/Orders");
 apiRouter.use("/orders", orderRouter);
 // Mailer Routes
 const mailerRouter = require("./routes/Mailer");
@@ -53,8 +67,8 @@ app.use("/api", apiRouter);
 
 // Creating sequelize sync with db
 setTimeout(() => {
-db.sequelize.sync().then(() => {
-    seedSuperAdmin(); 
+  db.sequelize.sync().then(() => {
+    seedSuperAdmin();
     seedCategories();
     seedBrands();
 
@@ -63,9 +77,9 @@ db.sequelize.sync().then(() => {
     // After sync is complete we start server
     const port = process.env.PORT || 3001;
     app.listen(port, () => {
-        console.log(`Server started on port: ${port}`);
+      console.log(`Server started on port: ${port}`);
     });
-});
+  });
 }, 3000);
 
 // Export the app for serverless function
