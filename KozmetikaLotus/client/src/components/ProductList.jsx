@@ -82,7 +82,12 @@ const ProductList = ({ subCategory, productName, brand, isAdmin }) => {
 
   useEffect(() => {
     localStorage.removeItem("productCache");
-    fetchProducts(page); // Fetch products whenever the page changes
+    let currentPage = localStorage.getItem("currentPage");
+    if (currentPage) {
+      fetchProducts(currentPage); // Fetch products whenever the page changes
+    } else {
+      fetchProducts(page); // Fetch products whenever the page changes
+    }
   }, [productCache]);
 
   const fetchProducts = async (currentPage) => {
@@ -129,6 +134,10 @@ const ProductList = ({ subCategory, productName, brand, isAdmin }) => {
 
   useEffect(() => {
     // Scroll to top whenever the page changes
+    let currentPage = localStorage.getItem("currentPage");
+    if (currentPage) {
+      setPage(parseInt(currentPage, 10));
+    }
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [page]);
 
@@ -202,7 +211,7 @@ const ProductList = ({ subCategory, productName, brand, isAdmin }) => {
           key={i}
           onClick={() => handlePageChange(i)}
           className={`m-1 px-3 py-1 rounded-md ${
-            i === page ? "bg-gray-300" : "bg-white"
+            i == page ? "bg-gray-300" : "bg-white"
           }`}
         >
           {i}
