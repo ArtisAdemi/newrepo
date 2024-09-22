@@ -13,21 +13,7 @@ app.use(express.json());
 
 // CORS config
 const corsOptions = {
-  origin: [
-    "http://109.199.98.248/",
-    "http://109.199.98.248:3000",
-    "http://koz-lotus.duckdns.org",
-    "https://koz-lotus.duckdns.org",
-    "http://backend-koz-lotus.duckdns.org",
-    "https://backend-koz-lotus.duckdns.org",
-    "http://kozmetikalotus.com",
-    "https://kozmetikalotus.com",
-    "https://www.kozmetikalotus.com",
-    "http://www.kozmetikalotus.com",
-    "http://backend.kozmetikalotus.com",
-    "https://backend.kozmetikalotus.com",
-    "http://localhost:3000",
-  ],
+  origin: ["http://109.199.98.248/", "http://109.199.98.248:3000", "http://koz-lotus.duckdns.org", "https://koz-lotus.duckdns.org", "http://backend-koz-lotus.duckdns.org", "https://backend-koz-lotus.duckdns.org", "http://kozmetikalotus.com", "https://kozmetikalotus.com", "https://www.kozmetikalotus.com", "http://www.kozmetikalotus.com", "http://backend.kozmetikalotus.com", "https://backend.kozmetikalotus.com", "http://localhost:3000"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
   optionsSuccessStatus: 204,
