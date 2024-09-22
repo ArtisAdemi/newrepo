@@ -32,6 +32,7 @@ apiRouter.use("/users", userRouter);
 // Auth Router
 const authRouter = require("./routes/Auth");
 apiRouter.use("/auth", authRouter);
+console.log("authRouter mounted", authRouter);
 // Product router
 const productRouter = require("./routes/Products");
 apiRouter.use("/products", productRouter);
