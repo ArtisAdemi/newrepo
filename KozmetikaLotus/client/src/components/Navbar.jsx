@@ -43,6 +43,8 @@ const Navbar = () => {
   const [brandModal, setBrandModal] = useState(false);
   const [wishlist, setWishlist] = useState([]);
   const [searchInput, setSearchInput] = useState(false);
+  const [closeCategoryTimeout, setCloseCategoryTimeout] = useState(null);
+  const [closeBrandTimeout, setCloseBrandTimeout] = useState(null);
 
   const handleNav = () => {
     setNav(!nav);
@@ -126,6 +128,10 @@ const Navbar = () => {
   }, [nav]);
 
   const handleCategoryHover = async (categoryName) => {
+    if (closeCategoryTimeout) {
+      clearTimeout(closeCategoryTimeout);
+      setCloseCategoryTimeout(null);
+    }
     try {
       if (selectedCategory !== categoryName) {
         // Fetch subcategories only if a new category is hovered
@@ -141,6 +147,14 @@ const Navbar = () => {
     } catch (error) {
       console.error("Error fetching subcategories:", error);
     }
+  };
+
+  const handleCategoryLeave = () => {
+    const timeout = setTimeout(() => {
+      setSelectedCategory(null);
+      setSubCategories({});
+    }, 175);
+    setCloseCategoryTimeout(timeout);
   };
 
   const handleCategoryMobile = async (categoryName) => {
@@ -168,6 +182,21 @@ const Navbar = () => {
   const closeModal = () => {
     setSelectedCategory(null);
     setSubCategories({});
+  };
+
+  const handleBrandHover = () => {
+    if (closeBrandTimeout) {
+      clearTimeout(closeBrandTimeout);
+      setCloseBrandTimeout(null);
+    }
+    setBrandModal(true);
+  };
+
+  const handleBrandLeave = () => {
+    const timeout = setTimeout(() => {
+      setBrandModal(false);
+    }, 175);
+    setCloseBrandTimeout(timeout);
   };
 
   // console.log(brands);
@@ -558,20 +587,24 @@ const Navbar = () => {
         <div className="categories-navbar bg-[#292929] w-full hidden md:flex">
           <div className="modal-content w-[90%] mx-auto flex justify-between py-4 items-center overflow-auto scrollbar scrollbar-thumb-white scrollbar-thin scrollbar-track-[#292929]">
             <h2
-              className="text-[#FFFFFF]  text-lg cursor-pointer"
+              className="text-[#FFFFFF] text-lg cursor-pointer"
               onClick={() => redirect("all")}
             >
               All
             </h2>
 
             <div
-              className="m-2 "
-              onMouseEnter={() => setBrandModal(true)} // Open modal on hover
-              onMouseLeave={() => setBrandModal(false)} // Close modal when not hovering
+              className="m-2"
+              onMouseEnter={handleBrandHover}
+              onMouseLeave={handleBrandLeave}
             >
-              <h2 className="text-[#FFFFFF]  text-lg cursor-pointer">Marka</h2>
+              <h2 className="text-[#FFFFFF] text-lg cursor-pointer">Marka</h2>
               {brandModal && (
-                <div className="modal-overlay absolute top-[130px] left-[10%] right-[10%] bg-[#292929] px-8 py-3 shadow-md shadow-[#FFFFFF] rounded-lg">
+                <div
+                  className="modal-overlay absolute top-[160px] left-[10%] right-[10%] bg-[#292929] px-8 py-3 shadow-md shadow-[#FFFFFF] rounded-lg"
+                  onMouseEnter={handleBrandHover}
+                  onMouseLeave={handleBrandLeave}
+                >
                   <div className="modal flex items-center justify-center">
                     <div className="flex flex-wrap gap-y-2 gap-x-10 justify-center items-center">
                       {brands.map((brand, index) => (
@@ -580,7 +613,7 @@ const Navbar = () => {
                           className="text-[#FFFFFF] text-sm cursor-pointer hover:underline capitalize"
                           onClick={() => {
                             redirect(`brands/${brand.name}`);
-                            setBrandModal(!brandModal);
+                            setBrandModal(false);
                           }}
                         >
                           {brand.name}
@@ -596,7 +629,8 @@ const Navbar = () => {
               <div
                 key={category.name}
                 className="m-2 text-[#FFFFFF]"
-                onMouseLeave={closeModal}
+                onMouseEnter={() => handleCategoryHover(category.name)}
+                onMouseLeave={handleCategoryLeave}
               >
                 {subCategories[category.name]?.length === 1 ? (
                   <p
@@ -608,16 +642,17 @@ const Navbar = () => {
                     {category.name}
                   </p>
                 ) : (
-                  <p
-                    className="cursor-pointer text-lg whitespace-nowrap"
-                    onMouseEnter={() => handleCategoryHover(category.name)}
-                  >
+                  <p className="cursor-pointer text-lg whitespace-nowrap">
                     {category.name}
                   </p>
                 )}
                 {selectedCategory === category.name &&
                   subCategories[category.name]?.length > 1 && (
-                    <div className="modal-overlay absolute top-[130px] left-[10%] right-[10%] bg-[#292929] px-8 py-3 shadow-md shadow-[#FFFFFF] rounded-lg">
+                    <div
+                      className="modal-overlay absolute top-[160px] left-[10%] right-[10%] bg-[#292929] px-8 py-3 shadow-md shadow-[#FFFFFF] rounded-lg"
+                      onMouseEnter={() => handleCategoryHover(category.name)}
+                      onMouseLeave={handleCategoryLeave}
+                    >
                       <div className="modal flex items-center justify-center">
                         <div className="flex flex-wrap gap-y-2 gap-x-10 justify-center items-center">
                           {subCategories[category.name]?.map(

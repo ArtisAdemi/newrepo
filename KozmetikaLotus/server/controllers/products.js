@@ -61,7 +61,7 @@ const getProducts = async (req, res) => {
       offset: offset,
       limit: limit,
       distinct: true, // This ensures count is accurate when using include
-      order: [[{ model: Images }, "id", "ASC"]], // Order images by id in ascending order
+      order: [[{ model: Images }, "id", "DESC"]], // Order images by id in ascending order
     });
 
     // Calculate the total number of pages
@@ -81,7 +81,6 @@ const getProducts = async (req, res) => {
 // Get ProductById
 const getProductById = async (req, res) => {
   const productId = req.params.id;
-
   try {
     const product = await Products.findByPk(productId, {
       include: [
@@ -90,7 +89,8 @@ const getProductById = async (req, res) => {
         },
         {
           model: Images,
-          order: [["id", "ASC"]], // Order images by id in ascending order
+          separate: true,
+          order: [["id", "DESC"]], // Order images by id in ascending order
         },
       ],
     });
@@ -136,11 +136,12 @@ const registerProduct = async (req, res) => {
 
     // If images have been uploaded, save their paths in the Images table
     if (req.uploadedFiles && req.uploadedFiles.length > 0) {
-      const imageRecords = req.uploadedFiles.map((file) => ({
-        fileName: file.filename, // Assuming the file name is stored in filename property
-        ProductId: newProduct.id, // Associate each image with the newly created product
-      }));
-      await Images.bulkCreate(imageRecords);
+      for (const file of req.uploadedFiles) {
+        await Images.create({
+          fileName: file.filename,
+          ProductId: newProduct.id,
+        });
+      }
     }
 
     // Check if subCategoryId is provided
@@ -226,11 +227,12 @@ const updateProduct = async (req, res) => {
 
     // If images have been uploaded, save their paths in the Images table
     if (req.uploadedFiles && req.uploadedFiles.length > 0) {
-      const imageRecords = req.uploadedFiles.map((file) => ({
-        fileName: file.filename, // Assuming the file name is stored in filename property
-        ProductId: product.id, // Associate each image with the updated product
-      }));
-      await Images.bulkCreate(imageRecords);
+      for (const file of req.uploadedFiles) {
+        await Images.create({
+          fileName: file.filename,
+          ProductId: product.id,
+        });
+      }
     }
 
     if (subCategoryId) {

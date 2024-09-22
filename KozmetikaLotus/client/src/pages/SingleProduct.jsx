@@ -127,6 +127,7 @@ const SingleProduct = () => {
             price={product.price}
             id={product.id}
             inStock={product.inStock}
+            productImages={product.Images}
           />
         </div>
       )}
