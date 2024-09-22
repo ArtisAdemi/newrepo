@@ -1,0 +1,27 @@
+.slick-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.slick-dots li {
+  transition: transform 0.3s ease;
+}
+
+.slick-dots-container {
+  display: flex;
+  transition: transform 0.3s ease;
+}
+
+.slick-dots-container.slide-left {
+  transform: translateX(-20px);
+}
+
+.slick-dots-container.slide-right {
+  transform: translateX(20px);
+}
