@@ -32,11 +32,6 @@ const ProductSlider = ({ subCategory, uniqueCategories, bestSeller }) => {
     }
   };
 
-  const redirect = (name) => {
-    name = name.toString().toLowerCase().replace(/\s+/g, "-");
-    navigate(`/products/${name}`); // addition to remove navbar after navigating to categories..
-  };
-
   const CustomDots = ({ dots, currentIndex, prevIndex }) => {
     const totalDots = dots.length;
     const visibleDots = 5;
@@ -154,47 +149,55 @@ const ProductSlider = ({ subCategory, uniqueCategories, bestSeller }) => {
             products.map((product, index) => (
               <div
                 className="max-w-[250px] ml-8 md:pl-0 w-auto mx-auto bg-white shadow-lg cursor-pointer"
-                onClick={() =>
-                  bestSeller
-                    ? navigate(`products/all/${product.id}`)
-                    : redirect(product.Subcategories[0].name)
-                }
                 key={index}
               >
-                <div className="flex justify-center items-center w-full">
-                  {product.Images && product.Images.length > 0 && (
-                    <img
-                      className="object-contain w-full min-h-[375px] max-h-[375px]"
-                      src={`/uploads/${product.Images[0].fileName}`}
-                      alt={product.title}
-                    />
-                  )}
-                </div>
-                <div className="p-4">
-                  {uniqueCategories ? (
-                    <h3 className="text-start text-xl text-[#292929] font-bold">
-                      {product.Subcategories[0].name}
-                    </h3>
-                  ) : (
-                    <h3 className="text-start text-xl text-[#292929] font-bold">
-                      {product.title}
-                    </h3>
-                  )}
-                  {uniqueCategories ? null : (
-                    <p className="mt-1 text-start text-[#292929] text-sm">
-                      {truncateDescription(product.shortDescription, 10)}
-                    </p>
-                  )}
-                  <div className="flex justify-start items-start mt-4">
-                    <span className="text-xl text-[#292929] font-bold">
-                      {uniqueCategories ? null : (
-                        <span className="text-xl text-[#292929] font-bold">
-                          €{product.price}
-                        </span>
-                      )}
-                    </span>
+                <a
+                  href={
+                    bestSeller
+                      ? `products/all/${product.id}`
+                      : `/products/${product.Subcategories[0].name
+                          .toLowerCase()
+                          .replace(/\s+/g, "-")}`
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <div className="flex justify-center items-center w-full">
+                    {product.Images && product.Images.length > 0 && (
+                      <img
+                        className="object-contain w-full min-h-[375px] max-h-[375px]"
+                        src={`/uploads/${product.Images[0].fileName}`}
+                        alt={product.title}
+                      />
+                    )}
                   </div>
-                </div>
+                  <div className="p-4">
+                    {uniqueCategories ? (
+                      <h3 className="text-start text-xl text-[#292929] font-bold">
+                        {product.Subcategories[0].name}
+                      </h3>
+                    ) : (
+                      <h3 className="text-start text-xl text-[#292929] font-bold">
+                        {product.title}
+                      </h3>
+                    )}
+                    {uniqueCategories ? null : (
+                      <p className="mt-1 text-start text-[#292929] text-sm">
+                        {truncateDescription(product.shortDescription, 10)}
+                      </p>
+                    )}
+                    <div className="flex justify-start items-start mt-4">
+                      <span className="text-xl text-[#292929] font-bold">
+                        {uniqueCategories ? null : (
+                          <span className="text-xl text-[#292929] font-bold">
+                            €{product.price}
+                          </span>
+                        )}
+                      </span>
+                    </div>
+                  </div>
+                </a>
               </div>
             ))}
         </Slider>
