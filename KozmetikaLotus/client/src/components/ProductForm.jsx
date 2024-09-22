@@ -93,7 +93,7 @@ const ProductFormModal = ({ closeModal, product, handleReload }) => {
     const { images, ...productData } = formData;
 
     if (product) {
-      await updateProduct().then((res) => {
+      await updateProduct(product.id, productData, images).then((res) => {
         Swal.fire({
           title: "Saved!",
           text: "Product was successfully updated.",
@@ -117,19 +117,17 @@ const ProductFormModal = ({ closeModal, product, handleReload }) => {
     closeModal();
   };
 
-  const updateProduct = async () => {
+  const updateProduct = async (productId, productData, images) => {
     try {
-      if (!product?.id) {
-        throw new Error("Product ID is undefined");
-      }
       const updatedProduct = {
-        ...formData,
-        price: parseFloat(formData.price),
+        ...productData,
+        price: parseFloat(productData.price),
       };
 
       const res = await ProductService.updateProduct(
-        product.id,
-        updatedProduct
+        productId,
+        updatedProduct,
+        images
       );
     } catch (err) {
       console.error("Error updating product", err);
