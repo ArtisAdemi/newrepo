@@ -158,7 +158,7 @@ const registerProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   const productId = req.params.id;
-  const { title, shortDescription, longDescription, brandName, quantity, price, discount, subCategoryId, inStock } = req.body;
+  const { title, shortDescription, longDescription, brandName, quantity, price, discount, subCategoryId, inStock, BrandId } = req.body;
 
   let existingImages = [];
   if (req.body.existingImages) {
@@ -193,9 +193,9 @@ const updateProduct = async (req, res) => {
     });
 
     // Update the brand association
-    if (brandName) {
+    if (BrandId) {
       const brand = await db.Brand.findOne({
-        where: { name: brandName },
+        where: { id: BrandId },
       });
 
       if (brand) {

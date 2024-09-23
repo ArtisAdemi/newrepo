@@ -10,7 +10,7 @@ const ProductFormModal = ({ closeModal, product, handleReload }) => {
     longDescription: product?.longDescription || "",
     inStock: product?.inStock || false,
     price: product?.price || "",
-    brandName: product?.brandName || "",
+    BrandId: product?.BrandId || 0,
     subCategoryId: product?.Subcategories[0]?.id || 0,
     images: product?.Images || [],
     newImages: [],
@@ -19,13 +19,13 @@ const ProductFormModal = ({ closeModal, product, handleReload }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [subCategories, setSubCategories] = useState([]);
   const [brands, setBrands] = useState([]);
-  const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedBrand, setSelectedBrand] = useState(0);
 
   useEffect(() => {
     const fetchBrands = async () => {
       await ProductService.getBrands().then((brands) => {
         setBrands(brands);
-        setSelectedBrand(brands[0]?.name);
+        setSelectedBrand(brands[0]?.id);
       });
     };
     const fetchCategories = async () => {
@@ -47,7 +47,6 @@ const ProductFormModal = ({ closeModal, product, handleReload }) => {
   useEffect(() => {
     // Disable scroll on the body when the modal is open
     document.body.style.overflow = "hidden";
-    console.log("Incoming product data", product);
 
     return () => {
       // Re-enable scroll on the body when the modal is closed
@@ -72,9 +71,9 @@ const ProductFormModal = ({ closeModal, product, handleReload }) => {
   };
 
   const handleBrandSelect = async (e) => {
-    const brandName = e.target.value;
-    setFormData({ ...formData, brandName: brandName });
-    setSelectedBrand(brandName);
+    const brandId = e.target.value;
+    setFormData({ ...formData, BrandId: brandId });
+    setSelectedBrand(brandId);
   };
 
   const handleSubCategoryChange = (e) => {
@@ -106,7 +105,6 @@ const ProductFormModal = ({ closeModal, product, handleReload }) => {
 
     try {
       if (product) {
-        console.log("productData", productData);
         await ProductService.updateProduct(product.id, productData, images, newImages.length ? newImages : null).then((res) => {
           Swal.fire({
             title: "Saved!",
@@ -202,7 +200,7 @@ const ProductFormModal = ({ closeModal, product, handleReload }) => {
               <select onChange={handleBrandSelect} name="brandName" value={selectedBrand} className="select select-bordered w-full">
                 {/* Brands */}
                 {brands.map((brand) => (
-                  <option key={brand.id} value={brand.name}>
+                  <option key={brand.id} value={brand.id}>
                     {brand.name}
                   </option>
                 ))}

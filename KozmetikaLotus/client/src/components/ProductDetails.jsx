@@ -12,7 +12,7 @@ import { addToCart } from "../state";
 import Swal from "sweetalert2";
 import ProductSliderDetails from "./ProductSliderDetails";
 
-const ProductDetails = ({ title, subCategory, shortDescription, longDescription, id, price, inStock, isAdmin, productImages }) => {
+const ProductDetails = ({ title, subCategory, shortDescription, longDescription, id, price, inStock, isAdmin, productImages, BrandId }) => {
   // const [images, setImages] = useState([]);
   const dispatch = useDispatch();
   const [remindMe, setRemindMe] = useState(false);
