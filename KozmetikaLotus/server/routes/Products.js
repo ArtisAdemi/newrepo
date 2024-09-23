@@ -10,26 +10,15 @@ const fileUpload = require("../helpers/fileUpload");
 router.post("/", validateToken, fileUpload, productsController.registerProduct);
 
 // RemindMe when in stock
-router.post(
-  "/remindWhenInStock",
-  validateToken,
-  productsController.remindMeWhenInStock
-);
+router.post("/remindWhenInStock", validateToken, productsController.remindMeWhenInStock);
 
-router.get(
-  "/remindWhenInStock/:productId",
-  validateToken,
-  productsController.remindMeForThisProduct
-);
+router.get("/remindWhenInStock/:productId", validateToken, productsController.remindMeForThisProduct);
 
 // Update Product
 router.put("/:id", validateToken, fileUpload, productsController.updateProduct);
 
 // Get Product by ID
-router.get(
-  "/productPerCategory",
-  productsController.getUniqueProductPerCategory
-);
+router.get("/productPerCategory", productsController.getUniqueProductPerCategory);
 
 // Get Brands
 router.get("/brands", productsController.getBrands);
