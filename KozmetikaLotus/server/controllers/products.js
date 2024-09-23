@@ -1,6 +1,7 @@
 // imports
 const db = require("../models");
 const { Sequelize, Op } = require("sequelize");
+require("dotenv");
 const Categories = db.Categories;
 const Products = db.Products;
 const SubCategories = db.Subcategory;
@@ -154,11 +155,21 @@ const registerProduct = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-// Update Product
+
 const updateProduct = async (req, res) => {
   const productId = req.params.id;
-  const { title, shortDescription, longDescription, brandName, quantity, price, discount, subCategoryId, inStock } = req.body;
-  //  Normalize title into unicode standard
+  const { title, shortDescription, longDescription, brandName, quantity, price, discount, subCategoryId, inStock, BrandId } = req.body;
+
+  let existingImages = [];
+  if (req.body.existingImages) {
+    try {
+      existingImages = JSON.parse(req.body.existingImages);
+    } catch (error) {
+      return res.status(400).json({ error: "Invalid existingImages format" });
+    }
+  }
+
+  // Normalize title into unicode standard
   const normalizedTitle = title.normalize("NFKD").replace(/[\u0300-\u036f]/g, "");
   try {
     // Find Product by id
@@ -182,9 +193,9 @@ const updateProduct = async (req, res) => {
     });
 
     // Update the brand association
-    if (brandName) {
+    if (BrandId) {
       const brand = await db.Brand.findOne({
-        where: { name: brandName },
+        where: { id: BrandId },
       });
 
       if (brand) {
@@ -197,11 +208,22 @@ const updateProduct = async (req, res) => {
       await notifyUsersOfStockChange(productId);
     }
 
-    const users = await db.StockNotifications.findAll({
-      where: { productId: product.id },
+    // Handle existing images
+    const existingImagesInDb = await Images.findAll({
+      where: { ProductId: product.id },
     });
 
-    // If images have been uploaded, save their paths in the Images table
+    // Remove images that are not included in the request payload
+    const imageIdsToKeep = existingImages.map((image) => image.id);
+    for (const image of existingImagesInDb) {
+      if (!imageIdsToKeep.includes(image.id)) {
+        await Images.destroy({
+          where: { id: image.id },
+        });
+      }
+    }
+
+    // If new images have been uploaded, save their paths in the Images table
     if (req.uploadedFiles && req.uploadedFiles.length > 0) {
       for (const file of req.uploadedFiles) {
         await Images.create({

@@ -52,10 +52,12 @@ const handleFileUpload = (req, res, next) => {
     if (err) {
       res.status(400).json({ error: err });
     } else {
-      if (req.files.length === 0) {
-        res.status(400).json({ error: "No files selected!" });
+      if (!req.files || req.files.length === 0) {
+        // If no files are uploaded, proceed without error
+        req.uploadedFiles = [];
+        next();
       } else {
-        // If you need to do something with the uploaded files, you can access them as req.files
+        // If files are uploaded, proceed as usual
         req.uploadedFiles = req.files;
         next();
       }
