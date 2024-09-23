@@ -81,10 +81,7 @@ const ProductService = {
 
   getUniqueCategory: async () => {
     try {
-      const response = await axios.get(
-        `${PRODUCTS_API_URL}/productPerCategory`,
-        { withCredentials: true }
-      );
+      const response = await axios.get(`${PRODUCTS_API_URL}/productPerCategory`, { withCredentials: true });
       return response;
     } catch (err) {
       console.error("Error fetching products:", err);
@@ -126,17 +123,13 @@ const ProductService = {
     });
 
     try {
-      const response = await axiosInstance.post(
-        `${PRODUCTS_API_URL}`,
-        formData,
-        {
-          withCredentialsq: true,
-          headers: {
-            "Content-Type": "multipart/form-data",
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      );
+      const response = await axiosInstance.post(`${PRODUCTS_API_URL}`, formData, {
+        withCredentialsq: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
 
       return response.data;
     } catch (err) {
@@ -151,9 +144,9 @@ const ProductService = {
     }
   },
 
-  updateProduct: async (productId, productData, images) => {
+  updateProduct: async (productId, productData, newImages) => {
     const formData = new FormData();
-    // Append product data fields to formData, excluding categoryNames
+    // Append product data fields to formData
     Object.keys(productData).forEach((key) => {
       if (Array.isArray(productData[key])) {
         // If the value is an array, append each item individually
@@ -161,28 +154,23 @@ const ProductService = {
           formData.append(`${key}[]`, item);
         });
       } else {
-        // For non-array values, append them as before
         formData.append(key, productData[key]);
       }
     });
 
-    // Append images to formData
-    images.forEach((image) => {
+    // Append new images to formData
+    newImages.forEach((image) => {
       formData.append("uploadedFiles", image);
     });
 
     try {
-      const response = await axiosInstance.put(
-        `${PRODUCTS_API_URL}/${productId}`,
-        formData,
-        {
-          withCredentialsq: true,
-          headers: {
-            "Content-Type": "multipart/form-data",
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      );
+      const response = await axiosInstance.put(`${PRODUCTS_API_URL}/${productId}`, formData, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
       return response.data;
     } catch (err) {
       console.error("Error updating product:", err);
@@ -198,16 +186,14 @@ const ProductService = {
 
   deleteProduct: async (productId) => {
     try {
-      const response = await axiosInstance
-        .delete(`${PRODUCTS_API_URL}/${productId}`)
-        .then(() => {
-          Swal.fire({
-            title: "Success!",
-            text: "Product was deleted successfully",
-            icon: "success",
-            confirmButtonText: "Ok",
-          });
+      const response = await axiosInstance.delete(`${PRODUCTS_API_URL}/${productId}`).then(() => {
+        Swal.fire({
+          title: "Success!",
+          text: "Product was deleted successfully",
+          icon: "success",
+          confirmButtonText: "Ok",
         });
+      });
       return response;
     } catch (err) {
       Swal.fire({
@@ -258,9 +244,7 @@ const ProductService = {
 
   remindMeForThisProduct: async (productId) => {
     try {
-      const res = await axiosInstance.get(
-        `${PRODUCTS_API_URL}/remindWhenInStock/${productId}`
-      );
+      const res = await axiosInstance.get(`${PRODUCTS_API_URL}/remindWhenInStock/${productId}`);
 
       return res.data;
     } catch (err) {

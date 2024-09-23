@@ -154,10 +154,10 @@ const registerProduct = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-// Update Product
+
 const updateProduct = async (req, res) => {
   const productId = req.params.id;
-  const { title, shortDescription, longDescription, brandName, quantity, price, discount, subCategoryId, inStock } = req.body;
+  const { title, shortDescription, longDescription, brandName, quantity, price, discount, subCategoryId, inStock, images } = req.body;
   //  Normalize title into unicode standard
   const normalizedTitle = title.normalize("NFKD").replace(/[\u0300-\u036f]/g, "");
   try {
@@ -200,8 +200,28 @@ const updateProduct = async (req, res) => {
     const users = await db.StockNotifications.findAll({
       where: { productId: product.id },
     });
+    console.log("------------------------------------");
+    console.log("req.body", req.body);
+    // Handle existing images
+    const existingFiles = req.body.existingFiles || [];
+    console.log("existingFiles", existingFiles);
+    const existingImages = await Images.findAll({
+      where: { ProductId: product.id },
+    });
 
-    // If images have been uploaded, save their paths in the Images table
+    console.log("----------------------------------");
+    console.log("existingImages", existingImages);
+
+    // Delete images that are not in the existingFiles array
+    for (const image of existingImages) {
+      console.log("image", image);
+      if (!existingFiles.includes(image.fileName)) {
+        await image.destroy();
+        fs.unlinkSync(path.join(__dirname, "../build/uploads", image.fileName));
+      }
+    }
+
+    // If new images have been uploaded, save their paths in the Images table
     if (req.uploadedFiles && req.uploadedFiles.length > 0) {
       for (const file of req.uploadedFiles) {
         await Images.create({

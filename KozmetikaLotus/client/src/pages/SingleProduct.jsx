@@ -77,6 +77,10 @@ const SingleProduct = () => {
     setIsEditing(true);
   };
 
+  const handleReload = async () => {
+    await fetchProductById(productName);
+  };
+
   return (
     <div>
       <div className="flex w-full justify-center">
@@ -98,18 +102,12 @@ const SingleProduct = () => {
           {isAdmin && (
             <div className="flex flex-col md:flex-row justify-center items-center">
               <div>
-                <button
-                  className="md:mr-3 mb-3 mt-3 md:mb-0 md:mt-0 rounded-md border w-[190px] border-[#A10550] text-[#A10550] p-1 px-6 font-semibold"
-                  onClick={handleEditProduct}
-                >
+                <button className="md:mr-3 mb-3 mt-3 md:mb-0 md:mt-0 rounded-md border w-[190px] border-[#A10550] text-[#A10550] p-1 px-6 font-semibold" onClick={handleEditProduct}>
                   Edit Product
                 </button>
               </div>
               <div>
-                <button
-                  className="md:mr-3 rounded-md border w-[190px] border-[#A10550] text-[#A10550] p-1 px-6 font-semibold"
-                  onClick={handleDeleteProduct}
-                >
+                <button className="md:mr-3 rounded-md border w-[190px] border-[#A10550] text-[#A10550] p-1 px-6 font-semibold" onClick={handleDeleteProduct}>
                   Delete Product
                 </button>
               </div>
@@ -119,24 +117,10 @@ const SingleProduct = () => {
       </div>
       {product && (
         <div>
-          <ProductDetails
-            title={product.title}
-            shortDescription={product.shortDescription}
-            longDescription={product.longDescription}
-            subCategory={product?.Subcategories[0]?.name}
-            price={product.price}
-            id={product.id}
-            inStock={product.inStock}
-            productImages={product.Images}
-          />
+          <ProductDetails title={product.title} shortDescription={product.shortDescription} longDescription={product.longDescription} subCategory={product?.Subcategories[0]?.name} price={product.price} id={product.id} inStock={product.inStock} productImages={product.Images} />
         </div>
       )}
-      {isEditing && (
-        <ProductFormModal
-          closeModal={() => setIsEditing(false)}
-          product={product}
-        />
-      )}
+      {isEditing && <ProductFormModal closeModal={() => setIsEditing(false)} product={product} handleReload={handleReload} />}
     </div>
   );
 };
