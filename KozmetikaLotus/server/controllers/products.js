@@ -61,7 +61,7 @@ const getProducts = async (req, res) => {
       offset: offset,
       limit: limit,
       distinct: true, // This ensures count is accurate when using include
-      order: [[{ model: Images }, "id", "DESC"]], // Order images by id in ascending order
+      order: [[{ model: Images }, "id", "ASC"]], // Order images by id in ascending order
     });
 
     // Calculate the total number of pages
@@ -90,7 +90,7 @@ const getProductById = async (req, res) => {
         {
           model: Images,
           separate: true,
-          order: [["id", "DESC"]], // Order images by id in ascending order
+          order: [["id", "ASC"]], // Order images by id in ascending order
         },
       ],
     });
@@ -106,22 +106,10 @@ const getProductById = async (req, res) => {
 
 // Register Product
 const registerProduct = async (req, res) => {
-  const {
-    title,
-    shortDescription,
-    longDescription,
-    brandName,
-    quantity,
-    price,
-    discount,
-    subCategoryId,
-    inStock,
-  } = req.body;
+  const { title, shortDescription, longDescription, brandName, quantity, price, discount, subCategoryId, inStock } = req.body;
   try {
     // Normalise title to standard UNICODE
-    const normalizedTitle = title
-      .normalize("NFKD")
-      .replace(/[\u0300-\u036f]/g, "");
+    const normalizedTitle = title.normalize("NFKD").replace(/[\u0300-\u036f]/g, "");
 
     // Create new product using variables from body
     const newProduct = await Products.create({
@@ -169,21 +157,9 @@ const registerProduct = async (req, res) => {
 // Update Product
 const updateProduct = async (req, res) => {
   const productId = req.params.id;
-  const {
-    title,
-    shortDescription,
-    longDescription,
-    brandName,
-    quantity,
-    price,
-    discount,
-    subCategoryId,
-    inStock,
-  } = req.body;
+  const { title, shortDescription, longDescription, brandName, quantity, price, discount, subCategoryId, inStock } = req.body;
   //  Normalize title into unicode standard
-  const normalizedTitle = title
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "");
+  const normalizedTitle = title.normalize("NFKD").replace(/[\u0300-\u036f]/g, "");
   try {
     // Find Product by id
     const product = await Products.findByPk(productId);
@@ -270,18 +246,9 @@ const deleteProduct = async (req, res) => {
 
     // Delete each image file from the filesystem
     images.forEach((image) => {
-      const imagePath = path.join(
-        __dirname,
-        "..",
-        "..",
-        "client",
-        "public",
-        "uploads",
-        image.fileName
-      );
+      const imagePath = path.join(__dirname, "..", "..", "client", "public", "uploads", image.fileName);
       fs.unlink(imagePath, (err) => {
-        if (err)
-          console.error(`Failed to delete image file: ${imagePath}`, err);
+        if (err) console.error(`Failed to delete image file: ${imagePath}`, err);
       });
     });
 
@@ -321,9 +288,7 @@ const getUniqueProductPerCategory = async (req, res) => {
     });
 
     // Filter out categories without associated products
-    const validCategories = subCategories.filter(
-      (subCategory) => subCategory.Products.length > 0
-    );
+    const validCategories = subCategories.filter((subCategory) => subCategory.Products.length > 0);
 
     // Extract the first product with image for each valid subCategory
     const uniqueProducts = validCategories.map((subCategory) => {
@@ -407,9 +372,7 @@ const remindMeWhenInStock = async (req, res) => {
       });
     }
 
-    res
-      .status(200)
-      .json({ message: "Notification setting updated successfully" });
+    res.status(200).json({ message: "Notification setting updated successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -438,10 +401,7 @@ const remindMeForThisProduct = async (req, res) => {
 const getBestSellingProducts = async (req, res) => {
   try {
     const bestSellingProducts = await db.Order_Products.findAll({
-      attributes: [
-        "ProductId",
-        [Sequelize.fn("COUNT", Sequelize.col("ProductId")), "totalOrders"],
-      ],
+      attributes: ["ProductId", [Sequelize.fn("COUNT", Sequelize.col("ProductId")), "totalOrders"]],
       group: ["ProductId"],
       order: [[Sequelize.literal('COUNT("ProductId")'), "DESC"]],
       limit: 4,
@@ -449,9 +409,7 @@ const getBestSellingProducts = async (req, res) => {
 
     if (bestSellingProducts.length > 0) {
       // Extract product IDs from the result
-      const productIds = bestSellingProducts.map(
-        (product) => product.ProductId
-      );
+      const productIds = bestSellingProducts.map((product) => product.ProductId);
 
       // Fetch product details for these IDs
       const products = await db.Products.findAll({
@@ -472,9 +430,7 @@ const getBestSellingProducts = async (req, res) => {
 
       // Merge product details with totalOrders
       const result = bestSellingProducts.map((orderProduct) => {
-        const product = products.find(
-          (prod) => prod.id === orderProduct.ProductId
-        );
+        const product = products.find((prod) => prod.id === orderProduct.ProductId);
         return {
           product,
           totalOrders: orderProduct.getDataValue("totalOrders"),
