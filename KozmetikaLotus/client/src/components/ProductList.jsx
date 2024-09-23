@@ -186,13 +186,7 @@ const ProductList = ({ subCategory, productName, brand, isAdmin }) => {
 
     if (startPage > 1) {
       pages.push(
-        <button
-          key={1}
-          onClick={() => handlePageChange(1)}
-          className={`m-1 px-3 py-1 rounded-md ${
-            1 === page ? "bg-gray-300" : "bg-white"
-          }`}
-        >
+        <button key={1} onClick={() => handlePageChange(1)} className={`m-1 px-3 py-1 rounded-md ${1 === page ? "bg-gray-300" : "bg-white"}`}>
           1
         </button>
       );
@@ -207,13 +201,7 @@ const ProductList = ({ subCategory, productName, brand, isAdmin }) => {
 
     for (let i = startPage; i <= endPage; i++) {
       pages.push(
-        <button
-          key={i}
-          onClick={() => handlePageChange(i)}
-          className={`m-1 px-3 py-1 rounded-md ${
-            i == page ? "bg-gray-300" : "bg-white"
-          }`}
-        >
+        <button key={i} onClick={() => handlePageChange(i)} className={`m-1 px-3 py-1 rounded-md ${i == page ? "bg-gray-300" : "bg-white"}`}>
           {i}
         </button>
       );
@@ -228,13 +216,7 @@ const ProductList = ({ subCategory, productName, brand, isAdmin }) => {
         );
       }
       pages.push(
-        <button
-          key={totalPages}
-          onClick={() => handlePageChange(totalPages)}
-          className={`m-1 px-3 py-1 rounded-md ${
-            totalPages === page ? "bg-gray-300" : "bg-white"
-          }`}
-        >
+        <button key={totalPages} onClick={() => handlePageChange(totalPages)} className={`m-1 px-3 py-1 rounded-md ${totalPages === page ? "bg-gray-300" : "bg-white"}`}>
           {totalPages}
         </button>
       );
@@ -250,19 +232,7 @@ const ProductList = ({ subCategory, productName, brand, isAdmin }) => {
           {products.length > 0 &&
             products.map((product, index) => (
               <div key={index}>
-                <ProductListItem
-                  title={product.title}
-                  shortDescription={product.shortDescription}
-                  longDescription={product.longDescription}
-                  price={product.price}
-                  id={product.id}
-                  subCategory={subCategory}
-                  isAdmin={isAdmin}
-                  isLiked={wishlist.includes(product.id)}
-                  toggleWishlist={toggleWishlistItem}
-                  inStock={product.inStock}
-                  productImage={product.Images[0].fileName}
-                />
+                <ProductListItem title={product.title} shortDescription={product.shortDescription} longDescription={product.longDescription} price={product.price} id={product.id} subCategory={subCategory} isAdmin={isAdmin} isLiked={wishlist.includes(product.id)} toggleWishlist={toggleWishlistItem} inStock={product.inStock} productImage={product?.Images[0]?.fileName} />
               </div>
             ))}
         </div>
@@ -270,19 +240,11 @@ const ProductList = ({ subCategory, productName, brand, isAdmin }) => {
           <div className="w-full flex justify-center mt-4">
             {/* Pagination component to handle page changes */}
             <div className="flex items-center">
-              <button
-                onClick={() => handlePageChange(page - 1)}
-                disabled={page === 1}
-                className="m-1 px-3 py-1 rounded-md bg-white"
-              >
+              <button onClick={() => handlePageChange(page - 1)} disabled={page === 1} className="m-1 px-3 py-1 rounded-md bg-white">
                 Previous
               </button>
               {renderPagination()}
-              <button
-                onClick={() => handlePageChange(page + 1)}
-                disabled={page >= totalPages}
-                className="m-1 px-3 py-1 rounded-md bg-white"
-              >
+              <button onClick={() => handlePageChange(page + 1)} disabled={page >= totalPages} className="m-1 px-3 py-1 rounded-md bg-white">
                 Next
               </button>
             </div>

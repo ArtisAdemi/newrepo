@@ -103,12 +103,11 @@ const ProductFormModal = ({ closeModal, product, handleReload }) => {
     e.preventDefault();
 
     const { images, newImages, ...productData } = formData;
-    productData.images = images;
 
     try {
       if (product) {
         console.log("productData", productData);
-        await ProductService.updateProduct(product.id, productData, newImages).then((res) => {
+        await ProductService.updateProduct(product.id, productData, images, newImages.length ? newImages : null).then((res) => {
           Swal.fire({
             title: "Saved!",
             text: "Product was successfully updated.",

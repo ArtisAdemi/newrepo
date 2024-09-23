@@ -144,7 +144,7 @@ const ProductService = {
     }
   },
 
-  updateProduct: async (productId, productData, newImages) => {
+  updateProduct: async (productId, productData, images, newImages) => {
     const formData = new FormData();
     // Append product data fields to formData
     Object.keys(productData).forEach((key) => {
@@ -159,10 +159,13 @@ const ProductService = {
     });
 
     // Append new images to formData
-    newImages.forEach((image) => {
-      formData.append("uploadedFiles", image);
-    });
+    if (newImages) {
+      newImages.forEach((image) => {
+        formData.append("uploadedFiles", image);
+      });
+    }
 
+    formData.append("existingImages", JSON.stringify(images));
     try {
       const response = await axiosInstance.put(`${PRODUCTS_API_URL}/${productId}`, formData, {
         withCredentials: true,
