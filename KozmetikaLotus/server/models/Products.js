@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(255),
             allowNull: false,
         },
-        shortDescription:{
+        shortDescription: {
             type: DataTypes.TEXT,
             allowNull: true,
         },
@@ -13,11 +13,11 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.TEXT,
             allowNull: true,
         },
-        quantity:{
+        quantity: {
             type: DataTypes.INTEGER,
             allowNull: true,
         },
-        price:{
+        price: {
             type: DataTypes.FLOAT,
             allowNull: true,
         },
@@ -25,13 +25,13 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BOOLEAN,
             allowNull: false,
         },
-        discount:{
+        discount: {
             type: DataTypes.INTEGER,
             allowNull: true,
         }
     });
-     // This creates a table with many to many relation
-     Products.associate = (models) => {
+    // This creates a table with many to many relation
+    Products.associate = (models) => {
         Products.belongsToMany(models.Subcategory, { through: 'Product_Categories' });
         Products.belongsToMany(models.Orders, { through: 'Order_Products' });
         Products.belongsToMany(models.Users, { through: 'Wishlist' });

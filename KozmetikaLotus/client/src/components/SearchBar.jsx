@@ -16,18 +16,10 @@ const SearchBar = () => {
 
   const fetchProducts = async () => {
     try {
-      const filterModel = {
-        subCategory: null,
-        name: productName ? productName : null,
-        brand: null,
-        page: page,
-        limit: limit,
-      };
-
-      const result = await ProductService.getProductsByFilter(filterModel);
+      const result = await ProductService.getSearchResult(productName);
       if (result) {
-        setProducts(result.products);
-        setSearchModal(result.products.length > 0);
+        setProducts(result);
+        setSearchModal(result.length > 0);
       } else {
         setProducts([]);
         setSearchModal(false);
