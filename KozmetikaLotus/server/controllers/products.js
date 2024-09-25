@@ -411,7 +411,7 @@ const remindMeForThisProduct = async (req, res) => {
       },
     });
 
-    if (notification.notify) {
+    if (notification && notification.notify) {
       return res.status(200).json({ notification: true });
     }
     return res.status(200).json({ notification: false });
