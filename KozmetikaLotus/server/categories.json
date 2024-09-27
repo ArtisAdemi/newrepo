@@ -28,7 +28,6 @@
       { "name": "masazher fytyre" },
       { "name": "gua sha" },
       { "name": "jade roller" },
-      { "name": "njolla të errëta" },
       { "name": "ujë micelar" },
       { "name": "micelar qumështi" },
       { "name": "anti-rrudhë" },
@@ -40,7 +39,6 @@
       { "name": "larës" },
       { "name": "produkte anti rrudhë për sy" },
       { "name": "rul vullkanik" },
-      { "name": "eyepad" },
       { "name": "ice roller" },
       { "name": "buzet" }
     ]
@@ -85,13 +83,6 @@
       { "name": "gummies" },
       { "name": "anti - yellow" },
       { "name": "volume" },
-      { "name": "llokme për flokë" },
-      { "name": "rritja e flokëve" },
-      { "name": "shkumë e flokëve" },
-      { "name": "produkte me keratin" },
-      { "name": "spray kunder nxehtësis" },
-      { "name": "spray me kripë deti" },
-      { "name": "sete për flokë" },
       { "name": "parfume per floke" }
     ]
   },
@@ -114,12 +105,7 @@
       { "name": "krem dushi" },
       { "name": "xhel trupi" },
       { "name": "krem trupi" },
-      { "name": "anti cramp" },
       { "name": "pastrues për zonën bikini" },
-      { "name": "lubrifikant" },
-      { "name": "spray për trupë i parfumosur" },
-      { "name": "sete për trupë" },
-      { "name": "vaj rroje" },
       { "name": "boob tape" }
     ]
   },
@@ -141,8 +127,6 @@
       { "name": "primer" },
       { "name": "palette" },
       { "name": "qerpike" },
-      { "name": "qerpike me magnet" },
-      { "name": "eyelash extension kit" },
       { "name": "setting powder" },
       { "name": "puder per fytyre" },
       { "name": "beauty set" },
@@ -175,30 +159,11 @@
     "subcategories": [{ "name": "xhel per vetulla" }, { "name": "eyebrow kit" }]
   },
   {
-    "name": "Floku Biond",
-    "subcategories": [{ "name": "floku biond" }]
-  },
-  {
-    "name": "Floket Kaçurela",
-    "subcategories": [
-      { "name": "shkumë per kaçurela" },
-      { "name": "locion për kaçurela" },
-      { "name": "krehër për kaçurela" },
-      { "name": "jelly" },
-      { "name": "maskë për kaçurela" },
-      { "name": "krem për formësim" },
-      { "name": "shampoo për kaçurela" },
-      { "name": "balsam për kaçurela" }
-    ]
-  },
-  {
     "name": "Buzet",
     "subcategories": [
       { "name": "lip plump" },
       { "name": "lip mask" },
       { "name": "lip scrub" },
-      { "name": "vaseline" },
-      { "name": "lip balm" },
       { "name": "lip set" },
       { "name": "lip gloss" }
     ]
@@ -264,17 +229,6 @@
   {
     "name": "Gift set",
     "subcategories": [{ "name": "gift set" }]
-  },
-  {
-    "name": "Bukuri",
-    "subcategories": [
-      { "name": "masazhues elektrik" },
-      { "name": "organizues për kozmetik" },
-      { "name": "briskë rroje" },
-      { "name": "sfungjera dushi" },
-      { "name": "sete bukurie" },
-      { "name": "bamboo" }
-    ]
   },
   {
     "name": "Travel kit",
@@ -356,5 +310,76 @@
   {
     "name": "Shtëpia",
     "subcategories": [{ "name": "parfumë dhome" }]
+  },
+  {
+    "name": "Floku Biond",
+    "subcategories": [{ "name": "floku biond" }]
+  },
+  {
+    "name": "Bukuri",
+    "subcategories": [
+      { "name": "masazhues elektrik" },
+      { "name": "organizues për kozmetik" },
+      { "name": "briskë rroje" },
+      { "name": "sfungjera dushi" },
+      { "name": "sete bukurie" },
+      { "name": "bamboo" }
+    ]
+  },
+  {
+    "name": "Floket Kaçurela",
+    "subcategories": [
+      { "name": "shkumë per kaçurela" },
+      { "name": "locion për kaçurela" },
+      { "name": "krehër për kaçurela" },
+      { "name": "jelly" },
+      { "name": "maskë për kaçurela" },
+      { "name": "krem për formësim" },
+      { "name": "shampoo për kaçurela" },
+      { "name": "balsam për kaçurela" }
+    ]
+  },
+  {
+    "name": "Buzet",
+    "subcategories": [
+      { "name": "vaseline" },
+      { "name": "lip balm" }
+    ]
+  },
+  {
+    "name": "Kujdesi i lekures",
+    "subcategories": [
+      { "name": "eyepad" },
+      { "name": "njolla të errëta" }
+    ]
+  },
+  {
+    "name": "Floket",
+    "subcategories": [
+      { "name": "llokme për flokë" },
+      { "name": "rritja e flokëve" },
+      { "name": "shkumë e flokëve" },
+      { "name": "produkte me keratin" },
+      { "name": "spray kunder nxehtësis" },
+      { "name": "spray me kripë deti" },
+      { "name": "sete për flokë" }
+    ]
+  },
+  {
+    "name": "Trupi",
+    "subcategories": [
+      { "name": "anti cramp" },
+      { "name": "lubrifikant" },
+      { "name": "spray për trupë i parfumosur" },
+      { "name": "sete për trupë" },
+      { "name": "vaj rroje" }
+    ]
+  },
+  {
+    "name": "Make Up",
+    "subcategories": [
+      { "name": "qerpike me magnet" },
+      { "name": "eyelash extension kit" }
+    ]
   }
 ]

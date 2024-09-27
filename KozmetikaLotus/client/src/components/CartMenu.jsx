@@ -33,7 +33,7 @@ const CartMenu = () => {
           setDiscount(res.discount);
         }
       }
-    } catch (err) {}
+    } catch (err) { }
   };
 
   const truncateTitle = (title, maxLength) => {
@@ -111,7 +111,7 @@ const CartMenu = () => {
                           </IconButton>
                         </Box>
                         {/* PRICE */}
-                        <Typography fontWeight={"bold"}>{item?.price}€</Typography>
+                        <Typography fontWeight={"bold"}>{item?.price.toFixed(2)}€</Typography>
                       </FlexBox>
                       <IconButton onClick={() => dispatch(removeFromCart({ id: item.id }))}>
                         <CloseIcon />
@@ -128,12 +128,12 @@ const CartMenu = () => {
             <FlexBox m="20px 0">
               <Typography fontWeight={"bold"}>SUBTOTAL</Typography>
               <Box>
-                <Typography fontWeight={"bold"}>{fullPrice}€</Typography>
+                <Typography fontWeight={"bold"}>{fullPrice.toFixed(2)}€</Typography>
                 {discount > 0 && (
                   <>
                     <span fontWeight={"bold"}>-{discount}%</span>
                     <hr />
-                    <Typography fontWeight={"bold"}>{totalPrice}€</Typography>
+                    <Typography fontWeight={"bold"}>{totalPrice.toFixed(2)}€</Typography>
                   </>
                 )}
               </Box>
