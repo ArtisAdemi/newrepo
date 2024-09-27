@@ -53,6 +53,7 @@ const ProductListItem = ({
       price,
       imgUrl: productImage,
     };
+
     if (inStock) {
       dispatch(addToCart({ product }));
       Swal.fire({

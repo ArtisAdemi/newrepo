@@ -51,7 +51,11 @@ const CartMenu = () => {
     if (discount > 0) {
       let priceWithDiscount = totalPrice;
       priceWithDiscount = totalPrice - (totalPrice * discount) / 100;
+      priceWithDiscount += 2; // transport
       setTotalPrice(priceWithDiscount);
+    }
+    else {
+      setTotalPrice(totalPrice + 2);
     }
   };
   useEffect(() => {
@@ -129,13 +133,15 @@ const CartMenu = () => {
               <Typography fontWeight={"bold"}>SUBTOTAL</Typography>
               <Box>
                 <Typography fontWeight={"bold"}>{fullPrice.toFixed(2)}€</Typography>
+                <span fontWeight={"bold"}>+2€ Transport</span>
+                <hr />
                 {discount > 0 && (
                   <>
                     <span fontWeight={"bold"}>-{discount}%</span>
                     <hr />
-                    <Typography fontWeight={"bold"}>{totalPrice.toFixed(2)}€</Typography>
                   </>
                 )}
+                <Typography fontWeight={"bold"}>{totalPrice.toFixed(2)}€</Typography>
               </Box>
             </FlexBox>
             <Button

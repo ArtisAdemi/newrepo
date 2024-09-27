@@ -25,6 +25,7 @@ const ProductDetails = ({ title, subCategory, shortDescription, longDescription,
   };
 
   const handleAddToCart = () => {
+
     const product = {
       title,
       subCategory,
@@ -32,7 +33,7 @@ const ProductDetails = ({ title, subCategory, shortDescription, longDescription,
       longDescription,
       id,
       price,
-      imgUrl: selectedImage,
+      imgUrl: productImages[0]?.fileName,
     };
     dispatch(addToCart({ product }));
     Swal.fire({
