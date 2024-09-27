@@ -39,6 +39,8 @@
       { "name": "larës" },
       { "name": "produkte anti rrudhë për sy" },
       { "name": "rul vullkanik" },
+      { "name": "eyepad" },
+      { "name": "njolla të errëta" },
       { "name": "ice roller" },
       { "name": "buzet" }
     ]
@@ -78,6 +80,13 @@
       { "name": "shampon vegan" },
       { "name": "shampon" },
       { "name": "pudër për flokë" },
+      { "name": "llokme për flokë" },
+      { "name": "rritja e flokëve" },
+      { "name": "shkumë e flokëve" },
+      { "name": "produkte me keratin" },
+      { "name": "spray kunder nxehtësis" },
+      { "name": "spray me kripë deti" },
+      { "name": "sete për flokë" },
       { "name": "baby hair stick" },
       { "name": "xhel stilues" },
       { "name": "gummies" },
@@ -106,6 +115,11 @@
       { "name": "xhel trupi" },
       { "name": "krem trupi" },
       { "name": "pastrues për zonën bikini" },
+      { "name": "anti cramp" },
+      { "name": "lubrifikant" },
+      { "name": "spray për trupë i parfumosur" },
+      { "name": "sete për trupë" },
+      { "name": "vaj rroje" },
       { "name": "boob tape" }
     ]
   },
@@ -151,6 +165,8 @@
       { "name": "korrektorë" },
       { "name": "faculeta" },
       { "name": "beauty blender" },
+      { "name": "qerpike me magnet" },
+      { "name": "eyelash extension kit" },
       { "name": "organizues" }
     ]
   },
@@ -165,6 +181,8 @@
       { "name": "lip mask" },
       { "name": "lip scrub" },
       { "name": "lip set" },
+      { "name": "vaseline" },
+      { "name": "lip balm" },
       { "name": "lip gloss" }
     ]
   },
@@ -189,6 +207,30 @@
     ]
   },
   {
+    "name": "Floket Kaçurela",
+    "subcategories": [
+      { "name": "shkumë per kaçurela" },
+      { "name": "locion për kaçurela" },
+      { "name": "krehër për kaçurela" },
+      { "name": "jelly" },
+      { "name": "maskë për kaçurela" },
+      { "name": "krem për formësim" },
+      { "name": "shampoo për kaçurela" },
+      { "name": "balsam për kaçurela" }
+    ]
+  },
+  {
+    "name": "Bukuri",
+    "subcategories": [
+      { "name": "masazhues elektrik" },
+      { "name": "organizues për kozmetik" },
+      { "name": "briskë rroje" },
+      { "name": "sfungjera dushi" },
+      { "name": "sete bukurie" },
+      { "name": "bamboo" }
+    ]
+  },
+  {
     "name": "Vera",
     "subcategories": [
       { "name": "shimmering lotion" },
@@ -199,6 +241,14 @@
       { "name": "sand away" },
       { "name": "sos insect gel" }
     ]
+  },
+  {
+    "name": "Shtëpia",
+    "subcategories": [{ "name": "parfumë dhome" }]
+  },
+  {
+    "name": "Floku Biond",
+    "subcategories": [{ "name": "floku biond" }]
   },
   {
     "name": "Aksesore",
@@ -250,10 +300,6 @@
       { "name": "caj për dobësim" },
       { "name": "tableta për dobësim" }
     ]
-  },
-  {
-    "name": "Dhembet",
-    "subcategories": [{ "name": "dhembet" }]
   },
   {
     "name": "Anti rrudhe",
