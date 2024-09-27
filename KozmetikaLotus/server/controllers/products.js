@@ -107,7 +107,7 @@ const getProductById = async (req, res) => {
 
 // Register Product
 const registerProduct = async (req, res) => {
-  const { title, shortDescription, longDescription, brandName, quantity, price, discount, subCategoryId, inStock } = req.body;
+  const { title, shortDescription, longDescription, brandName, quantity, price, discount, subCategoryId, inStock, BrandId } = req.body;
   try {
     // Normalise title to standard UNICODE
     const normalizedTitle = title.normalize("NFKD").replace(/[\u0300-\u036f]/g, "");
@@ -140,9 +140,9 @@ const registerProduct = async (req, res) => {
       await newProduct.addSubcategory(subCategory);
     }
 
-    if (brandName) {
+    if (BrandId) {
       const brand = await db.Brand.findOne({
-        where: { name: brandName },
+        where: { id: BrandId },
       });
 
       if (brand) {
@@ -468,6 +468,41 @@ const getBestSellingProducts = async (req, res) => {
   }
 };
 
+const getSearchResult = async (req, res) => {
+  const searchQuery = req.query.q;
+
+  if (!searchQuery) {
+    return res.status(400).json({ error: "Search query is required" });
+  }
+
+  try {
+    const products = await Products.findAll({
+      where: {
+        [Op.or]: [{ title: { [Op.iLike]: `%${searchQuery}%` } }, { "$Subcategories.name$": { [Op.iLike]: `%${searchQuery}%` } }, { "$Subcategories.Category.name$": { [Op.iLike]: `%${searchQuery}%` } }],
+      },
+      include: [
+        {
+          model: SubCategories,
+          required: false,
+          include: [
+            {
+              model: Categories,
+              required: false,
+            },
+          ],
+        },
+        {
+          model: Images,
+        },
+      ],
+    });
+
+    res.status(200).json(products);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 module.exports = {
   getProducts,
   getProductById,
@@ -480,4 +515,5 @@ module.exports = {
   remindMeWhenInStock,
   remindMeForThisProduct,
   getBestSellingProducts,
+  getSearchResult,
 };

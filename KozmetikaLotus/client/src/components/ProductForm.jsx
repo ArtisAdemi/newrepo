@@ -4,13 +4,14 @@ import ProductService from "../services/Products";
 import Swal from "sweetalert2";
 
 const ProductFormModal = ({ closeModal, product, handleReload }) => {
+  const [selectedBrand, setSelectedBrand] = useState(1);
   const [formData, setFormData] = useState({
     title: product?.title || "",
     shortDescription: product?.shortDescription || "",
     longDescription: product?.longDescription || "",
     inStock: product?.inStock || false,
     price: product?.price || "",
-    BrandId: product?.BrandId || 0,
+    BrandId: selectedBrand,
     subCategoryId: product?.Subcategories[0]?.id || 0,
     images: product?.Images || [],
     newImages: [],
@@ -19,21 +20,34 @@ const ProductFormModal = ({ closeModal, product, handleReload }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [subCategories, setSubCategories] = useState([]);
   const [brands, setBrands] = useState([]);
-  const [selectedBrand, setSelectedBrand] = useState(0);
 
   useEffect(() => {
     const fetchBrands = async () => {
       await ProductService.getBrands().then((brands) => {
         setBrands(brands);
-        setSelectedBrand(brands[0]?.id);
+        if (product?.BrandId) {
+          let productBrand = brands.filter((brand) => brand.id === product.BrandId);
+          setSelectedBrand(productBrand[0].id);
+        } else {
+          setSelectedBrand(brands[0]?.id);
+        }
       });
     };
     const fetchCategories = async () => {
       const result = await CategoryService.getCategories();
       if (result) {
         setCategories(result);
-        const subCategoriesData = await CategoryService.getSubcategories(result[0].id).then((subCategories) => {
+        let req = 0;
+        if (product?.Subcategories[0]?.CategoryId) {
+          req = product?.Subcategories[0]?.CategoryId;
+        } else {
+          req = result[0].id;
+        }
+        const subCategoriesData = await CategoryService.getSubcategories(req).then((subCategories) => {
           setSubCategories(subCategories);
+          if (product?.Subcategories) {
+            setSelectedCategory(product.Subcategories[0].CategoryId);
+          }
         });
       } else {
         console.error("Unexpected response structure:", result);
@@ -78,7 +92,10 @@ const ProductFormModal = ({ closeModal, product, handleReload }) => {
 
   const handleSubCategoryChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    if (product && product.Subcategories[0].id) {
+      product.Subcategories[0].id = value;
+    }
+    setFormData({ ...formData, subCategoryId: value });
   };
 
   const handleImageChange = (e) => {
@@ -222,7 +239,7 @@ const ProductFormModal = ({ closeModal, product, handleReload }) => {
               {/* Sub Categories */}
               {subCategories.map((subCategory, index) => (
                 <div key={index}>
-                  <input type="radio" name="subCategoryId" id={`subCategory-${index}`} value={subCategory.id} onChange={handleSubCategoryChange} />
+                  <input type="radio" checked={subCategory?.id === parseInt(formData.subCategoryId)} name={subCategory.name} id={`subCategory-${index}`} value={subCategory.id} onChange={handleSubCategoryChange} />
                   <label htmlFor={`subCategory-${index}`}>{subCategory.name}</label>
                 </div>
               ))}

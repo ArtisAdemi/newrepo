@@ -96,7 +96,7 @@ const ProductListItem = ({
         <img
           className="object-contain max-w-[250px] min-h-[300px] max-h-[300px]"
           src={process.env.PUBLIC_URL + imagePath}
-          alt="Image here"
+          alt="Product here"
         />
       </div>
       <div className="p-4">
