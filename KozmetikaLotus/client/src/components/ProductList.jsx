@@ -30,6 +30,7 @@ const ProductList = ({ subCategory, productName, brand, isAdmin }) => {
     if (savedProductCache) {
       setProductCache(JSON.parse(savedProductCache));
     }
+    // localStorage.setItem("subCategory", subCategory);
   }, []);
 
   // First useEffect to decode user and set userId
@@ -71,17 +72,23 @@ const ProductList = ({ subCategory, productName, brand, isAdmin }) => {
   useEffect(() => {
     // Clear cache and fetch fresh data when subCategory changes
     setProductCache({});
-    localStorage.removeItem("productCache");
     fetchProducts(page);
     setPage(1);
   }, [subCategory, productName, brand]);
+
+  useEffect(() => {
+    let subCategoryCache = localStorage.getItem("subCategory");
+    if (subCategoryCache !== subCategory) {
+      localStorage.removeItem("currentPage");
+    }
+    localStorage.setItem("subCategory", subCategory);
+  }, [subCategory]);
 
   useEffect(() => {
     fetchProducts(page); // Fetch products whenever the page changes
   }, [page]);
 
   useEffect(() => {
-    localStorage.removeItem("productCache");
     let currentPage = localStorage.getItem("currentPage");
     if (currentPage) {
       fetchProducts(currentPage); // Fetch products whenever the page changes
