@@ -267,6 +267,19 @@ const ProductService = {
       return null;
     }
   },
+
+  getSearchResult: async (query) => {
+    try {
+      const response = await axios.get(`${PRODUCTS_API_URL}/search`, {
+        params: { q: query },
+        withCredentials: true,
+      });
+      return response.data;
+    } catch (err) {
+      console.error("Error fetching search results:", err);
+      return null;
+    }
+  },
 };
 
 export default ProductService;
