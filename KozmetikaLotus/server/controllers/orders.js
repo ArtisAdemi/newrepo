@@ -126,6 +126,7 @@ const getOrderById = async (req, res) => {
 //fixed
 const registerOrder = async (req, res) => {
     const userId = req.user.id;
+    const transport = 2;
     try {
         const { products, address } = req.body; // Assuming products are sent in the request body
 
@@ -138,6 +139,8 @@ const registerOrder = async (req, res) => {
         }
 
         totalPrice = totalPrice - ((totalPrice * user.discount) / 100);
+
+        totalPrice += transport; // transport
 
         user.discount = 0;
         await user.save();

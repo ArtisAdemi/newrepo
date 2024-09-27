@@ -13,33 +13,33 @@ const getUsers = async (req, res) => {
         const users = await Users.findAll();
         res.json(users);
     } catch (err) {
-        res.status(500).json({ error: err.message});
+        res.status(500).json({ error: err.message });
     }
 };
 
 // Get UserById
 const getUserById = async (req, res) => {
     const userId = req.params.id;
-    try{
+    try {
         const user = await Users.findByPk(userId);
         if (user) {
             res.json(user);
         } else {
-            res.status(404).json({ message: "User not found"})
+            res.status(404).json({ message: "User not found" })
         }
     } catch (err) {
-        res.status(500).json({error: err.message});
+        res.status(500).json({ error: err.message });
     }
 };
 
 // Register User
 
 const registerUser = async (req, res) => {
-    const { email, firstName, lastName, phoneNumber, role, password} = req.body;
-    try{
+    const { email, firstName, lastName, phoneNumber, role, password } = req.body;
+    try {
         // hash password
         const hashedPassword = await bcrypt.hash(password, 10);
-        
+
         // Create a new user in database
         const newUser = await Users.create({
             email: email,
@@ -48,47 +48,47 @@ const registerUser = async (req, res) => {
             phoneNumber: phoneNumber,
             role: role,
             password: hashedPassword,
-            discount: 15,
+            discount: 10,
         });
         res.status(201).json(newUser);
     } catch (err) {
-        res.status(500).json({error: err.message});
+        res.status(500).json({ error: err.message });
     }
 }
 
 // login
 const loginUser = async (req, res) => {
     // getting email and pw from json body
-    const {email, password} = req.body;
+    const { email, password } = req.body;
 
-    try{
+    try {
         // fetch user by email
-        const user = await Users.findOne({ where: {email: email}});
+        const user = await Users.findOne({ where: { email: email } });
 
         if (!user) {
-            return res.status(404).json({message: "User not found"});
+            return res.status(404).json({ message: "User not found" });
         }
 
         // hash user password and check if it is the same as the on saved in DB
         const validPassword = await bcrypt.compare(password, user.password);
 
         if (!validPassword) {
-            return res.status(401).json({message: "Invalid Password"})
+            return res.status(401).json({ message: "Invalid Password" })
         }
 
         // Assing a jwt token for user if credentials are correct
         // In JWT we save useful data for user
-        const token = jwt.sign({id: user.id, email: user.email, firstName: user.firstName, lastName: user.lastName, discount: user.discount, phoneNumber: user.phoneNumber, role: user.role}, "Thisisveryverysecret", {expiresIn: '12h'});
-        res.status(200).json({token: token, user: user});
+        const token = jwt.sign({ id: user.id, email: user.email, firstName: user.firstName, lastName: user.lastName, discount: user.discount, phoneNumber: user.phoneNumber, role: user.role }, "Thisisveryverysecret", { expiresIn: '12h' });
+        res.status(200).json({ token: token, user: user });
     } catch (err) {
-        res.status(500).json({error: err.message});
+        res.status(500).json({ error: err.message });
     }
 }
 
 const updateUser = async (req, res) => {
     const userId = req.params.id;
     const { email, firstName, lastName, phoneNumber, role, password, currentPassword } = req.body;
-    
+
     try {
         // Find User by id
         const user = await Users.findByPk(userId);
@@ -150,7 +150,7 @@ const getUserData = async (req, res) => {
             res.status(500).json({ error: err.message });
         }
     } catch (err) {
-        res.status(500).json({error: err.message})
+        res.status(500).json({ error: err.message })
     }
 };
 
