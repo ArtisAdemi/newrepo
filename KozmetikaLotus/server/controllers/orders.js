@@ -29,7 +29,8 @@ const getOrders = async (req, res) => {
                 attributes: { exclude: ['password', 'createdAt', 'updatedAt', 'role'] },
             },
             ],
-            attributes: { exclude: ['UserId'] }
+            attributes: { exclude: ['UserId'] },
+            order: [['createdAt', 'DESC']] // Sort by newest date first
         });
 
         const totalPages = Math.ceil(count / limit);
@@ -71,7 +72,8 @@ const getUserOrders = async (req, res) => {
                 attributes: { exclude: ['password', 'createdAt', 'updatedAt', 'role'] },
             },
             ],
-            attributes: { exclude: ['UserId'] }
+            attributes: { exclude: ['UserId'] },
+            order: [['createdAt', 'DESC']] // Sort by newest date first
         });
 
         const totalPages = Math.ceil(count / limit);
@@ -111,7 +113,8 @@ const getOrderById = async (req, res) => {
                 attributes: { exclude: ['password', 'createdAt', 'updatedAt', 'role'] },
             },
             ],
-            attributes: { exclude: ['UserId'] }
+            attributes: { exclude: ['UserId'] },
+            order: [['createdAt', 'DESC']] // Sort by newest date first
         });
         if (order) {
             res.json(order);
