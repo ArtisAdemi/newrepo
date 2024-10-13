@@ -131,7 +131,7 @@ const registerOrder = async (req, res) => {
     const userId = req.user.id;
     const transport = 2;
     try {
-        const { products, address } = req.body; // Assuming products are sent in the request body
+        const { products, address, additionalInfo } = req.body; // Assuming products are sent in the request body
 
         const user = await Users.findByPk(userId);
         // Create or find the client associated with the user
@@ -152,7 +152,8 @@ const registerOrder = async (req, res) => {
             status: 'Pending',
             address: address,
             UserId: userId,
-            totalPrice: totalPrice
+            totalPrice: totalPrice,
+            additionalInfo: additionalInfo
         }); // Create the order
 
         // Loop through each product and add it to the order with the specified quantity
@@ -171,6 +172,7 @@ const registerOrder = async (req, res) => {
                     <li>User ID: ${userId}</li>
                     <li>User Name: ${user.firstName} ${user.lastName}</li>
                     <li>Address: ${address}</li>
+                    <li>Additional Info: ${additionalInfo}</li>
                     <li>Total Price: ${totalPrice}</li>
                 </ul>
             `;

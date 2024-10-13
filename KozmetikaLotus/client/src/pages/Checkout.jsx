@@ -57,6 +57,7 @@ const Checkout = () => {
       email: user?.email || "",
       phoneNumber: user?.phoneNumber || "",
       address: "",
+      additionalInfo: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -73,6 +74,7 @@ const Checkout = () => {
         price: product.price,
       })),
       address: values.address,
+      additionalInfo: values.additionalInfo,
     };
 
     try {
@@ -129,7 +131,8 @@ const Checkout = () => {
       lastName: user?.lastName || "",
       email: user?.email || "",
       phoneNumber: user?.phoneNumber || "",
-      address: "",
+      address: formik.values.address || "", // Preserve the current address value
+      additionalInfo: formik.values.additionalInfo || "" // Preserve the current additionalInfo value
     });
   }, [user]); // Listen for changes in the user state
 
@@ -172,8 +175,13 @@ const Checkout = () => {
                       <input className="rounded-md w-[75%] md:w-[80%] text-sm md:text-base p-3 md:p-4 border bg-[#FBFCFDF0] border-[#E4E7EB]" type="text" name="address" onChange={formik.handleChange} value={formik.values.address} />
                     </div>
                     {formik.errors.address && formik.touched.address && <h2 className="w-[50%] md:w-[60%] text-red-500 text-xs md:text-sm -mt-4 md:-mt-5 mx-auto">{formik.errors.address}</h2>}
+                    <span className="text-xs text-gray-500">(Nese keni ndonje orar te caktuar qe mund te pranoni porosine, plotesoni kete fushe)</span>
+                    <div className="flex mb-5 justify-start items-center">
+                      <h2 className="w-[25%] md:w-[20%] text-sm md:text-base font-medium">Informata shtese: </h2>
+                      <input className="rounded-md w-[75%] md:w-[80%] text-sm md:text-base p-3 md:p-4 border bg-[#FBFCFDF0] border-[#E4E7EB]" type="text" name="additionalInfo" onChange={formik.handleChange} value={formik.values.additionalInfo} />
+                    </div>
                     <div>
-                      <h2 className="font-semibold">Total Price: €{fullPrice}</h2>
+                      <h2 className="font-semibold">Total Price: €{fullPrice.toFixed(2)}</h2>
                       <span fontWeight={"bold"}>+2 (Transport)</span>
                       {discount > 0 && (
                         <>
@@ -182,7 +190,7 @@ const Checkout = () => {
                         </>
                       )}
                       <hr />
-                      <span fontWeight={"bold"}>{discount ? totalPrice : fullPrice + 2}€</span>
+                      <span fontWeight={"bold"}>{discount ? totalPrice.toFixed(2) : (fullPrice + 2).toFixed(2)}€</span>
                     </div>
                     <button type="submit" className="border-[#A3A7FC] bg-[#A3A7FC] rounded-md border-2 p-3 md:p-4 w-full md:w-[50%]  text-[#FFFFFF] shadow-xl hover:opacity-80">
                       Porosit

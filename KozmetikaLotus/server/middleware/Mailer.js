@@ -19,7 +19,7 @@ const sendContactEmail = (userData) => {
     const { name, email, phone, message } = userData;
 
     const mailOptions = {
-        from: process.env.EMAIL, 
+        from: process.env.EMAIL,
         to: process.env.EMAIL, // Send email to the address saved in process.env.EMAIL
         subject: "New Contact Form Submission",
         html: `
@@ -67,7 +67,6 @@ const sendContactEmail = (userData) => {
 // }
 
 const sendEmail = async (to, subject, message) => {
-    console.log('Preparing to send email...');
     let transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
@@ -106,7 +105,7 @@ async function notifyUsersOfStockChange(productId) {
 
     notifications.forEach(async (notification) => {
         const user = await db.Users.findByPk(notification.userId)
-        let msg =  `
+        let msg = `
             <html>
                 <body>
                     <p>Hello ${user.firstName}!</p>

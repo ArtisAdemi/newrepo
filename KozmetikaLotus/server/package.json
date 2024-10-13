@@ -15,6 +15,10 @@
   },
   "scripts": {
     "build": "npm install && npm run build",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "migrate:test": "cross-env NODE_ENV=test npx sequelize-cli db:migrate"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }

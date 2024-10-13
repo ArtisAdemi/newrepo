@@ -11,11 +11,12 @@ const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
 const db = {};
 
+console.log("Environment:", env);
 let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
-  if(env === "production"){
+  if (env === "production") {
     const pg = require('pg'); // Explicitly require pg for production
     config.dialectModule = pg; // Assign pg module to dialectModule
   }
