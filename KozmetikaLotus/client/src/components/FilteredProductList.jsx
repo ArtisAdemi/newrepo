@@ -46,13 +46,47 @@ const FilteredProductList = ({ filter }) => {
 
     const renderPagination = () => {
         const pages = [];
-        for (let i = 1; i <= totalPages; i++) {
+        const startPage = Math.max(1, page - 2);
+        const endPage = Math.min(totalPages, page + 2);
+
+        if (startPage > 1) {
+            pages.push(
+                <button key={1} onClick={() => handlePageChange(1)} className={`m-1 px-3 py-1 rounded-md ${1 === page ? "bg-gray-300" : "bg-white"}`}>
+                    1
+                </button>
+            );
+            if (startPage > 2) {
+                pages.push(
+                    <span key="start-ellipsis" className="m-1 px-3 py-1">
+                        ...
+                    </span>
+                );
+            }
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
             pages.push(
                 <button key={i} onClick={() => handlePageChange(i)} className={`m-1 px-3 py-1 rounded-md ${i === page ? "bg-gray-300" : "bg-white"}`}>
                     {i}
                 </button>
             );
         }
+
+        if (endPage < totalPages) {
+            if (endPage < totalPages - 1) {
+                pages.push(
+                    <span key="end-ellipsis" className="m-1 px-3 py-1">
+                        ...
+                    </span>
+                );
+            }
+            pages.push(
+                <button key={totalPages} onClick={() => handlePageChange(totalPages)} className={`m-1 px-3 py-1 rounded-md ${totalPages === page ? "bg-gray-300" : "bg-white"}`}>
+                    {totalPages}
+                </button>
+            );
+        }
+
         return pages;
     };
 
