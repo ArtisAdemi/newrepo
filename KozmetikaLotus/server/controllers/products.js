@@ -509,20 +509,17 @@ const getFilteredProducts = async (req, res) => {
   const offset = (page - 1) * limit;
   const filter = req.query.filter;
 
-  let inStock = false;
+  let whereCondition = {};
 
   if (filter === "inStock") {
-    inStock = true;
-  }
-  else if (filter === "outOfStock") {
-    inStock = false;
+    whereCondition.inStock = true;
+  } else if (filter === "outOfStock") {
+    whereCondition.inStock = false;
   }
 
   try {
     const { count, rows } = await Products.findAndCountAll({
-      where: {
-        inStock: inStock,
-      },
+      where: whereCondition,
       include: [
         {
           model: Images,
@@ -530,7 +527,8 @@ const getFilteredProducts = async (req, res) => {
       ],
       offset: offset,
       limit: limit,
-    })
+      distinct: true, // Ensure distinct count when using include
+    });
 
     const totalPages = Math.ceil(count / limit);
 
@@ -540,12 +538,11 @@ const getFilteredProducts = async (req, res) => {
       totalPages: totalPages,
       currentPage: page,
     });
-  }
-  catch (err) {
+  } catch (err) {
     console.error("Error in getFilteredProducts:", err); // Log error
     return res.status(500).json({ error: err.message });
   }
-}
+};
 
 
 module.exports = {
