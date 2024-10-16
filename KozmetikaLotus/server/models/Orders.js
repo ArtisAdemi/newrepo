@@ -5,17 +5,21 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(255),
             allowNull: false,
         },
-        address:{
+        address: {
             type: DataTypes.TEXT,
             allowNull: false,
         },
-        totalPrice:{
+        totalPrice: {
             type: DataTypes.FLOAT,
             allowNull: false
+        },
+        additionalInfo: {
+            type: DataTypes.TEXT,
+            allowNull: true
         }
     });
-     // This creates a table with many to many relation
-     Orders.associate = (models) => {
+    // This creates a table with many to many relation
+    Orders.associate = (models) => {
         Orders.belongsTo(models.Users, { foreignKey: 'UserId' });
         Orders.belongsToMany(models.Products, { through: 'Order_Products' });
     };

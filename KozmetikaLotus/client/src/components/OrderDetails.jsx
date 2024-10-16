@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
-import Product3Home from '../images/Product3Home.png'
 import StatusModal from './StatusModal';
 import OrderService from '../services/OrderService';
 
@@ -75,7 +74,14 @@ const OrderDetails = ({ closeOrderDetails, id, location }) => {
                                         <h2 className='md:mr-3 w-[25%] md:w-[100%] text-sm md:text-base font-medium'>Total Price: </h2>
                                         <h2 className='rounded-md w-[75%] md:w-[100%] text-sm md:text-base p-3 md:p-4 border bg-[#FBFCFDF0] border-[#E4E7EB]'>{totalPrice.toFixed(2)}€</h2>
                                     </div>
+                                    {order.additionalInfo &&
+                                        <div className='flex md:flex-col mb-8 justify-start items-center md:items-start'>
+                                            <h2 className='md:mr-3 w-[25%] md:w-[100%] text-sm md:text-base font-medium'>Additional Info: </h2>
+                                            <h2 className='rounded-md w-[75%] md:w-[100%] text-sm md:text-base p-3 md:p-4 border bg-[#FBFCFDF0] border-[#E4E7EB]'>{order?.additionalInfo}</h2>
+                                        </div>
+                                    }
                                 </div>
+
 
                                 <div className='flex md:w-[20%] flex-col'>
                                     {location === "admin" &&
@@ -142,6 +148,11 @@ const OrderDetails = ({ closeOrderDetails, id, location }) => {
                                         <h2 className='rounded-md w-[75%] md:w-[100%] text-sm md:text-base p-3 md:p-4 border bg-[#FBFCFDF0] border-[#E4E7EB]'>{order?.address}</h2>
                                     </div>
 
+                                    <div className='flex md:flex-col mb-8 justify-start items-center md:items-start '>
+                                        <h2 className='md:mr-3 w-[25%] md:w-[100%] text-sm md:text-base font-medium'>Additional Info: </h2>
+                                        <h2 className='rounded-md w-[75%] md:w-[100%] text-sm md:text-base p-3 md:p-4 border bg-[#FBFCFDF0] border-[#E4E7EB]'>{order?.additionalInfo}</h2>
+                                    </div>
+
                                     <div className='flex md:flex-col mb-8 justify-start items-center md:items-start'>
                                         <h2 className='md:mr-3 w-[25%] md:w-[100%] text-sm md:text-base font-medium'>Total Price: </h2>
                                         <h2 className='rounded-md w-[75%] md:w-[100%] text-sm md:text-base p-3 md:p-4 border bg-[#FBFCFDF0] border-[#E4E7EB]'>{totalPrice.toFixed(2)}€</h2>
@@ -176,7 +187,7 @@ const OrderDetails = ({ closeOrderDetails, id, location }) => {
                                             <img className="object-contain max-w-[250px] min-h-[300px] max-h-[300px]" src={`uploads/${product?.Images[0]?.fileName}`} alt="Image here" />
                                         </div>
                                         <div className="p-4">
-                                            <h2 className="text-start text-xl text-[#292929] font-bold">{product?.title}</h2>
+                                            <h2 className="text-start text-xl text-[#292929] font-bold truncate">{product?.title}</h2>
                                             <p className="mt-1 text-start text-[#292929] text-sm overflow-ellipsis overflow-hidden whitespace-nowrap">{product?.shortDescription}</p>
                                             <div className="flex justify-between items-center mt-4">
                                                 <span className="text-xl text-[#292929] font-bold">€{product?.price.toFixed(2)}</span>

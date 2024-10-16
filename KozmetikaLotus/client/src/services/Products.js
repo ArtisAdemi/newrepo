@@ -280,6 +280,17 @@ const ProductService = {
       return null;
     }
   },
-};
+
+  getFilteredProducts: async (req) => {
+    try {
+      const response = await axios.get(`${PRODUCTS_API_URL}/filtered?limit=${req.limit}&page=${req.page}&filter=${req.filter}`, {
+        withCredentials: true,
+      });
+      return response.data;
+    } catch (err) {
+      console.error("Error fetching filtered products:", err);
+    }
+  }
+}
 
 export default ProductService;
