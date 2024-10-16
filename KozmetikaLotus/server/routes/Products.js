@@ -25,6 +25,7 @@ router.get("/brands", productsController.getBrands);
 
 // Get Products
 router.get("/", productsController.getProducts);
+router.get("/filtered", productsController.getFilteredProducts);
 router.get("/best-selling", productsController.getBestSellingProducts);
 
 // Search Products

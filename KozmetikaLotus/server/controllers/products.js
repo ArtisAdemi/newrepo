@@ -503,6 +503,51 @@ const getSearchResult = async (req, res) => {
   }
 };
 
+const getFilteredProducts = async (req, res) => {
+  const page = parseInt(req.query.page) || 1; // Default page is 1
+  const limit = parseInt(req.query.limit) || 12; // Default limit is 12
+  const offset = (page - 1) * limit;
+  const filter = req.query.filter;
+
+  let inStock = false;
+
+  if (filter === "inStock") {
+    inStock = true;
+  }
+  else if (filter === "outOfStock") {
+    inStock = false;
+  }
+
+  try {
+    const { count, rows } = await Products.findAndCountAll({
+      where: {
+        inStock: inStock,
+      },
+      include: [
+        {
+          model: Images,
+        },
+      ],
+      offset: offset,
+      limit: limit,
+    })
+
+    const totalPages = Math.ceil(count / limit);
+
+    res.status(200).json({
+      products: rows,
+      totalProducts: count,
+      totalPages: totalPages,
+      currentPage: page,
+    });
+  }
+  catch (err) {
+    console.error("Error in getFilteredProducts:", err); // Log error
+    return res.status(500).json({ error: err.message });
+  }
+}
+
+
 module.exports = {
   getProducts,
   getProductById,
@@ -516,4 +561,5 @@ module.exports = {
   remindMeForThisProduct,
   getBestSellingProducts,
   getSearchResult,
+  getFilteredProducts,
 };

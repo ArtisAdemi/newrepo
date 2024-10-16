@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
-import Product3Home from '../images/Product3Home.png'
 import StatusModal from './StatusModal';
 import OrderService from '../services/OrderService';
 
