@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
@@ -11,7 +11,10 @@ const AdminProducts = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productName, setProductName] = useState("");
   const [reload, setReload] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("all");
+  const [selectedOption, setSelectedOption] = useState(() => {
+    const savedFilter = localStorage.getItem("selectedFilter");
+    return savedFilter ? savedFilter : "all";
+  });
 
   const handleInputChange = (e) => {
     setProductName(e.target.value);
@@ -19,7 +22,18 @@ const AdminProducts = () => {
 
   const selectChange = (e) => {
     setSelectedOption(e.target.value);
+    localStorage.setItem("selectedFilter", e.target.value);
+    if (selectedOption !== "all") {
+      localStorage.setItem("currentFilteredPage", 1);
+    }
   }
+
+  useEffect(() => {
+    const selectedFilter = localStorage.getItem("selectedFilter");
+    if (selectedFilter) {
+      setSelectedOption(selectedFilter);
+    }
+  }, []);
 
   const handleReload = () => {
     setReload(true);

@@ -70,10 +70,13 @@ const ProductList = ({ subCategory, productName, brand, isAdmin }) => {
   }, [userId]); // Dependency on userId
 
   useEffect(() => {
-    // Clear cache and fetch fresh data when subCategory changes
-    setProductCache({});
-    fetchProducts(page);
-    setPage(1);
+    if (!isAdmin) {
+
+      // Clear cache and fetch fresh data when subCategory changes
+      setProductCache({});
+      fetchProducts(page);
+      setPage(1);
+    }
   }, [subCategory, productName, brand]);
 
   useEffect(() => {
@@ -246,14 +249,22 @@ const ProductList = ({ subCategory, productName, brand, isAdmin }) => {
         {totalPages > 1 && (
           <div className="w-full flex justify-center mt-4">
             {/* Pagination component to handle page changes */}
-            <div className="flex items-center">
-              <button onClick={() => handlePageChange(page - 1)} disabled={page === 1} className="m-1 px-3 py-1 rounded-md bg-white">
+            <div className="md:flex items-center">
+              <button onClick={() => handlePageChange(page - 1)} disabled={page === 1} className="hidden md:flex m-1 px-3 py-1 rounded-md bg-white">
                 Previous
               </button>
-              {renderPagination()}
-              <button onClick={() => handlePageChange(page + 1)} disabled={page >= totalPages} className="m-1 px-3 py-1 rounded-md bg-white">
-                Next
-              </button>
+              <div className="flex">
+                {renderPagination()}
+              </div>
+              <div className="flex justify-center">
+                <button onClick={() => handlePageChange(page - 1)} disabled={page === 1} className="md:hidden m-1 px-3 py-1 rounded-md bg-white">
+                  Previous
+                </button>
+                <button onClick={() => handlePageChange(page + 1)} disabled={page >= totalPages} className="m-1 px-3 py-1 rounded-md bg-white">
+                  Next
+                </button>
+
+              </div>
             </div>
           </div>
         )}
