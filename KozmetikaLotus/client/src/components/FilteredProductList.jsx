@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import ProductListItem from './ProductListItem';
 import ProductService from '../services/Products';
 import { useNavigate } from 'react-router-dom';
@@ -7,10 +7,30 @@ import Swal from 'sweetalert2';
 const FilteredProductList = ({ filter }) => {
     const [products, setProducts] = useState([]);
     const [totalProducts, setTotalProducts] = useState(0);
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(() => {
+        // Initialize page state from local storage
+        const savedPage = localStorage.getItem("currentFilteredPage");
+        return savedPage ? parseInt(savedPage, 10) : 1;
+    });
     const [totalPages, setTotalPages] = useState(0);
     const limit = 12; // Assuming each page shows 12 products
     const navigate = useNavigate();
+    const prevFilterRef = useRef(filter);
+
+    useEffect(() => {
+        let lastFilter = localStorage.getItem("lastFilter");
+        if (lastFilter !== filter) {
+            setPage(1);
+            localStorage.setItem("currentFilteredPage", 1);
+            localStorage.setItem("lastFilter", filter);
+            fetchFilteredProducts(1);
+        }
+    }, [filter]);
+
+    useEffect(() => {
+        // Scroll to top whenever the page changes
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, [page]);
 
     useEffect(() => {
         fetchFilteredProducts(page);
@@ -39,9 +59,11 @@ const FilteredProductList = ({ filter }) => {
         }
     };
 
+
     const handlePageChange = (newPage) => {
         if (newPage < 1 || newPage > totalPages) return;
         setPage(newPage);
+        localStorage.setItem("currentFilteredPage", newPage);
     };
 
     const renderPagination = () => {

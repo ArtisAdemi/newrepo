@@ -98,6 +98,7 @@ const ProductListItem = ({
           className="object-contain max-w-[250px] min-h-[300px] max-h-[300px]"
           src={process.env.PUBLIC_URL + imagePath}
           alt="Product here"
+          loading="lazy"
         />
       </div>
       <div className="p-4">
