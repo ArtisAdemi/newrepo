@@ -10,6 +10,7 @@ import OrderService from "../services/OrderService";
 import Swal from "sweetalert2";
 import { resetCart } from "../state";
 import { useNavigate } from "react-router-dom";
+// import Select from "react-select";
 
 const Checkout = () => {
   const [user, setUser] = useState({});
@@ -19,6 +20,8 @@ const Checkout = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [selectedCountry, setSelectedCountry] = useState("Kosova");
+  const [transport, setTransport] = useState(2);
 
   const getUserData = async () => {
     let res;
@@ -58,6 +61,7 @@ const Checkout = () => {
       phoneNumber: user?.phoneNumber || "",
       address: "",
       additionalInfo: "",
+      country: selectedCountry,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -75,6 +79,8 @@ const Checkout = () => {
       })),
       address: values.address,
       additionalInfo: values.additionalInfo,
+      country: selectedCountry,
+      transport: transport,
     };
 
     try {
@@ -114,14 +120,14 @@ const Checkout = () => {
     if (discount > 0) {
       let priceWithDiscount = price;
       priceWithDiscount = price - (price * discount) / 100;
-      setTotalPrice(priceWithDiscount + 2); // transport
+      setTotalPrice(priceWithDiscount + transport); // transport
     }
   };
 
   useEffect(() => {
     handleTotalPrice();
     getUserData();
-  }, [discount]);
+  }, [discount, transport]);
 
   //Second useEffect is to handle the form changes -- (to set initial pre-loaded user data)
   useEffect(() => {
@@ -132,9 +138,21 @@ const Checkout = () => {
       email: user?.email || "",
       phoneNumber: user?.phoneNumber || "",
       address: formik.values.address || "", // Preserve the current address value
-      additionalInfo: formik.values.additionalInfo || "" // Preserve the current additionalInfo value
+      additionalInfo: formik.values.additionalInfo || "", // Preserve the current additionalInfo value
+      country: selectedCountry,
     });
   }, [user]); // Listen for changes in the user state
+
+  const handleCountryChange = (e) => {
+    setSelectedCountry(e.target.value);
+    if (e.target.value === "Kosova") {
+      setTransport(2);
+    } else if (e.target.value === "Shqiperia") {
+      setTransport(6);
+    } else if (e.target.value === "Maqedoni") {
+      setTransport(6);
+    }
+  };
 
   return (
     <div>
@@ -171,6 +189,14 @@ const Checkout = () => {
                       <input className="rounded-md w-[75%] md:w-[80%] text-sm md:text-base p-3 md:p-4 border bg-[#FBFCFDF0] border-[#E4E7EB]" type="text" name="phoneNumber" disabled onChange={formik.handleChange} value={formik.values.phoneNumber} />
                     </div>
                     <div className="flex mb-5 justify-start items-center">
+                      <h2 className="w-[25%] md:w-[20%] text-sm md:text-base font-medium">Shteti: </h2>
+                      <select name="country" className="rounded-md text-sm md:text-base p-3 md:p-4 border bg-[#FBFCFDF0] border-[#E4E7EB]" onChange={handleCountryChange}>
+                        <option value="Kosova">Kosove</option>
+                        <option value="Shqiperia">Shqiperi</option>
+                        <option value="Maqedoni">Maqedoni</option>
+                      </select>
+                    </div>
+                    <div className="flex mb-5 justify-start items-center">
                       <h2 className="w-[25%] md:w-[20%] text-sm md:text-base font-medium">Adresa: </h2>
                       <input className="rounded-md w-[75%] md:w-[80%] text-sm md:text-base p-3 md:p-4 border bg-[#FBFCFDF0] border-[#E4E7EB]" type="text" name="address" onChange={formik.handleChange} value={formik.values.address} />
                     </div>
@@ -182,7 +208,7 @@ const Checkout = () => {
                     </div>
                     <div>
                       <h2 className="font-semibold">Total Price: €{fullPrice.toFixed(2)}</h2>
-                      <span fontWeight={"bold"}>+2 (Transport)</span>
+                      <span fontWeight={"bold"}>+ {transport} (Transport)</span>
                       {discount > 0 && (
                         <>
                           <br />
@@ -190,7 +216,7 @@ const Checkout = () => {
                         </>
                       )}
                       <hr />
-                      <span fontWeight={"bold"}>{discount ? totalPrice.toFixed(2) : (fullPrice + 2).toFixed(2)}€</span>
+                      <span fontWeight={"bold"}>{discount ? totalPrice.toFixed(2) : (fullPrice + transport).toFixed(2)}€</span>
                     </div>
                     <button type="submit" className="border-[#A3A7FC] bg-[#A3A7FC] rounded-md border-2 p-3 md:p-4 w-full md:w-[50%]  text-[#FFFFFF] shadow-xl hover:opacity-80">
                       Porosit
