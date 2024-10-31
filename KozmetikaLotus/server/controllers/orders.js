@@ -129,9 +129,8 @@ const getOrderById = async (req, res) => {
 //fixed
 const registerOrder = async (req, res) => {
     const userId = req.user.id;
-    const transport = 2;
     try {
-        const { products, address, additionalInfo } = req.body; // Assuming products are sent in the request body
+        const { products, address, additionalInfo, country, transport } = req.body; // Assuming products are sent in the request body
 
         const user = await Users.findByPk(userId);
         // Create or find the client associated with the user
@@ -148,9 +147,11 @@ const registerOrder = async (req, res) => {
         user.discount = 0;
         await user.save();
 
+        addressWithCountry = `${address}, ${country}`;
+
         const order = await Orders.create({
             status: 'Pending',
-            address: address,
+            address: addressWithCountry,
             UserId: userId,
             totalPrice: totalPrice,
             additionalInfo: additionalInfo
@@ -171,9 +172,9 @@ const registerOrder = async (req, res) => {
                     <li>Order ID: ${order.id}</li>
                     <li>User ID: ${userId}</li>
                     <li>User Name: ${user.firstName} ${user.lastName}</li>
-                    <li>Address: ${address}</li>
+                    <li>Address: ${addressWithCountry}</li>
                     <li>Additional Info: ${additionalInfo}</li>
-                    <li>Total Price: ${totalPrice}</li>
+                    <li>Total Price: ${totalPrice}€</li>
                 </ul>
             `;
         await sendEmail(process.env.EMAIL, 'New Order Registered', emailMessage);
