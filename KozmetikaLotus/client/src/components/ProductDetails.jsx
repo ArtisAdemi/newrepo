@@ -86,12 +86,6 @@ const ProductDetails = ({ title, subCategory, shortDescription, longDescription,
     img.src = imageUrl;
   }, [imageUrl]);
 
-  console.log("Meta Tags Debug:", {
-    title,
-    shortDescription,
-    imageUrl,
-    currentUrl
-  });
 
   useEffect(() => {
     // Force meta refresh
