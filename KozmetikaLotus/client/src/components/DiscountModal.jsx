@@ -24,7 +24,7 @@ const DiscountModal = ({ closeDiscountModal, userId, discountValue }) => {
 
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center h-[80vh]">
       <div className="bg-white p-5 rounded-lg max-w-lg w-full space-y-4">
         <h2 className="text-xl font-semibold text-gray-900">Discount</h2>
         <form onSubmit={handleSubmit} className="space-y-3">
