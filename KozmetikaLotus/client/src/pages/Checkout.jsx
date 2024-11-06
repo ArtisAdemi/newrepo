@@ -201,7 +201,7 @@ const Checkout = () => {
                       <input className="rounded-md w-[75%] md:w-[80%] text-sm md:text-base p-3 md:p-4 border bg-[#FBFCFDF0] border-[#E4E7EB]" type="text" name="address" onChange={formik.handleChange} value={formik.values.address} />
                     </div>
                     {formik.errors.address && formik.touched.address && <h2 className="w-[50%] md:w-[60%] text-red-500 text-xs md:text-sm -mt-4 md:-mt-5 mx-auto">{formik.errors.address}</h2>}
-                    <span className="text-xs text-gray-500">(Nese keni ndonje orar te caktuar qe mund te pranoni porosine, plotesoni kete fushe)</span>
+                    <span className="text-xs text-gray-500">(Informacion shtes)</span>
                     <div className="flex mb-5 justify-start items-center">
                       <h2 className="w-[25%] md:w-[20%] text-sm md:text-base font-medium">Informata shtese: </h2>
                       <input className="rounded-md w-[75%] md:w-[80%] text-sm md:text-base p-3 md:p-4 border bg-[#FBFCFDF0] border-[#E4E7EB]" type="text" name="additionalInfo" onChange={formik.handleChange} value={formik.values.additionalInfo} />
