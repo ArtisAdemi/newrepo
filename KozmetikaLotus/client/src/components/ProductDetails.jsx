@@ -73,11 +73,11 @@ const ProductDetails = ({ title, subCategory, shortDescription, longDescription,
 
   // Function to get absolute URL for production or development
   const getImageUrl = () => {
-    if (process.env.NODE_ENV === 'development') {
-      // Replace this with your production domain
-      return `${window.location.origin}/uploads/${productImages[0]?.fileName}`;
+    const domain = process.env.REACT_APP_DOMAIN || window.location.origin;
+    if (productImages && productImages[0]?.fileName) {
+      return `${domain}/uploads/${productImages[0].fileName}`;
     }
-    return `${window.location.origin}/logo.png`; // fallback image
+    return `${domain}/logo.png`;
   };
   const imageUrl = getImageUrl();
 
@@ -105,10 +105,13 @@ const ProductDetails = ({ title, subCategory, shortDescription, longDescription,
         <meta property="og:url" content={currentUrl} />
         <meta property="og:site_name" content="LOTUS" />
 
-        {/* Additional meta tags for better image handling */}
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:type" content="image/jpeg" />
+
+        <meta property="product:price:amount" content={price} />
+        <meta property="product:price:currency" content="EUR" />
+        <meta property="product:availability" content={inStock ? 'in stock' : 'out of stock'} />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title || 'LOTUS'} />
