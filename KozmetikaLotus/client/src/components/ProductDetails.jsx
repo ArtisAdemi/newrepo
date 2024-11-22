@@ -74,6 +74,7 @@ const ProductDetails = ({ title, subCategory, shortDescription, longDescription,
   // Function to get absolute URL for production or development
   const getImageUrl = () => {
     const domain = process.env.REACT_APP_DOMAIN || window.location.origin;
+    // const domain = "http://localhost:3000";
     if (productImages && productImages[0]?.fileName) {
       return `${domain}/uploads/${productImages[0].fileName}`;
     }
