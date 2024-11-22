@@ -43,7 +43,7 @@ const ProductFormModal = ({ closeModal, product, handleReload }) => {
         } else {
           req = result[0].id;
         }
-        const subCategoriesData = await CategoryService.getSubcategories(req).then((subCategories) => {
+        await CategoryService.getSubcategories(req).then((subCategories) => {
           setSubCategories(subCategories);
           if (product?.Subcategories) {
             setSelectedCategory(product.Subcategories[0].CategoryId);
@@ -51,12 +51,12 @@ const ProductFormModal = ({ closeModal, product, handleReload }) => {
         });
       } else {
         console.error("Unexpected response structure:", result);
-        setCategories([]); // Fallback to ensure state remains valid
+        setCategories([]);
       }
     };
     fetchBrands();
     fetchCategories();
-  }, []);
+  }, [product]);
 
   useEffect(() => {
     // Disable scroll on the body when the modal is open
@@ -91,7 +91,7 @@ const ProductFormModal = ({ closeModal, product, handleReload }) => {
   };
 
   const handleSubCategoryChange = (e) => {
-    const { name, value } = e.target;
+    const value = e.target.value;
     if (product && product.Subcategories[0].id) {
       product.Subcategories[0].id = value;
     }
@@ -249,7 +249,7 @@ const ProductFormModal = ({ closeModal, product, handleReload }) => {
               <div className="space-y-2">
                 {formData.images.map((image, index) => (
                   <div key={index} className="flex py-3 items-center space-x-2 w-full justify-between">
-                    <img src={`/uploads/${image.fileName}`} alt={`Image ${index + 1}`} className="w-16 h-16 object-contain" />
+                    <img src={`/uploads/${image.fileName}`} alt={`${index + 1}`} className="w-16 h-16 object-contain" />
                     <span>{image.name || image.fileName}</span>
                     <button type="button" onClick={() => handleRemoveImage(index, true)} className="text-red-500 hover:text-red-700">
                       Remove
@@ -258,7 +258,7 @@ const ProductFormModal = ({ closeModal, product, handleReload }) => {
                 ))}
                 {formData.newImages.map((image, index) => (
                   <div key={index} className="flex py-3 items-center space-x-2 w-full justify-between">
-                    <img src={URL.createObjectURL(image)} alt={`Image ${index + 1}`} className="w-16 h-16 object-contain" />
+                    <img src={URL.createObjectURL(image)} alt={`${index + 1}`} className="w-16 h-16 object-contain" />
                     <span>{image.name}</span>
                     <button type="button" onClick={() => handleRemoveImage(index, false)} className="text-red-500 hover:text-red-700">
                       Remove

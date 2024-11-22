@@ -23,30 +23,7 @@ const Checkout = () => {
   const [selectedCountry, setSelectedCountry] = useState("Kosova");
   const [transport, setTransport] = useState(2);
 
-  const getUserData = async () => {
-    let res;
-    try {
-      let token = localStorage.getItem("token");
-      if (token) {
-        await AuthService.decodeUser().then((res) => {
-          setUser(res);
-          setDiscount(res?.discount);
-        });
-      } else {
-        Swal.fire({
-          title: "You are not logged in!",
-          text: "Please log in before making an order",
-          icon: "warning",
-        }).then((res) => {
-          if (res.isConfirmed) {
-            navigate("/login");
-          }
-        });
-      }
-    } catch (err) {
-      return null;
-    }
-  };
+
 
   const validationSchema = yup.object({
     address: yup.string().required("Address is Required"),
@@ -111,23 +88,46 @@ const Checkout = () => {
   //     }
   // }
 
-  const handleTotalPrice = () => {
-    let price = 0;
-    products.forEach((product) => {
-      price += product.price * product.count; // Sum up the price of each product
-    });
-    setFullPrice(price);
-    if (discount > 0) {
-      let priceWithDiscount = price;
-      priceWithDiscount = price - (price * discount) / 100;
-      setTotalPrice(priceWithDiscount + transport); // transport
-    }
-  };
 
   useEffect(() => {
+    const handleTotalPrice = () => {
+      let price = 0;
+      products.forEach((product) => {
+        price += product.price * product.count;
+      });
+      setFullPrice(price);
+      if (discount > 0) {
+        let priceWithDiscount = price;
+        priceWithDiscount = price - (price * discount) / 100;
+        setTotalPrice(priceWithDiscount + transport);
+      }
+    };
+    const getUserData = async () => {
+      try {
+        let token = localStorage.getItem("token");
+        if (token) {
+          await AuthService.decodeUser().then((res) => {
+            setUser(res);
+            setDiscount(res?.discount);
+          });
+        } else {
+          Swal.fire({
+            title: "You are not logged in!",
+            text: "Please log in before making an order",
+            icon: "warning",
+          }).then((res) => {
+            if (res.isConfirmed) {
+              navigate("/login");
+            }
+          });
+        }
+      } catch (err) {
+        return null;
+      }
+    };
     handleTotalPrice();
     getUserData();
-  }, [discount, transport]);
+  }, [discount, transport, products, navigate]);
 
   //Second useEffect is to handle the form changes -- (to set initial pre-loaded user data)
   useEffect(() => {
@@ -141,7 +141,7 @@ const Checkout = () => {
       additionalInfo: formik.values.additionalInfo || "", // Preserve the current additionalInfo value
       country: selectedCountry,
     });
-  }, [user]); // Listen for changes in the user state
+  }, [user, formik, selectedCountry]);
 
   const handleCountryChange = (e) => {
     setSelectedCountry(e.target.value);
@@ -237,7 +237,7 @@ const Checkout = () => {
                     return (
                       <div key={index} className="max-w-[250px] w-[250px] mx-auto bg-white shadow-lg h-[430px] m-5">
                         <div className="flex justify-center items-center w-full h-[300px]">
-                          <img className="object-contain max-w-[250px] min-h-[300px] max-h-[300px]" src={`/uploads/${product.imgUrl}`} alt="Image here" />
+                          <img className="object-contain max-w-[250px] min-h-[300px] max-h-[300px]" src={`/uploads/${product.imgUrl}`} alt="Product" />
                         </div>
                         <div className="p-4">
                           <h2 className="text-start text-xl text-[#292929] font-bold max-h-10 overflow-ellipsis overflow-hidden whitespace-nowrap">{product.title}</h2>

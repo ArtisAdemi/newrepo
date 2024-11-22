@@ -1,5 +1,4 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import UserService from '../services/Users';
 
 
@@ -11,7 +10,7 @@ const DiscountModal = ({ closeDiscountModal, userId, discountValue }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await UserService.giveDiscount(userId, newValue);
+      await UserService.giveDiscount(userId, newValue);
       closeDiscountModal();
     } catch (error) {
       console.error("Error changing discount:", error);

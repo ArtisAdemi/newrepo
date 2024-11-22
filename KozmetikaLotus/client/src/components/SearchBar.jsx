@@ -6,32 +6,31 @@ const SearchBar = () => {
   const [productName, setProductName] = useState("");
   const [searchModal, setSearchModal] = useState(false);
   const [products, setProducts] = useState([]);
-  const page = 1;
-  const limit = 5;
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setProductName(e.target.value);
   };
 
-  const fetchProducts = async () => {
-    try {
-      const result = await ProductService.getSearchResult(productName);
-      if (result) {
-        setProducts(result);
-        setSearchModal(result.length > 0);
-      } else {
+
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const result = await ProductService.getSearchResult(productName);
+        if (result) {
+          setProducts(result);
+          setSearchModal(result.length > 0);
+        } else {
+          setProducts([]);
+          setSearchModal(false);
+        }
+      } catch (err) {
+        console.log("Error fetching products: ", err);
         setProducts([]);
         setSearchModal(false);
       }
-    } catch (err) {
-      console.log("Error fetching products: ", err);
-      setProducts([]);
-      setSearchModal(false);
-    }
-  };
-
-  useEffect(() => {
+    };
     if (productName.length > 1) {
       fetchProducts();
     } else {

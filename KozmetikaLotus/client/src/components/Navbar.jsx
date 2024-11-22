@@ -1,16 +1,14 @@
 import { React, useState, useEffect } from "react";
 import LotusLogo from "../Icons/LotusLogo";
-import CategoryService from "../services/Categories";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { IoCartOutline, IoSearchOutline } from "react-icons/io5";
-import { FaRegUser, FaRegUserCircle, FaRegHeart, FaSearch } from "react-icons/fa";
+import { FaRegUser, FaRegUserCircle, FaRegHeart } from "react-icons/fa";
 import Logout from "../helpers/Logout";
 import UserService from "../services/Users";
 import AuthService from "../services/AuthService";
 import { setIsCartOpen } from "../state";
 import { useDispatch, useSelector } from "react-redux";
-import ProductService from "../services/Products";
 import WishlistService from "../services/Wishlist";
 import { setWishlistLength } from "../state";
 import SearchBar from "./SearchBar";
@@ -19,7 +17,6 @@ import brandsData from "../brands.json";
 
 const Navbar = () => {
   const [categories, setCategories] = useState([]);
-  const [modal, setModal] = useState(false);
   const [nav, setNav] = useState(false);
   const [profileModal, setProfileModal] = useState(false);
   const [currentUser, setCurrentUser] = useState(false);
@@ -30,13 +27,11 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
   const wishlistLength = useSelector((state) => state.cart.wishlist);
-  const isCartOpen = useSelector((state) => state.cart.isCartOpen);
   const [subCategories, setSubCategories] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [brands, setBrands] = useState([]);
   const [brandModal, setBrandModal] = useState(false);
-  const [wishlist, setWishlist] = useState([]);
   const [searchInput, setSearchInput] = useState(false);
   const [closeCategoryTimeout, setCloseCategoryTimeout] = useState(null);
   const [closeBrandTimeout, setCloseBrandTimeout] = useState(null);
@@ -75,7 +70,6 @@ const Navbar = () => {
           if (user.id) {
             const userId = user.id;
             await WishlistService.getUsersWishlist(userId).then((res) => {
-              setWishlist(res);
               dispatch(setWishlistLength(res.length));
             });
           }
@@ -85,7 +79,7 @@ const Navbar = () => {
       }
     };
     fetchWishlistItems();
-  }, [user]);
+  }, [user, dispatch]);
 
   const isLoggedIn = async () => {
     const user = await UserService.validateToken();
@@ -111,7 +105,7 @@ const Navbar = () => {
     isLoggedIn();
     setCategories(categoriesData);
     setBrands(brandsData);
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     // When the navbar is open, prevent scrolling on the body for larger screens
@@ -170,10 +164,6 @@ const Navbar = () => {
     }
   };
 
-  const closeModal = () => {
-    setSelectedCategory(null);
-    setSubCategories({});
-  };
 
   const handleBrandHover = () => {
     if (closeBrandTimeout) {
@@ -484,7 +474,7 @@ const Navbar = () => {
         </div>
 
         <div className="categories-navbar bg-[#292929] w-full hidden md:flex">
-          <div className="modal-content w-[90%] mx-auto flex justify-between py-4 items-center overflow-auto scrollbar scrollbar-thumb-white scrollbar-thin scrollbar-track-[#292929]">
+          <div className="modal-content w-[90%] mx-auto flex justify-between py-4 items-center overflow-auto scrollbar-thumb-white scrollbar-thin scrollbar-track-[#292929]">
             <h2 className="text-[#FFFFFF] text-lg cursor-pointer" onClick={() => redirect("all")}>
               All
             </h2>

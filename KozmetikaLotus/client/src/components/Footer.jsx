@@ -4,9 +4,7 @@ import FacebookIcon from "../Icons/FacebookIcon";
 import Indicator from "../Icons/Indicator";
 import LotusIcon from "../Icons/LotusIcon";
 import { useNavigate } from "react-router-dom";
-import CategoryService from "../services/Categories";
 import TikTokIcon from "../Icons/TikTokIcon.jsx";
-import TwitterIcon from "../Icons/TwitterIcon.jsx";
 import categoriesData from "../categories.json";
 
 const Footer = () => {

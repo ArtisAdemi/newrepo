@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar } from '../components';
 import AuthService from '../services/AuthService';
 import UserForm from '../components/UserForm';
@@ -22,7 +22,7 @@ const Profile = () => {
         setSelectedOrderId(id);
         setTotalPriceForOrder(totalPrice);
         setOrderDetails(true);
-      }
+    }
 
     // const getUserData = async () => {
     //     let res;
@@ -39,41 +39,42 @@ const Profile = () => {
         setDisplayedOrders(prevCount => prevCount + 10); // Load 10 more orders
     };
 
-    const getUserData = async () => {
-        await AuthService.decodeUser().then((data) => {
-            if(data.message === "Token is expired, Log in again"){
-                Swal.fire({
-                    title: "You are logged out!",
-                    text:"Please log in again",
-                    icon:"warning",
-                    confirmButtonText: "Log In",
-                }).then((confirmed) => {
-                    if(confirmed.isConfirmed){
-                        localStorage.removeItem("token")
-                        navigate("/login")
-                    }
-                })
-            }
-            setUser(data);
-        })
-    }
-
-    const getOrders = async () => {
-        await OrderService.getOrdersByUser(null, displayedOrders).then((data) => {
-            setOrders(data.orders);
-            setTotalPages(data.totalPages)
-        })
-    }
 
 
-      const handleEditProfile = () => {
+
+
+    const handleEditProfile = () => {
         setIsEditing(true);
-      }
+    }
 
-      useEffect(() => {
+    useEffect(() => {
+        const getOrders = async () => {
+            await OrderService.getOrdersByUser(null, displayedOrders).then((data) => {
+                setOrders(data.orders);
+                setTotalPages(data.totalPages)
+            })
+        }
+        const getUserData = async () => {
+            await AuthService.decodeUser().then((data) => {
+                if (data.message === "Token is expired, Log in again") {
+                    Swal.fire({
+                        title: "You are logged out!",
+                        text: "Please log in again",
+                        icon: "warning",
+                        confirmButtonText: "Log In",
+                    }).then((confirmed) => {
+                        if (confirmed.isConfirmed) {
+                            localStorage.removeItem("token")
+                            navigate("/login")
+                        }
+                    })
+                }
+                setUser(data);
+            })
+        }
         getUserData();
         getOrders();
-      }, [displayedOrders])
+    }, [displayedOrders, navigate])
 
     return (
         <div>
@@ -83,7 +84,7 @@ const Profile = () => {
 
             <div className='profile-container flex justify-center w-full md:my-12'>
                 <div className='profile-content w-[80%] justify-center md:flex'>
-                    
+
                     <div className='w-[100%] flex '>
                         <div className='w-[100%] flex flex-col gap-10 justify-center my-12'>
 
@@ -123,11 +124,11 @@ const Profile = () => {
                         </div>
                     </div>
 
-                    
-          
+
+
                 </div>
             </div>
-            {!orderDetails && 
+            {!orderDetails &&
                 <div className='orders-container flex justify-center w-full my-12'>
                     <div className='orders-content w-[80%] flex flex-col'>
                         <div className='flex items-center p-2 w-full justify-between md:justify-normal border border-b-[#BDBDBD] border-l-0 border-r-0 border-t-0'>
@@ -144,35 +145,35 @@ const Profile = () => {
 
                         {/* STATIC ORDER DATA */}
                         {orders?.length > 0 && orders.map((order, index) => {
-                        let totalPrice = 0; // Initialize totalPrice to 0 for each order
-                        if (order.Products) {
-                            order.Products.forEach(product => {
-                                totalPrice += (product.price * product.Order_Products.quantity);
-                            });
-                        }
+                            let totalPrice = 0; // Initialize totalPrice to 0 for each order
+                            if (order.Products) {
+                                order.Products.forEach(product => {
+                                    totalPrice += (product.price * product.Order_Products.quantity);
+                                });
+                            }
 
-                         // Format the date
-                        const formattedDate = new Date(order.createdAt).toLocaleDateString('en-GB'); // 'en-GB' uses day/month/year format
+                            // Format the date
+                            const formattedDate = new Date(order.createdAt).toLocaleDateString('en-GB'); // 'en-GB' uses day/month/year format
 
-                        return (
-                            <div className='flex justify-between items-center p-2 md:pr-10 w-full border border-b-[#E0E0E0] border-l-0 border-r-0 border-t-0' key={index}>
-                                <h2 className='text-[#333333] md:text-lg w-[2%] md:w-[16.6%]'>{order.id}</h2>
-                                <h2 className='text-[#333333] md:text-lg md:w-[16.6%]'>{formattedDate}</h2>
-                                <h2 className='hidden md:block text-[#333333] md:text-lg w-[16.6%]'>{order.address}</h2>
-                                <h2 className='text-[#333333] md:text-lg w-[16.6%]'>${totalPrice.toFixed(2)}</h2> {/* Display the calculated total price */}
-                                <h2 className='hidden md:block text-[#333333] md:text-lg w-[16.6%]'>{order.status}</h2>
-                                <h2 onClick={() => handleOrderDetails(order.id, totalPrice)} className='text-[#828282] text-end md:text-start md:text-lg w-[16.6%] cursor-pointer'>View</h2>
-                            </div>
-                        );
-                    })}
-                    {totalPages > 1 && (
-                        <button className='underline' onClick={loadMoreOrders}>Load More Orders</button>
+                            return (
+                                <div className='flex justify-between items-center p-2 md:pr-10 w-full border border-b-[#E0E0E0] border-l-0 border-r-0 border-t-0' key={index}>
+                                    <h2 className='text-[#333333] md:text-lg w-[2%] md:w-[16.6%]'>{order.id}</h2>
+                                    <h2 className='text-[#333333] md:text-lg md:w-[16.6%]'>{formattedDate}</h2>
+                                    <h2 className='hidden md:block text-[#333333] md:text-lg w-[16.6%]'>{order.address}</h2>
+                                    <h2 className='text-[#333333] md:text-lg w-[16.6%]'>${totalPrice.toFixed(2)}</h2> {/* Display the calculated total price */}
+                                    <h2 className='hidden md:block text-[#333333] md:text-lg w-[16.6%]'>{order.status}</h2>
+                                    <h2 onClick={() => handleOrderDetails(order.id, totalPrice)} className='text-[#828282] text-end md:text-start md:text-lg w-[16.6%] cursor-pointer'>View</h2>
+                                </div>
+                            );
+                        })}
+                        {totalPages > 1 && (
+                            <button className='underline' onClick={loadMoreOrders}>Load More Orders</button>
                         )}
-                    </div>        
+                    </div>
                 </div>
-                }
-                {orderDetails && <OrderDetails closeOrderDetails={() => setOrderDetails(false)} id={selectedOrderId} totalPrice={totalPriceForOrder}/>}
-                {isEditing && <UserForm closeModal={() => setIsEditing(false)} user={user} setUser={setUser} />}
+            }
+            {orderDetails && <OrderDetails closeOrderDetails={() => setOrderDetails(false)} id={selectedOrderId} totalPrice={totalPriceForOrder} />}
+            {isEditing && <UserForm closeModal={() => setIsEditing(false)} user={user} setUser={setUser} />}
         </div>
 
     )

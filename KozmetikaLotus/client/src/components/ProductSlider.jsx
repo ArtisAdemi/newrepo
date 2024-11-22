@@ -3,7 +3,6 @@ import Slider from "react-slick";
 import ProductService from "../services/Products";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useNavigate } from "react-router-dom";
 import "./ProductSlider.css"; // Import the CSS file
 
 const truncateDescription = (description, maxLength) => {
@@ -19,22 +18,11 @@ const ProductSlider = ({ subCategory, uniqueCategories, bestSeller }) => {
   const [helperProductsArray, setHelperProductsArray] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState(0);
-  const navigate = useNavigate();
 
-  const handleProducts = () => {
-    if (bestSeller) {
-      let productArray = [];
-      helperProductsArray.map((product) => {
-        productArray.push(product.product);
-      });
 
-      setProducts(productArray);
-    }
-  };
 
   const CustomDots = ({ dots, currentIndex, prevIndex }) => {
     const totalDots = dots.length;
-    const visibleDots = 5;
     const startIndex = Math.max(0, currentIndex - 2);
     const endIndex = Math.min(totalDots, currentIndex + 3);
     const slideClass = currentIndex > prevIndex ? "slide-right" : "slide-left";
@@ -99,47 +87,55 @@ const ProductSlider = ({ subCategory, uniqueCategories, bestSeller }) => {
   };
 
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    const fetchProducts = async () => {
+      let result;
+      const filterModel = {
+        subCategory: subCategory,
+      };
 
-  useEffect(() => {
-    handleProducts();
-  }, [helperProductsArray]);
-
-  const filterModel = {
-    subCategory: subCategory,
-  };
-
-  const fetchProducts = async () => {
-    let result;
-    try {
-      if (uniqueCategories) {
-        result = await ProductService.getUniqueCategory();
-        if (result.data) {
-          setProducts(result.data);
-        }
-      } else {
-        if (filterModel.subCategory) {
-          result = await ProductService.getProductsByFilter(filterModel);
-          if (result) {
-            setProducts(result.products);
-          }
-        } else if (bestSeller) {
-          result = await ProductService.getBestSellers();
-          if (result) {
-            setHelperProductsArray(result);
+      try {
+        if (uniqueCategories) {
+          result = await ProductService.getUniqueCategory();
+          if (result.data) {
+            setProducts(result.data);
           }
         } else {
-          result = await ProductService.getProducts();
-          if (result) {
-            setProducts(result);
+          if (filterModel.subCategory) {
+            result = await ProductService.getProductsByFilter(filterModel);
+            if (result) {
+              setProducts(result.products);
+            }
+          } else if (bestSeller) {
+            result = await ProductService.getBestSellers();
+            if (result) {
+              setHelperProductsArray(result);
+            }
+          } else {
+            result = await ProductService.getProducts();
+            if (result) {
+              setProducts(result);
+            }
           }
         }
+      } catch (err) {
+        console.error("Error:", err);
       }
-    } catch (err) {
-      console.error("Error:", err);
-    }
-  };
+    };
+    fetchProducts();
+  }, [bestSeller, uniqueCategories, subCategory]);
+
+  useEffect(() => {
+    const handleProducts = () => {
+      if (bestSeller) {
+        let productArray = [];
+        helperProductsArray.forEach(product => {
+          productArray.push(product.product);
+        });
+        setProducts(productArray);
+      }
+    };
+    handleProducts();
+  }, [helperProductsArray, bestSeller]);
 
   return (
     <div className="w-full flex justify-center items-center">
@@ -156,8 +152,8 @@ const ProductSlider = ({ subCategory, uniqueCategories, bestSeller }) => {
                     bestSeller
                       ? `products/all/${product.id}`
                       : `/products/${product.Subcategories[0].name
-                          .toLowerCase()
-                          .replace(/\s+/g, "-")}`
+                        .toLowerCase()
+                        .replace(/\s+/g, "-")}`
                   }
                   rel="noopener noreferrer"
                   className="block"

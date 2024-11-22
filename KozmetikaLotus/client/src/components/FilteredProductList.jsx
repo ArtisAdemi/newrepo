@@ -1,12 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductListItem from './ProductListItem';
 import ProductService from '../services/Products';
-import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const FilteredProductList = ({ filter }) => {
     const [products, setProducts] = useState([]);
-    const [totalProducts, setTotalProducts] = useState(0);
     const [page, setPage] = useState(() => {
         // Initialize page state from local storage
         const savedPage = localStorage.getItem("currentFilteredPage");
@@ -14,8 +12,6 @@ const FilteredProductList = ({ filter }) => {
     });
     const [totalPages, setTotalPages] = useState(0);
     const limit = 12; // Assuming each page shows 12 products
-    const navigate = useNavigate();
-    const prevFilterRef = useRef(filter);
 
     useEffect(() => {
         let lastFilter = localStorage.getItem("lastFilter");
@@ -23,6 +19,29 @@ const FilteredProductList = ({ filter }) => {
             setPage(1);
             localStorage.setItem("currentFilteredPage", 1);
             localStorage.setItem("lastFilter", filter);
+
+            const fetchFilteredProducts = async (currentPage) => {
+                try {
+                    const result = await ProductService.getFilteredProducts({
+                        page: currentPage,
+                        limit: limit,
+                        filter: filter,
+                    });
+                    if (result) {
+                        setProducts(result.products);
+                        setTotalPages(result.totalPages);
+                    }
+                } catch (err) {
+                    console.error("Error fetching filtered products:", err);
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Could not fetch filtered products",
+                        icon: "error",
+                        confirmButtonText: "Ok",
+                    });
+                }
+            };
+
             fetchFilteredProducts(1);
         }
     }, [filter]);
@@ -33,31 +52,31 @@ const FilteredProductList = ({ filter }) => {
     }, [page]);
 
     useEffect(() => {
+        const fetchFilteredProducts = async (currentPage) => {
+            try {
+                const result = await ProductService.getFilteredProducts({
+                    page: currentPage,
+                    limit: limit,
+                    filter: filter,
+                });
+                if (result) {
+                    setProducts(result.products);
+                    setTotalPages(result.totalPages);
+                }
+            } catch (err) {
+                console.error("Error fetching filtered products:", err);
+                Swal.fire({
+                    title: "Error!",
+                    text: "Could not fetch filtered products",
+                    icon: "error",
+                    confirmButtonText: "Ok",
+                });
+            }
+        };
         fetchFilteredProducts(page);
     }, [filter, page]);
 
-    const fetchFilteredProducts = async (currentPage) => {
-        try {
-            const result = await ProductService.getFilteredProducts({
-                page: currentPage,
-                limit: limit,
-                filter: filter,
-            });
-            if (result) {
-                setProducts(result.products);
-                setTotalProducts(result.totalProducts);
-                setTotalPages(result.totalPages);
-            }
-        } catch (err) {
-            console.error("Error fetching filtered products:", err);
-            Swal.fire({
-                title: "Error!",
-                text: "Could not fetch filtered products",
-                icon: "error",
-                confirmButtonText: "Ok",
-            });
-        }
-    };
+
 
 
     const handlePageChange = (newPage) => {
