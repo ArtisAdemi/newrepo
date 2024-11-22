@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import ProductService from "../services/Products";
-import LikeProduct from "./LikeProduct";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../state";
 import Swal from "sweetalert2";
@@ -21,7 +20,6 @@ const ProductListItem = ({
 }) => {
   const navigate = useNavigate();
   // const [isLiked, setIsLiked] = useState(false);
-  const [images, setImages] = useState([]);
   const dispatch = useDispatch();
 
   const handleLike = () => {
@@ -35,7 +33,7 @@ const ProductListItem = ({
 
   const handleRemindMe = async () => {
     try {
-      const res = await ProductService.remindMeWhenInStock(id, true);
+      await ProductService.remindMeWhenInStock(id, true);
     } catch (err) {
       console.error(err.message);
     }

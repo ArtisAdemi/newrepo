@@ -33,7 +33,7 @@ const OrderDetails = ({ closeOrderDetails, id, location }) => {
             setShowUpdateStatus(true);
         }
         getOrderById(id);
-    }, [id])
+    }, [id, location]);
 
     if (!order) { // Check if order is not loaded yet
         return <div>Loading...</div>; // Show loading state or similar message
@@ -184,7 +184,7 @@ const OrderDetails = ({ closeOrderDetails, id, location }) => {
                                 {order.Products && order?.Products.length > 0 && order?.Products.map((product, index) => (
                                     <div key={index} className="max-w-[250px] flex justify-between flex-col w-auto  bg-white shadow-lg h-[430px] mb-5">
                                         <div className="flex justify-center items-center w-full">
-                                            <img className="object-contain max-w-[250px] min-h-[300px] max-h-[300px]" src={`uploads/${product?.Images[0]?.fileName}`} alt="Image here" />
+                                            <img className="object-contain max-w-[250px] min-h-[300px] max-h-[300px]" src={`uploads/${product?.Images[0]?.fileName}`} alt="Product" />
                                         </div>
                                         <div className="p-4">
                                             <h2 className="text-start text-xl text-[#292929] font-bold truncate">{product?.title}</h2>

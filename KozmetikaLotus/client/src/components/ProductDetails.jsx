@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
 import ProductService from "../services/Products";
-import Product1Home from "../images/Product1Home.png";
-import Product2Home from "../images/Product2Home.png";
-import Product3Home from "../images/Product3Home.png";
 import CardGiftcard from "../Icons/CardGiftcard";
 import Discount from "../Icons/Discount";
 import QAndA from "../Icons/Q&A";
 import LikeProduct from "./LikeProduct";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToCart } from "../state";
 import Swal from "sweetalert2";
 import ProductSliderDetails from "./ProductSliderDetails";
 import { Helmet } from 'react-helmet-async';
 
-const ProductDetails = ({ title, subCategory, shortDescription, longDescription, id, price, inStock, isAdmin, productImages, BrandId }) => {
-  // const [images, setImages] = useState([]);
+const ProductDetails = ({ title, subCategory, shortDescription, longDescription, id, price, inStock, productImages }) => {
   const dispatch = useDispatch();
   const [remindMe, setRemindMe] = useState(false);
 
@@ -49,29 +45,12 @@ const ProductDetails = ({ title, subCategory, shortDescription, longDescription,
     setRemindMe(!remindMe);
 
     try {
-      const res = await ProductService.remindMeWhenInStock(id, remindMeBool);
+      await ProductService.remindMeWhenInStock(id, remindMeBool);
     } catch (err) {
       console.error(err.message);
     }
   };
 
-  useEffect(() => {
-    const fetchRemindMe = async () => {
-      try {
-        await ProductService.remindMeForThisProduct(id).then((res) => {
-          setRemindMe(res.notification);
-        });
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchRemindMe();
-  }, []);
-
-
-  const currentUrl = window.location.href;
-
-  // Function to get absolute URL for production or development
   const getImageUrl = () => {
     const domain = process.env.REACT_APP_DOMAIN || window.location.origin;
     if (productImages && productImages[0]?.fileName) {
@@ -79,18 +58,25 @@ const ProductDetails = ({ title, subCategory, shortDescription, longDescription,
     }
     return `${domain}/logo.png`;
   };
-  const imageUrl = getImageUrl();
 
   useEffect(() => {
-    const img = new Image();
-    img.src = imageUrl;
-  }, [imageUrl]);
-
-
-  useEffect(() => {
-    // Force meta refresh
     document.title = title ? `${title} | LOTUS` : 'LOTUS';
-  }, [title]);
+
+    const fetchRemindMe = async () => {
+      try {
+        const res = await ProductService.remindMeForThisProduct(id);
+        setRemindMe(res.notification);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    if (id) {
+      fetchRemindMe();
+    }
+  }, [id, title]);
+
+  const currentUrl = window.location.href;
 
   return (
     <>
@@ -101,7 +87,7 @@ const ProductDetails = ({ title, subCategory, shortDescription, longDescription,
         <meta property="og:type" content="product" />
         <meta property="og:title" content={title || 'LOTUS'} />
         <meta property="og:description" content={shortDescription} />
-        <meta property="og:image" content={imageUrl} />
+        <meta property="og:image" content={getImageUrl()} />
         <meta property="og:url" content={currentUrl} />
         <meta property="og:site_name" content="LOTUS" />
 
@@ -116,7 +102,7 @@ const ProductDetails = ({ title, subCategory, shortDescription, longDescription,
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title || 'LOTUS'} />
         <meta name="twitter:description" content={shortDescription} />
-        <meta name="twitter:image" content={imageUrl} />
+        <meta name="twitter:image" content={getImageUrl()} />
       </Helmet>
 
       <div>

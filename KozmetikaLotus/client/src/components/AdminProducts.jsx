@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import ProductList from '../components/ProductList';
@@ -7,7 +6,6 @@ import FilteredProductList from '../components/FilteredProductList'; // Import F
 import ProductFormModal from '../components/ProductForm';
 
 const AdminProducts = () => {
-  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productName, setProductName] = useState("");
   const [reload, setReload] = useState(false);

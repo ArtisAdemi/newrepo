@@ -6,7 +6,6 @@ import Swal from "sweetalert2";
 
 const LikeProduct = ({ productId }) => {
   const [isLiked, setIsLiked] = useState(false);
-  const [user, setUser] = useState({});
   const [userId, setUserId] = useState(0);
   const token = localStorage.getItem("token");
 
@@ -14,7 +13,6 @@ const LikeProduct = ({ productId }) => {
     let res;
     try {
       res = await AuthService.decodeUser();
-      setUser(res);
       return res.id;
     } catch (err) {
       console.error(err);
@@ -33,9 +31,8 @@ const LikeProduct = ({ productId }) => {
   };
 
   const addToWishlist = async () => {
-    let res;
     try {
-      res = await WishlistService.addToWishlist(userId, productId).then(() => {
+      await WishlistService.addToWishlist(userId, productId).then(() => {
         Swal.fire({
           title: "Item Added!",
           text: "Item was successfully added to wishlist!",
@@ -49,9 +46,8 @@ const LikeProduct = ({ productId }) => {
   };
 
   const removeFromWishlist = async () => {
-    let res;
     try {
-      res = await WishlistService.removeFromWishlist(userId, productId).then(() => {
+      await WishlistService.removeFromWishlist(userId, productId).then(() => {
         Swal.fire({
           title: "Item Removed!",
           text: "Item was successfully removed from wishlist!",
@@ -64,28 +60,28 @@ const LikeProduct = ({ productId }) => {
     }
   };
 
-  const loadData = async () => {
-    const userId = await getUserData();
-    if (userId) {
-      setUserId(userId);
-      try {
-        let res = await WishlistService.checkIfProductIsInWishlist(userId, productId);
-        if (res.data === true) {
-          setIsLiked(true);
-        } else {
-          setIsLiked(false);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    }
-  };
 
   useEffect(() => {
     if (token) {
+      const loadData = async () => {
+        const userId = await getUserData();
+        if (userId) {
+          setUserId(userId);
+          try {
+            const res = await WishlistService.checkIfProductIsInWishlist(userId, productId);
+            if (res.data === true) {
+              setIsLiked(true);
+            } else {
+              setIsLiked(false);
+            }
+          } catch (err) {
+            console.error(err);
+          }
+        }
+      };
       loadData();
     }
-  }, []);
+  }, [productId, token]);
 
   return (
     <div className="cursor-pointer">

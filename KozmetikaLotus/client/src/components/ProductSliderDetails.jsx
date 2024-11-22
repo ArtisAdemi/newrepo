@@ -62,38 +62,40 @@ const ProductSliderDetails = ({ subCategory, uniqueCategories }) => {
   };
 
   useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  const filterModel = {
-    subCategory: subCategory[0]?.name,
-  };
-
-  const fetchProducts = async () => {
-    let result;
-    try {
-      if (uniqueCategories) {
-        result = await ProductService.getUniqueCategory();
-        if (result.data) {
-          setProducts(result.data);
-        }
-      } else {
-        if (filterModel.subCategory) {
-          result = await ProductService.getProductsByFilter(filterModel);
-          if (result) {
-            setProducts(result.products);
+    const fetchProducts = async () => {
+      const filterModel = {
+        subCategory: subCategory[0]?.name,
+      };
+      let result;
+      try {
+        if (uniqueCategories) {
+          result = await ProductService.getUniqueCategory();
+          if (result.data) {
+            setProducts(result.data);
           }
         } else {
-          result = await ProductService.getProducts();
-          if (result) {
-            setProducts(result);
+          if (filterModel.subCategory) {
+            result = await ProductService.getProductsByFilter(filterModel);
+            if (result) {
+              setProducts(result.products);
+            }
+          } else {
+            result = await ProductService.getProducts();
+            if (result) {
+              setProducts(result);
+            }
           }
         }
+      } catch (err) {
+        console.error("Error:", err);
       }
-    } catch (err) {
-      console.error("Error:", err);
-    }
-  };
+    };
+    fetchProducts();
+  }, [uniqueCategories, subCategory]);
+
+
+
+
 
   return (
     <div className="w-full flex justify-center items-center">

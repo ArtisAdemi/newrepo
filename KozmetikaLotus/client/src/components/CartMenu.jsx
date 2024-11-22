@@ -43,26 +43,26 @@ const CartMenu = () => {
     return title.slice(0, maxLength) + "...";
   };
 
-  const handlePrice = () => {
-    const totalPrice = cart.reduce((total, item) => {
-      return total + item?.count * item?.price;
-    }, 0);
-    setFullPrice(totalPrice);
-    if (discount > 0) {
-      let priceWithDiscount = totalPrice;
-      priceWithDiscount = totalPrice - (totalPrice * discount) / 100;
-      priceWithDiscount += 2; // transport
-      setTotalPrice(priceWithDiscount);
-    }
-    else {
-      setTotalPrice(totalPrice + 2);
-    }
-  };
   useEffect(() => {
     getDiscount();
   }, []);
 
   useEffect(() => {
+    const handlePrice = () => {
+      const totalPrice = cart.reduce((total, item) => {
+        return total + item?.count * item?.price;
+      }, 0);
+      setFullPrice(totalPrice);
+      if (discount > 0) {
+        let priceWithDiscount = totalPrice;
+        priceWithDiscount = totalPrice - (totalPrice * discount) / 100;
+        priceWithDiscount += 2; // transport
+        setTotalPrice(priceWithDiscount);
+      }
+      else {
+        setTotalPrice(totalPrice + 2);
+      }
+    };
     handlePrice();
   }, [cart, discount]);
 

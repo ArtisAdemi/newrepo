@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { Navbar } from "../components";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,16 +7,10 @@ import ProductList from "../components/ProductList";
 
 const Products = () => {
   const { subCategoryName } = useParams();
-  const [subCategory, setSubCategory] = useState(subCategoryName.toLowerCase());
-  const [productName, setProductName] = useState("");
-
-  useEffect(() => {
-    setSubCategory(subCategoryName.toLowerCase());
-  }, [subCategoryName]);
-
-  const handleInputChange = (e) => {
-    setProductName(e.target.value);
-  };
+  const subCategory = useMemo(() =>
+    subCategoryName ? subCategoryName.toLowerCase() : '',
+    [subCategoryName]
+  );
 
   return (
     <div>
@@ -36,13 +30,10 @@ const Products = () => {
               <span>{subCategory}</span>
             </div>
           </div>
-          {/* <div className='flex justify-center'>
-              <input className='border border-1 w-[180px] md:w-[250px] border-[#0C0C0C4F] rounded-md p-1 px-6 ' style={{color: 'black'}} type="text" onChange={handleInputChange}  placeholder='Kerko...'/>
-            </div> */}
         </div>
       </div>
       <div>
-        <ProductList subCategory={subCategory} productName={productName} />
+        <ProductList subCategory={subCategory} key={subCategory} />
       </div>
     </div>
   );
