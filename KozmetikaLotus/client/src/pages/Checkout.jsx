@@ -131,17 +131,14 @@ const Checkout = () => {
 
   //Second useEffect is to handle the form changes -- (to set initial pre-loaded user data)
   useEffect(() => {
-    // Set formik initialValues when user data changes
-    formik.setValues({
-      firstName: user?.firstName || "",
-      lastName: user?.lastName || "",
-      email: user?.email || "",
-      phoneNumber: user?.phoneNumber || "",
-      address: formik.values.address || "", // Preserve the current address value
-      additionalInfo: formik.values.additionalInfo || "", // Preserve the current additionalInfo value
-      country: selectedCountry,
-    });
-  }, [user, formik, selectedCountry]);
+    // Update each field individually
+    formik.setFieldValue('firstName', user?.firstName || '', false);
+    formik.setFieldValue('lastName', user?.lastName || '', false);
+    formik.setFieldValue('email', user?.email || '', false);
+    formik.setFieldValue('phoneNumber', user?.phoneNumber || '', false);
+    formik.setFieldValue('country', selectedCountry, false);
+    // Don't update address and additionalInfo to preserve user input
+  }, [user, selectedCountry]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleCountryChange = (e) => {
     setSelectedCountry(e.target.value);
