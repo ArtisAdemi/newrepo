@@ -154,7 +154,7 @@ const registerOrder = async (req, res) => {
             address: addressWithCountry,
             UserId: userId,
             totalPrice: totalPrice,
-            additionalInfo: additionalInfo
+            additionalInfo: additionalInfo,
         }); // Create the order
 
         // Loop through each product and add it to the order with the specified quantity
@@ -175,6 +175,7 @@ const registerOrder = async (req, res) => {
                     <li>Address: ${addressWithCountry}</li>
                     <li>Additional Info: ${additionalInfo}</li>
                     <li>Total Price: ${totalPrice}€</li>
+                    <li>Phone Number: ${user.phoneNumber}</li>
                 </ul>
             `;
         await sendEmail(process.env.EMAIL, 'New Order Registered', emailMessage);
