@@ -20,7 +20,7 @@ const sendContactEmail = (userData) => {
 
     const mailOptions = {
         from: process.env.EMAIL,
-        to: process.env.EMAIL, // Send email to the address saved in process.env.EMAIL
+        to: "ajete.vranovcii@live.com", // Send email to the address saved in process.env.EMAIL
         subject: "New Contact Form Submission",
         html: `
         <p>Hello,</p>

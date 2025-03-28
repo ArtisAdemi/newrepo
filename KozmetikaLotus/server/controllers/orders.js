@@ -178,7 +178,7 @@ const registerOrder = async (req, res) => {
                     <li>Phone Number: ${user.phoneNumber}</li>
                 </ul>
             `;
-        await sendEmail(process.env.EMAIL, 'New Order Registered', emailMessage);
+        await sendEmail("ajete.vranovcii@live.com", 'New Order Registered', emailMessage);
 
         res.status(201).json(order);
     } catch (err) {
