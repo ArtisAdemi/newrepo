@@ -21,9 +21,21 @@ const getProducts = async (req, res) => {
   const subCategory = req.query.subCategory;
   const productName = req.query.productName;
   const brand = req.query.brand; // Add brandName parameter
+  const sort = req.query.sort || 'oldest'; // Default sort is oldest
 
   let whereCondition = {};
   let includeCondition = [];
+  let orderCondition = [];
+
+  // Set the order based on the sort parameter
+  if (sort === 'newest') {
+    orderCondition.push(['createdAt', 'DESC']); // Newest first
+  } else {
+    orderCondition.push(['createdAt', 'ASC']); // Oldest first (default)
+  }
+
+  // Add the image sorting after the main product sorting
+  orderCondition.push([{ model: Images }, 'id', 'ASC']);
 
   if (productName) {
     whereCondition.title = { [Op.iLike]: `%${productName}%` };
@@ -53,7 +65,6 @@ const getProducts = async (req, res) => {
   try {
     includeCondition.push({
       model: Images,
-      // order: [["id", "ASC"]], // Order images by id in ascending order
     });
     // Use findAndCountAll to get both count and rows
     const { count, rows } = await Products.findAndCountAll({
@@ -62,7 +73,7 @@ const getProducts = async (req, res) => {
       offset: offset,
       limit: limit,
       distinct: true, // This ensures count is accurate when using include
-      order: [[{ model: Images }, "id", "ASC"]], // Order images by id in ascending order
+      order: orderCondition, // Use the dynamic order condition
     });
 
     // Calculate the total number of pages

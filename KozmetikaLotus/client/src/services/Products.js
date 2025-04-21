@@ -67,6 +67,10 @@ const ProductService = {
       if (filterModel.limit) {
         params["limit"] = filterModel.limit;
       }
+      // Add sort parameter
+      if (filterModel.sort) {
+        params["sort"] = filterModel.sort;
+      }
       endpoint += buildUrl(params);
 
       const response = await axios.get(endpoint, { withCredentials: true });

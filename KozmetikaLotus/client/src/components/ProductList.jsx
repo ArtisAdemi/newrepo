@@ -16,6 +16,7 @@ const ProductList = ({ subCategory, productName, brand, isAdmin }) => {
   const [wishlist, setWishlist] = useState([]); // State to hold wishlist items
   const [userId, setUserId] = useState(null); // Initialize userId state
   const [productCache, setProductCache] = useState({}); // Cache for products
+  const [sortOption, setSortOption] = useState('oldest'); // Default sort is oldest
   const limit = 12; // Assuming each page shows 12 products
   const navigate = useNavigate();
   const token = localStorage.getItem("token"); // Assuming you store token in localStorage
@@ -71,13 +72,12 @@ const ProductList = ({ subCategory, productName, brand, isAdmin }) => {
 
   useEffect(() => {
     if (!isAdmin) {
-
-      // Clear cache and fetch fresh data when subCategory changes
+      // Clear cache and fetch fresh data when subCategory, productName, brand, or sortOption changes
       setProductCache({});
       fetchProducts(page);
       setPage(1);
     }
-  }, [subCategory, productName, brand]);
+  }, [subCategory, productName, brand, sortOption]);
 
   useEffect(() => {
     let subCategoryCache = localStorage.getItem("subCategory");
@@ -116,6 +116,7 @@ const ProductList = ({ subCategory, productName, brand, isAdmin }) => {
           brand: brand ? brand : null,
           page: pageToFetch,
           limit: limit,
+          sort: sortOption, // Add sort parameter
         };
 
         const result = await ProductService.getProductsByFilter(filterModel);
@@ -142,19 +143,15 @@ const ProductList = ({ subCategory, productName, brand, isAdmin }) => {
     }
   };
 
-  useEffect(() => {
-    // Scroll to top whenever the page changes
-    let currentPage = localStorage.getItem("currentPage");
-    if (currentPage) {
-      setPage(parseInt(currentPage, 10));
-    }
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [page]);
-
   const handlePageChange = (newPage) => {
-    if (newPage < 1 || newPage > totalPages) return; // Prevent invalid page changes
     setPage(newPage);
-    localStorage.setItem("currentPage", newPage); // Save the current page to local storage
+    localStorage.setItem("currentPage", newPage);
+  };
+
+  const handleSortChange = (event) => {
+    setSortOption(event.target.value);
+    // Clear cache when sort option changes
+    setProductCache({});
   };
 
   const toggleWishlistItem = async (productId, isLiked) => {
@@ -238,6 +235,24 @@ const ProductList = ({ subCategory, productName, brand, isAdmin }) => {
   return (
     <div className="w-full pb-10 flex justify-center">
       <div>
+        {/* Add sort dropdown */}
+        <div className="flex justify-end mb-4">
+          <div className="relative">
+            <select
+              value={sortOption}
+              onChange={handleSortChange}
+              className="block cursor-pointer appearance-none w-full bg-white border border-gray-300 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+            >
+              <option value="oldest">Oldest First</option>
+              <option value="newest">Newest First</option>
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+              <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+              </svg>
+            </div>
+          </div>
+        </div>
         <div className="grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 cursor-pointer">
           {products.length > 0 &&
             products.map((product, index) => (
@@ -263,7 +278,6 @@ const ProductList = ({ subCategory, productName, brand, isAdmin }) => {
                 <button onClick={() => handlePageChange(page + 1)} disabled={page >= totalPages} className="m-1 px-3 py-1 rounded-md bg-white">
                   Next
                 </button>
-
               </div>
             </div>
           </div>
