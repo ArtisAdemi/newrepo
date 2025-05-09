@@ -4,14 +4,30 @@ import Swal from "sweetalert2";
 import API_URL from "./backendUrl";
 const PRODUCTS_API_URL = `${API_URL}/products`;
 
+// Function to get the current token
+const getAuthToken = () => {
+  return localStorage.getItem("token");
+};
+
 // Create an axios instance for authenticated requests
 const axiosInstance = axios.create({
   withCredentials: true,
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-    "Access-Control-Allow-Origin": "*",
-  },
 });
+
+// Add request interceptor to always use the latest token
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = getAuthToken();
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    config.headers["Access-Control-Allow-Origin"] = "*";
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 const ProductService = {
   getProducts: async () => {
@@ -128,7 +144,7 @@ const ProductService = {
 
     try {
       const response = await axiosInstance.post(`${PRODUCTS_API_URL}`, formData, {
-        withCredentialsq: true,
+        withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",
           "Access-Control-Allow-Origin": "*",
@@ -228,6 +244,7 @@ const ProductService = {
 
   remindMeWhenInStock: async (productId, remindMe) => {
     try {
+      const token = getAuthToken();
       const res = await axios.post(
         `${PRODUCTS_API_URL}/remindWhenInStock`,
         {
@@ -237,7 +254,7 @@ const ProductService = {
         {
           withCredentials: true,
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${token}`,
             "Access-Control-Allow-Origin": "*",
           },
         }
