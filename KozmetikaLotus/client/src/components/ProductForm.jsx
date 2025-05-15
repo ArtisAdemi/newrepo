@@ -9,10 +9,10 @@ const ProductFormModal = ({ closeModal, product, handleReload }) => {
     title: product?.title || "",
     shortDescription: product?.shortDescription || "",
     longDescription: product?.longDescription || "",
-    inStock: product?.inStock || false,
     price: product?.price || "",
     BrandId: selectedBrand,
     subCategoryId: product?.Subcategories[0]?.id || 0,
+    quantity: product?.quantity || 0,
     images: product?.Images || [],
     newImages: [],
   });
@@ -188,13 +188,30 @@ const ProductFormModal = ({ closeModal, product, handleReload }) => {
               </label>
               <textarea name="longDescription" onChange={handleInputChange} placeholder="Write here..." required className="textarea textarea-bordered w-full  border-b-gray-500 border-t-0 border-r-0 border-l-0 border-[1px]" value={formData.longDescription}></textarea>
             </div>
-            <div className="flex flex-col pt-4 ml-2 mt-4">
+            <label htmlFor="quantity" className="text-gray-400 font-semibold">
+              Stock:
+            </label>
+            <div className="flex items-center border border-gray-300 rounded-lg input-bordered w-full">
+              <input
+                type="number"
+                name="quantity"
+                onChange={handleInputChange}
+                placeholder="Write amount of stock"
+                required
+                className="flex-grow p-2 focus:outline-none"
+                value={formData.quantity} // Ensure only numeric value is in state
+              />
+            </div>
+            {/* <div className="flex flex-col pt-4 ml-2 mt-4">
               <span className="mb-1 md:text-lg font-semibold border-0">In Stock</span>
               <label className="relative inline-flex items-center cursor-pointer mb-2">
                 <input type="checkbox" className="sr-only peer" name="inStock" checked={formData.inStock} onChange={handleInputChange} />
                 <div className="w-11 h-6 bg-gray-200 dark:bg-dark-input rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-0  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
               </label>
-            </div>
+            </div> */}
+            <label htmlFor="price" className="text-gray-400 font-semibold">
+              Price:
+            </label>
             <div className="flex items-center border border-gray-300 rounded-lg input-bordered w-full">
               <input
                 type="number"
@@ -207,6 +224,7 @@ const ProductFormModal = ({ closeModal, product, handleReload }) => {
               />
               <span className="p-2">€</span>
             </div>
+           
             <p className="text-sm text-center bg-yellow-500 rounded-md font-semibold">
               Warning!
               <br />

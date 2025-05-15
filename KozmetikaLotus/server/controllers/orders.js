@@ -137,16 +137,19 @@ const registerOrder = async (req, res) => {
         const client = await createClient(userId);
         let totalPrice = 0
         for (const product of products) {
-            totalPrice += (product.price * product.quantity)
+            const dbProduct = await Products.findByPk(product.id);
+            if (!dbProduct) {
+                return res.status(404).json({ message: `Product with ID ${product.id} not found` });
+            }
+            
+            if (dbProduct.quantity < product.quantity) {
+                return res.status(400).json({ 
+                    message: `Insufficient stock for product "${dbProduct.title}". Available: ${dbProduct.quantity}, Requested: ${product.quantity}` 
+                });
+            }
         }
 
-        totalPrice = totalPrice - ((totalPrice * user.discount) / 100);
-
-        totalPrice += transport; // transport
-
-        user.discount = 0;
-        await user.save();
-
+        // Format address with country
         addressWithCountry = `${address}, ${country}`;
 
         const order = await Orders.create({
@@ -157,10 +160,21 @@ const registerOrder = async (req, res) => {
             additionalInfo: additionalInfo,
         }); // Create the order
 
-        // Loop through each product and add it to the order with the specified quantity
+        // Loop through each product, add it to the order and update stock quantities
         for (const product of products) {
+            // Add product to order with specified quantity
             await order.addProducts(product.id, {
                 through: { quantity: product.quantity }
+            });
+            
+            // Update product stock quantity
+            const dbProduct = await Products.findByPk(product.id);
+            const newQuantity = dbProduct.quantity - product.quantity;
+            const inStock = newQuantity > 0;
+            
+            await dbProduct.update({
+                quantity: newQuantity,
+                inStock: inStock
             });
         }
 

@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 import ProductSliderDetails from "./ProductSliderDetails";
 import { Helmet } from 'react-helmet-async';
 
-const ProductDetails = ({ title, subCategory, shortDescription, longDescription, id, price, inStock, productImages }) => {
+const ProductDetails = ({ title, subCategory, shortDescription, longDescription, id, price, inStock, productImages, quantity }) => {
   const dispatch = useDispatch();
   const [remindMe, setRemindMe] = useState(false);
 
@@ -22,7 +22,6 @@ const ProductDetails = ({ title, subCategory, shortDescription, longDescription,
   };
 
   const handleAddToCart = () => {
-
     const product = {
       title,
       subCategory,
@@ -31,6 +30,8 @@ const ProductDetails = ({ title, subCategory, shortDescription, longDescription,
       id,
       price,
       imgUrl: productImages[0]?.fileName,
+      quantity,
+      maxQuantity: quantity
     };
     dispatch(addToCart({ product }));
     Swal.fire({
@@ -70,7 +71,6 @@ const ProductDetails = ({ title, subCategory, shortDescription, longDescription,
         console.error(err);
       }
     };
-
     if (id) {
       fetchRemindMe();
     }
@@ -121,8 +121,17 @@ const ProductDetails = ({ title, subCategory, shortDescription, longDescription,
                   ))}
                 </div>
               </div>
-              <div className="flex flex-col w-full  md:hidden border border-t-0 border-r-0 border-l-0 border-b-[#606060]">
-                <p className="w-full font-bold text-xl mt-5 mb-5 bg-[#ffecf0] rounded-lg py-3 px-5">€{price}</p>
+              <div className="flex flex-col w-full mt-3 md:hidden border border-t-0 border-r-0 border-l-0 border-b-[#606060]">
+              {quantity !== null && quantity !== undefined && quantity !== 0 ? (
+                inStock ? (
+                  <p className="text-s">
+                    Stock: {quantity > 10 ? "Available" : `Only ${quantity} left!`}
+                  </p>
+                ) : (
+                  <p className="text-sm text-red-600"></p>
+                )
+              ) : null}
+                <p className="w-full font-bold text-xl mb-5 bg-[#ffecf0] rounded-lg py-3 px-5">€{price}</p>
                 <LikeProduct productId={id} />
               </div>
               <div className="w-full md:w-[40%]">
@@ -132,8 +141,21 @@ const ProductDetails = ({ title, subCategory, shortDescription, longDescription,
                 <div className="hidden md:block mb-4">
                   <p className="text-sm">{shortDescription}</p>
                 </div>
-                <div className="hidden md:flex w-full border border-t-0 border-r-0 border-l-0 border-b-[#606060]">
+                <div className="hidden md:flex w-full md:mb-4">
                   <p className="w-full font-bold text-xl">€{price}</p>
+                </div>
+                <div className="hidden md:flex justify-between w-full border border-t-0 border-r-0 border-l-0 border-b-[#606060]">
+                  <div className="mb-3">
+                    {quantity !== null && quantity !== undefined ? (
+                      inStock ? (
+                        <p className="text-s">
+                          Stock: {quantity > 10 ? "Available" : `Only ${quantity} left!`}
+                        </p>
+                      ) : (
+                        <p className="text-sm text-red-600"></p>
+                      )
+                    ) : null}
+                  </div>
                   <LikeProduct productId={id} />
                 </div>
                 {inStock && (

@@ -110,8 +110,12 @@ const CartMenu = () => {
                             <RemoveIcon />
                           </IconButton>
                           <Typography>{item?.count}</Typography>
-                          <IconButton onClick={() => dispatch(increaseCount({ id: item.id }))}>
-                            <AddIcon />
+                          <IconButton 
+                            onClick={() => dispatch(increaseCount({ id: item.id }))}
+                            disabled={item.count >= item.maxQuantity}
+                            title={item.count >= item.maxQuantity ? "Maximum stock reached" : ""}
+                          >
+                            <AddIcon style={{ color: item.count >= item.maxQuantity ? "#cccccc" : "" }} />
                           </IconButton>
                         </Box>
                         {/* PRICE */}
