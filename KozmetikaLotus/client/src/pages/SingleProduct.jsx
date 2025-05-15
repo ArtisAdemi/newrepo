@@ -117,7 +117,7 @@ const SingleProduct = () => {
       </div>
       {product && (
         <div>
-          <ProductDetails title={product.title} shortDescription={product.shortDescription} longDescription={product.longDescription} subCategory={product?.Subcategories} price={product.price} id={product.id} inStock={product.inStock} productImages={product.Images} BrandId={product.BrandId} />
+          <ProductDetails title={product.title} shortDescription={product.shortDescription} longDescription={product.longDescription} subCategory={product?.Subcategories} price={product.price} id={product.id} inStock={product.inStock} productImages={product.Images} BrandId={product.BrandId} quantity={product.quantity} />
         </div>
       )}
       {isEditing && <ProductFormModal closeModal={() => setIsEditing(false)} product={product} handleReload={handleReload} />}

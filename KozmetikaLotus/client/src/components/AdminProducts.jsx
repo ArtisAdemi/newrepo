@@ -58,6 +58,7 @@ const AdminProducts = () => {
               <option value="all">Show All</option>
               <option value="outOfStock">Out of Stock</option>
               <option value="inStock">In Stock</option>
+              <option value="lowStock">Low Stock</option>
             </select>
             <button
               className='md:mr-3 border w-[190px] mt-3 md:mt-0 border-[#0C0C0C] bg-[#0C0C0C] text-[#FFF] hover:opacity-85 p-1 px-6 font-semibold'

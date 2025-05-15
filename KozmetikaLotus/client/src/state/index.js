@@ -43,10 +43,19 @@ export const cartSlice = createSlice({
             const { product } = action.payload;
             const existingProduct = state.cart.find((item) => item.id === product.id);
 
+            // Get product quantity (stock)
+            const availableQuantity = product.quantity || 0;
+
             if (existingProduct) {
-                existingProduct.count++;
+                // Limit the count to the available quantity
+                if (existingProduct.count < availableQuantity) {
+                    existingProduct.count++;
+                }
             } else {
-                state.cart = [...state.cart, { ...product, count: 1 }];
+                // Add product to cart only if it has stock
+                if (availableQuantity > 0) {
+                    state.cart = [...state.cart, { ...product, count: 1, maxQuantity: availableQuantity }];
+                }
             }
         },
 
@@ -58,7 +67,10 @@ export const cartSlice = createSlice({
             const { id } = action.payload;
             const product = state.cart.find((item) => item.id === id);
             if (product) {
-                product.count++;
+                // Only increase if count is less than the maximum available quantity
+                if (product.count < product.maxQuantity) {
+                    product.count++;
+                }
             }
         },
 

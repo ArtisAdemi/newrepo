@@ -118,10 +118,12 @@ const getProductById = async (req, res) => {
 
 // Register Product
 const registerProduct = async (req, res) => {
-  const { title, shortDescription, longDescription, brandName, quantity, price, discount, subCategoryId, inStock, BrandId } = req.body;
+  const { title, shortDescription, longDescription, brandName, quantity, price, discount, subCategoryId, BrandId } = req.body;
   try {
     // Normalise title to standard UNICODE
     const normalizedTitle = title.normalize("NFKD").replace(/[\u0300-\u036f]/g, "");
+
+    const inStock = quantity > 0;
 
     // Create new product using variables from body
     const newProduct = await Products.create({
@@ -169,7 +171,9 @@ const registerProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   const productId = req.params.id;
-  const { title, shortDescription, longDescription, brandName, quantity, price, discount, subCategoryId, inStock, BrandId } = req.body;
+  const { title, shortDescription, longDescription, brandName, quantity, price, discount, subCategoryId, BrandId } = req.body;
+
+  const inStock = quantity > 0; 
 
   let existingImages = [];
   if (req.body.existingImages) {
@@ -523,9 +527,11 @@ const getFilteredProducts = async (req, res) => {
   let whereCondition = {};
 
   if (filter === "inStock") {
-    whereCondition.inStock = true;
+    whereCondition.quantity = { [Op.gt]: 0 }; // Greater than 0
   } else if (filter === "outOfStock") {
-    whereCondition.inStock = false;
+    whereCondition.quantity = { [Op.lte]: 0 }; // Less than or equal to 0
+  } else if (filter === "lowStock") {
+    whereCondition.quantity = { [Op.gt]: 0, [Op.lte]: 10 }; // Between 1-10 items (low stock)
   }
 
   try {
