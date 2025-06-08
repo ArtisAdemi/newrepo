@@ -42,25 +42,8 @@ const ProductListItem = ({
   const imagePath = `/uploads/${productImage}`;
   // const img = process.env.PUBLIC_URL + imagePath;
 
-  const handleAddToCart = () => {
-    const product = {
-      title,
-      subCategory,
-      shortDescription,
-      id,
-      price,
-      imgUrl: productImage,
-    };
-
-    if (inStock) {
-      dispatch(addToCart({ product }));
-      Swal.fire({
-        title: "Item Added!",
-        text: "Item was successfully added to cart!",
-        icon: "success",
-        confirmButtonText: "Ok",
-      });
-    } else {
+  const handleAddToCart = async () => {
+    if (!inStock) {
       Swal.fire({
         title: "Product Out of Stock!",
         text: "You can set a reminder, so we can inform you when product is back in stock!",
@@ -78,6 +61,49 @@ const ProductListItem = ({
             });
           });
         }
+      });
+      return;
+    }
+    
+    try {
+      // Fetch complete product data with quantity information
+      const productData = await ProductService.getProductById(id);
+      
+      if (!productData || productData.quantity <= 0) {
+        Swal.fire({
+          title: "Product Out of Stock!",
+          text: "This product is no longer in stock",
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
+        return;
+      }
+      
+      const product = {
+        title,
+        subCategory,
+        shortDescription,
+        id,
+        price,
+        imgUrl: productImage,
+        quantity: productData.quantity,
+      };
+      
+      dispatch(addToCart({ product }));
+      
+      Swal.fire({
+        title: "Item Added!",
+        text: "Item was successfully added to cart!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      });
+    } catch (error) {
+      console.error("Error adding product to cart:", error);
+      Swal.fire({
+        title: "Error!",
+        text: "Failed to add product to cart. Please try again.",
+        icon: "error",
+        confirmButtonText: "Ok",
       });
     }
   };

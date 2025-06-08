@@ -527,9 +527,9 @@ const getFilteredProducts = async (req, res) => {
   let whereCondition = {};
 
   if (filter === "inStock") {
-    whereCondition.quantity = { [Op.gt]: 0 }; // Greater than 0
+    whereCondition.inStock = true; // Use the original boolean field
   } else if (filter === "outOfStock") {
-    whereCondition.quantity = { [Op.lte]: 0 }; // Less than or equal to 0
+    whereCondition.inStock = false; // Use the original boolean field
   } else if (filter === "lowStock") {
     whereCondition.quantity = { [Op.gt]: 0, [Op.lte]: 10 }; // Between 1-10 items (low stock)
   }
