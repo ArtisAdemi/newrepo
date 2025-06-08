@@ -135,7 +135,9 @@ const registerOrder = async (req, res) => {
         const user = await Users.findByPk(userId);
         // Create or find the client associated with the user
         const client = await createClient(userId);
-        let totalPrice = 0
+        let totalPrice = 0;
+        
+        // First check if all products are available in requested quantities
         for (const product of products) {
             const dbProduct = await Products.findByPk(product.id);
             if (!dbProduct) {
@@ -147,8 +149,21 @@ const registerOrder = async (req, res) => {
                     message: `Insufficient stock for product "${dbProduct.title}". Available: ${dbProduct.quantity}, Requested: ${product.quantity}` 
                 });
             }
+            
+            // Calculate product price * quantity and add to total
+            totalPrice += dbProduct.price * product.quantity;
         }
-
+        
+        // Apply discount if user has one
+        if (user.discount && user.discount > 0) {
+            totalPrice = totalPrice - (totalPrice * user.discount / 100);
+        }
+        
+        // Add transport fee if provided
+        if (transport) {
+            totalPrice += parseFloat(transport);
+        }
+        
         // Format address with country
         addressWithCountry = `${address}, ${country}`;
 
